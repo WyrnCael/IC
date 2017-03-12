@@ -3,6 +3,10 @@ package aStar;
 public class Nodo {
 	private boolean alcanzable;
 
+	public Nodo(){
+		alcanzable = true;
+	}
+	
 	public boolean isAlcanzable() {
 		return alcanzable;
 	}

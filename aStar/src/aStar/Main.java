@@ -2,7 +2,13 @@ package aStar;
 
 public class Main {
 	
-	int matriz[][] = new int[5][3];
+	public static void main(String [] args){
+		
+		
+		
+		
+	}
+	
 	
 	
 }
