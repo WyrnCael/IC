@@ -11,6 +11,7 @@ public class Mapa {
 		this.columnas = N;
 		
 		matriz = new Nodo[this.filas][this.columnas];
+		creaMapaInicial();
 	}
 
 	public int getFilas() {
@@ -39,5 +40,17 @@ public class Mapa {
 	
 	public void setCasilla(int fila, int columna, Nodo nodo){
 		matriz[fila][columna] = nodo;
+	}
+	
+	public Nodo getCasilla(int fila, int columna){
+		return matriz[fila][columna];
+	}
+	
+	private void creaMapaInicial(){
+		for(int i = 0; i < this.filas; i++){
+			for(int j = 0; j < this.columnas; j++){
+				this.matriz[i][j] = new Nodo();
+			}
+		}
 	}
 }

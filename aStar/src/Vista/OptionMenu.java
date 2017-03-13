@@ -4,6 +4,9 @@ import javax.swing.JPanel;
 import java.awt.GridBagLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
+
+import aStar.Mapa;
+
 import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.GridLayout;
@@ -47,7 +50,7 @@ public class OptionMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				VistaPrincipal.getInstance().setTablero(new Tablero(4, 5));
+				VistaPrincipal.getInstance().setMapa(new Mapa(4, 5));
 			}
 		});
 		

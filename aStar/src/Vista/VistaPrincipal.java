@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import aStar.Mapa;
+
 public class VistaPrincipal extends JFrame {
 
 	private JPanel contentPane;
@@ -32,7 +34,7 @@ public class VistaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		
 		// Añadiendo tablero
-		this.tablero = new Tablero(50, 30);
+		this.tablero = new Tablero(new Mapa(50,30));
 		this.add(tablero);
 		this.add(new OptionMenu());
 		
@@ -40,8 +42,8 @@ public class VistaPrincipal extends JFrame {
 		this.setVisible(true);
 	}
 	
-	public void setTablero(Tablero tab){
-		this.tablero = tab;
+	public void setMapa(Mapa mapa){
+		this.tablero.cambiaMapa(mapa);
 		this.tablero.revalidate();
 		this.tablero.repaint();
 	}

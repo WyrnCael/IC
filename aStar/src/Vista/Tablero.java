@@ -3,6 +3,7 @@ package Vista;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import aStar.Mapa;
 import aStar.Nodo;
 
 import java.awt.Color;
@@ -14,43 +15,55 @@ public class Tablero extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	private int rows;
-	private int cols;
 	private JButton[][] casillas;
+	private Mapa mapa;
 	
-	public Tablero(int rows, int cols) {		
-		this.rows = rows;
-		this.cols = cols;
+	public Tablero(Mapa mapa) {		
+		this.mapa = mapa;
 		
-		setLayout(new GridLayout(this.rows, this.cols, 0, 0));	
 		onCreate();
 	}
 	
 	private void onCreate(){
-		Nodo[][] matriz = new Nodo[this.rows][this.cols];
-		casillas = new JButton[this.rows][this.cols];
+		casillas = new JButton[this.mapa.getFilas()][this.mapa.getColumnas()];
 		
 		// matriz[1][0].setAlcanzable(false);
 		
-		for(int i = 0; i < this.rows; i++){
-			for(int j = 0; j < this.cols; j++){
-				matriz[i][j] = new Nodo();
-				casillas[i][j] = new JButton();
-				if(i == 1 && j == 1)
-					matriz[i][j].setAlcanzable(false);
-				
-				if(!matriz[i][j].isAlcanzable())
-					casillas[i][j].setBackground(Color.BLACK);
-				
-				this.add(casillas[i][j]);
-				
-			}
-		}
+		dibujaMapa();
 		
 		this.setSize(new Dimension(100, 100));
 		this.setPreferredSize(new Dimension(100, 100));
 		this.setMaximumSize(new Dimension(100, 100));
 		this.setMinimumSize(new Dimension(100, 100));
+	}
+	
+	public void cambiaMapa(Mapa mapa){
+		this.mapa = mapa;
+		this.removeAll();
+		dibujaMapa();
+	}
+	
+	private void dibujaMapa(){
+		setLayout(new GridLayout(this.mapa.getFilas(), this.mapa.getColumnas(), 0, 0));
+		
+		for(int i = 0; i < this.mapa.getFilas(); i++){
+			for(int j = 0; j < this.mapa.getColumnas(); j++){
+				casillas[i][j] = new JButton();
+				/* Desde aqui es una prueba */
+				if(i == 1 && j == 1){
+					Nodo aux = new Nodo();
+					aux.setAlcanzable(false);
+					mapa.setCasilla(i, j, aux);
+				}		
+				
+				if(!mapa.getCasilla(i, j).isAlcanzable())
+					casillas[i][j].setBackground(Color.BLACK);
+				/* Hasta aqui */
+				
+				this.add(casillas[i][j]);
+				
+			}
+		}
 	}
 
 }
