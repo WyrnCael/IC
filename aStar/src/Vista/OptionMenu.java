@@ -47,7 +47,7 @@ public class OptionMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Controlador.getIntance().setTablero(new Tablero(4, 5));
+				VistaPrincipal.getInstance().setTablero(new Tablero(4, 5));
 			}
 		});
 		

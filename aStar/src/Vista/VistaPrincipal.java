@@ -11,21 +11,13 @@ import javax.swing.border.EmptyBorder;
 public class VistaPrincipal extends JFrame {
 
 	private JPanel contentPane;
+	private static VistaPrincipal instance;
+	private Tablero tablero;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VistaPrincipal frame = new VistaPrincipal();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public static VistaPrincipal getInstance(){
+		if(instance == null)
+			instance = new VistaPrincipal();
+		return instance;
 	}
 
 	/**
@@ -40,15 +32,18 @@ public class VistaPrincipal extends JFrame {
 		setContentPane(contentPane);
 		
 		// Añadiendo tablero
-		Tablero tablero = new Tablero(50, 30);
+		this.tablero = new Tablero(50, 30);
 		this.add(tablero);
 		this.add(new OptionMenu());
 		
 		this.setSize(800, 800);
+		this.setVisible(true);
 	}
 	
 	public void setTablero(Tablero tab){
-		this.ta
-	})
+		this.tablero = tab;
+		this.tablero.revalidate();
+		this.tablero.repaint();
+	}
 
 }
