@@ -25,16 +25,12 @@ public class Tablero extends JPanel {
 	}
 	
 	private void onCreate(){
-		casillas = new JButton[this.mapa.getFilas()][this.mapa.getColumnas()];
+		dibujaMapa();	
 		
-		// matriz[1][0].setAlcanzable(false);
+		this.setSize(new Dimension(550, 550));
+		this.setPreferredSize(new Dimension(550, 550));
+		this.setMinimumSize(new Dimension(550, 550));
 		
-		dibujaMapa();
-		
-		this.setSize(new Dimension(100, 100));
-		this.setPreferredSize(new Dimension(100, 100));
-		this.setMaximumSize(new Dimension(100, 100));
-		this.setMinimumSize(new Dimension(100, 100));
 	}
 	
 	public void cambiaMapa(Mapa mapa){
@@ -44,7 +40,8 @@ public class Tablero extends JPanel {
 	}
 	
 	private void dibujaMapa(){
-		setLayout(new GridLayout(this.mapa.getFilas(), this.mapa.getColumnas(), 0, 0));
+		setLayout(new GridLayout(this.mapa.getFilas(), this.mapa.getColumnas()));
+		casillas = new JButton[this.mapa.getFilas()][this.mapa.getColumnas()];
 		
 		for(int i = 0; i < this.mapa.getFilas(); i++){
 			for(int j = 0; j < this.mapa.getColumnas(); j++){
@@ -64,6 +61,8 @@ public class Tablero extends JPanel {
 				
 			}
 		}
+		this.revalidate();
+		this.repaint();
 	}
 
 }

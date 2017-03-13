@@ -12,48 +12,74 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JSeparator;
 
 public class OptionMenu extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textFieldFilas;
+	private JTextField textFieldColumnas;
 
 	/**
 	 * Create the panel.
 	 */
 	public OptionMenu() {
-		setLayout(new GridLayout(0, 2, 0, 0));
+		setLayout(null);
 		
-		textField = new JTextField();
-		add(textField);
-		textField.setColumns(10);
+		JLabel lblMapa = new JLabel("Mapa:");
+		lblMapa.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblMapa.setBounds(10, 11, 61, 20);
+		add(lblMapa);
 		
-		JButton btnNewButton = new JButton("Numero de filas");
-		add(btnNewButton);
+		JButton btnGenerarVacio = new JButton("Generar vacio");
+		btnGenerarVacio.setBounds(10, 73, 132, 23);
+		add(btnGenerarVacio);
 		
-		textField_1 = new JTextField();
-		add(textField_1);
-		textField_1.setColumns(10);
+		JButton btnGenerarAleatorio = new JButton("Generar aleatorio");
+		btnGenerarAleatorio.setBounds(162, 73, 158, 23);
+		add(btnGenerarAleatorio);
 		
-		JButton btnNewButton_1 = new JButton("Numero de columnas");
-		add(btnNewButton_1);
+		JLabel lblFilas = new JLabel("Filas (M):");
+		lblFilas.setBounds(20, 42, 51, 14);
+		add(lblFilas);
 		
-		textField_2 = new JTextField();
-		add(textField_2);
-		textField_2.setColumns(10);
+		textFieldFilas = new JTextField();
+		textFieldFilas.setBounds(81, 39, 40, 20);
+		add(textFieldFilas);
+		textFieldFilas.setColumns(10);
 		
-		JButton btnNewButton_2 = new JButton("Set Tablero");
-		add(btnNewButton_2);
-
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JLabel lblColumnas = new JLabel("Columnas (N):");
+		lblColumnas.setBounds(149, 42, 83, 14);
+		add(lblColumnas);
+		
+		textFieldColumnas = new JTextField();
+		textFieldColumnas.setColumns(10);
+		textFieldColumnas.setBounds(242, 39, 40, 20);
+		add(textFieldColumnas);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(0, 112, 330, 2);
+		add(separator);
+		
+		btnGenerarVacio.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				VistaPrincipal.getInstance().setMapa(new Mapa(4, 5));
+				try{
+					int filas = Integer.valueOf(textFieldFilas.getText());
+					int columnas = Integer.valueOf(textFieldColumnas.getText());
+					if(filas == 0 || columnas == 0)
+						throw new NumberFormatException();
+					VistaPrincipal.getInstance().setMapa(new Mapa(filas, columnas));
+				} catch(NumberFormatException nF){
+					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
+				}
+				
 			}
 		});
 		
 	}
-
 }

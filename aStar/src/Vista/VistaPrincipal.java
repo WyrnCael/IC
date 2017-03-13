@@ -43,7 +43,7 @@ public class VistaPrincipal extends JFrame {
 		tablero.setBounds(10, 46, 550, 550);
 		getContentPane().add(tablero);
 		OptionMenu optionMenu = new OptionMenu();
-		optionMenu.setBounds(593, 46, 331, 550);
+		optionMenu.setBounds(593, 46, 330, 550);
 		getContentPane().add(optionMenu);
 		
 		JLabel lblMapa = new JLabel("Mapa:");
