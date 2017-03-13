@@ -1,6 +1,7 @@
 package Vista;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.GridLayout;
 
@@ -14,6 +15,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.BoxLayout;
+import java.awt.FlowLayout;
 
 public class VistaPrincipal extends JFrame {
 
@@ -37,11 +40,6 @@ public class VistaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		// Añadiendo tablero
-		this.tablero = new Tablero(new Mapa(50,30));
-		tablero.setBounds(10, 46, 550, 550);
-		getContentPane().add(tablero);
 		OptionMenu optionMenu = new OptionMenu();
 		optionMenu.setBounds(593, 46, 330, 550);
 		getContentPane().add(optionMenu);
@@ -65,6 +63,15 @@ public class VistaPrincipal extends JFrame {
 		separator_1.setBounds(570, 0, 2, 610);
 		contentPane.add(separator_1);
 		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 46, 550, 550);
+		contentPane.add(panel);
+		panel.setLayout(new BorderLayout(0, 0));
+		
+		// Añadiendo tablero
+		this.tablero = new Tablero(new Mapa(100,100));
+		panel.add(tablero);
+		
 		this.setSize(950, 650);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
@@ -72,7 +79,7 @@ public class VistaPrincipal extends JFrame {
 	
 	public void setMapa(Mapa mapa){
 		this.tablero.cambiaMapa(mapa);
-		this.tablero.revalidate();
-		this.tablero.repaint();
+		this.revalidate();
+		this.repaint();
 	}
 }
