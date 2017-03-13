@@ -9,6 +9,11 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import aStar.Mapa;
+import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class VistaPrincipal extends JFrame {
 
@@ -30,15 +35,38 @@ public class VistaPrincipal extends JFrame {
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new GridLayout(1, 2));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		// Añadiendo tablero
 		this.tablero = new Tablero(new Mapa(50,30));
-		this.add(tablero);
-		this.add(new OptionMenu());
+		tablero.setBounds(10, 46, 550, 550);
+		getContentPane().add(tablero);
+		OptionMenu optionMenu = new OptionMenu();
+		optionMenu.setBounds(593, 46, 331, 550);
+		getContentPane().add(optionMenu);
 		
-		this.setSize(800, 800);
+		JLabel lblMapa = new JLabel("Mapa:");
+		lblMapa.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblMapa.setBounds(10, 11, 95, 27);
+		contentPane.add(lblMapa);
+		
+		JLabel lblOpciones = new JLabel("Opciones:");
+		lblOpciones.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblOpciones.setBounds(583, 11, 95, 27);
+		contentPane.add(lblOpciones);
+		
+		JSeparator separator = new JSeparator();
+		separator.setBounds(570, 470, -10, -458);
+		contentPane.add(separator);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+		separator_1.setBounds(570, 0, 2, 610);
+		contentPane.add(separator_1);
+		
+		this.setSize(950, 650);
+		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
 	
@@ -47,5 +75,4 @@ public class VistaPrincipal extends JFrame {
 		this.tablero.revalidate();
 		this.tablero.repaint();
 	}
-
 }
