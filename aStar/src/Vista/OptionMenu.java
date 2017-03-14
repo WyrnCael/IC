@@ -17,6 +17,10 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JSeparator;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 
 public class OptionMenu extends JPanel {
 	private JTextField textFieldFilas;
@@ -26,42 +30,78 @@ public class OptionMenu extends JPanel {
 	 * Create the panel.
 	 */
 	public OptionMenu() {
-		setLayout(null);
 		
-		JLabel lblMapa = new JLabel("Mapa:");
-		lblMapa.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblMapa.setBounds(10, 11, 61, 20);
-		add(lblMapa);
+		JLabel lblMapa = new JLabel("Opciones:");
+		lblMapa.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		
 		JButton btnGenerarVacio = new JButton("Generar vacio");
-		btnGenerarVacio.setBounds(10, 73, 132, 23);
-		add(btnGenerarVacio);
 		
 		JButton btnGenerarAleatorio = new JButton("Generar aleatorio");
-		btnGenerarAleatorio.setBounds(162, 73, 158, 23);
-		add(btnGenerarAleatorio);
 		
 		JLabel lblFilas = new JLabel("Filas (M):");
-		lblFilas.setBounds(20, 42, 51, 14);
-		add(lblFilas);
 		
 		textFieldFilas = new JTextField();
-		textFieldFilas.setBounds(81, 39, 40, 20);
-		add(textFieldFilas);
 		textFieldFilas.setColumns(10);
 		
 		JLabel lblColumnas = new JLabel("Columnas (N):");
-		lblColumnas.setBounds(149, 42, 83, 14);
-		add(lblColumnas);
 		
 		textFieldColumnas = new JTextField();
 		textFieldColumnas.setColumns(10);
-		textFieldColumnas.setBounds(242, 39, 40, 20);
-		add(textFieldColumnas);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setOrientation(SwingConstants.VERTICAL);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 112, 330, 2);
-		add(separator);
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(26)
+							.addComponent(lblFilas, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+							.addGap(28)
+							.addComponent(lblColumnas, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblMapa, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(8)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(separator, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(btnGenerarVacio, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+									.addGap(20)
+									.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 75, Short.MAX_VALUE)))))
+					.addContainerGap())
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblMapa, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblFilas)
+								.addComponent(lblColumnas)
+								.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(14)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnGenerarAleatorio)
+								.addComponent(btnGenerarVacio))
+							.addGap(13)
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+					.addGap(0))
+		);
+		setLayout(groupLayout);
 		
 		btnGenerarVacio.addActionListener(new ActionListener() {
 			

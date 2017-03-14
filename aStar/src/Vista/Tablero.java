@@ -29,10 +29,10 @@ public class Tablero extends JPanel {
 	private void onCreate(){
 		dibujaMapa();	
 		
-		this.setSize(new Dimension(550, 550));
+		/*this.setSize(new Dimension(550, 550));
 		this.setPreferredSize(new Dimension(550, 550));
 		this.setMinimumSize(new Dimension(550, 550));
-		this.setMaximumSize(new Dimension(550, 550));
+		this.setMaximumSize(new Dimension(550, 550));*/
 		
 	}
 	
@@ -43,7 +43,7 @@ public class Tablero extends JPanel {
 	}
 	
 	private void dibujaMapa(){
-		setLayout(new GridBagLayout());
+		setLayout(new GridLayout(this.mapa.getFilas(), this.mapa.getColumnas()));
 		casillas = new JButton[this.mapa.getFilas()][this.mapa.getColumnas()];
 		GridBagConstraints c1 = new GridBagConstraints();
 		c1.fill = GridBagConstraints.BOTH;

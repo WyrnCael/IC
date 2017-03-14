@@ -17,6 +17,11 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.BoxLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 
 public class VistaPrincipal extends JFrame {
 
@@ -39,40 +44,44 @@ public class VistaPrincipal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
 		OptionMenu optionMenu = new OptionMenu();
-		optionMenu.setBounds(593, 46, 330, 550);
-		getContentPane().add(optionMenu);
+		getContentPane().add(optionMenu, BorderLayout.EAST);
 		
 		JLabel lblMapa = new JLabel("Mapa:");
 		lblMapa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblMapa.setBounds(10, 11, 95, 27);
 		contentPane.add(lblMapa);
 		
 		JLabel lblOpciones = new JLabel("Opciones:");
 		lblOpciones.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblOpciones.setBounds(583, 11, 95, 27);
 		contentPane.add(lblOpciones);
 		
-		JSeparator separator = new JSeparator();
-		separator.setBounds(570, 470, -10, -458);
-		contentPane.add(separator);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setBounds(570, 0, 2, 610);
-		contentPane.add(separator_1);
-		
 		JPanel panel = new JPanel();
-		panel.setBounds(10, 46, 550, 550);
-		contentPane.add(panel);
+		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		// Añadiendo tablero
 		this.tablero = new Tablero(new Mapa(100,100));
 		panel.add(tablero);
 		
-		this.setSize(950, 650);
+		JPanel panel_1 = new JPanel();
+		panel.add(panel_1, BorderLayout.NORTH);
+		
+		JLabel lblMapa_1 = new JLabel("Mapa:");
+		lblMapa_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMapa_1.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addComponent(lblMapa_1, GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addComponent(lblMapa_1, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+		);
+		panel_1.setLayout(gl_panel_1);
+		
+		this.setSize(1071, 698);
 		this.setLocationRelativeTo(null);
 		this.setVisible(true);
 	}
