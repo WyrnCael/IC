@@ -31,7 +31,7 @@ public class OptionMenu extends JPanel {
 	 */
 	public OptionMenu() {
 		
-		JLabel lblMapa = new JLabel("Opciones:");
+		JLabel lblMapa = new JLabel("Opciones del mapa:");
 		lblMapa.setFont(new Font("Tahoma", Font.PLAIN, 23));
 		
 		JButton btnGenerarVacio = new JButton("Generar vacio");
@@ -52,6 +52,19 @@ public class OptionMenu extends JPanel {
 		separator_1.setOrientation(SwingConstants.VERTICAL);
 		
 		JSeparator separator = new JSeparator();
+		
+		JLabel lblInsertarNuevosElementos = new JLabel("Insertar nuevos elementos:");
+		lblInsertarNuevosElementos.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		
+		JLabel lblInicio = new JLabel("Inicio:");
+		lblInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnNewButton = new JButton("New button");
+		
+		JLabel lblDestino = new JLabel("Destino:");
+		lblDestino.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton button = new JButton("New button");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -68,15 +81,27 @@ public class OptionMenu extends JPanel {
 							.addComponent(lblColumnas, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblMapa, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(8)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(separator, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)
+								.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 306, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
 									.addComponent(btnGenerarVacio, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
 									.addGap(20)
-									.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 75, Short.MAX_VALUE)))))
+									.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 154, Short.MAX_VALUE))))
+						.addComponent(lblMapa)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(lblInsertarNuevosElementos)
+							.addPreferredGap(ComponentPlacement.RELATED, 48, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblInicio)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(button, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -97,7 +122,15 @@ public class OptionMenu extends JPanel {
 								.addComponent(btnGenerarAleatorio)
 								.addComponent(btnGenerarVacio))
 							.addGap(13)
-							.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblInsertarNuevosElementos)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+								.addComponent(button)
+								.addComponent(lblInicio)
+								.addComponent(btnNewButton)))
 						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
 					.addGap(0))
 		);
