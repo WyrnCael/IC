@@ -1,19 +1,27 @@
 package aStar;
 
 public class Nodo {
-	private boolean alcanzable;
+	private TipoNodo tipo;
 
-	public Nodo(){
-		alcanzable = true;
+	public Nodo(TipoNodo tipo){
+		this.tipo = tipo;
 	}
 	
 	public boolean isAlcanzable() {
-		return alcanzable;
-	}
-
-	public void setAlcanzable(boolean alcanzable) {
-		this.alcanzable = alcanzable;
+		if(tipo == TipoNodo.ALCANZABLE)
+			return true;
+		return false;
 	}
 	
+	public boolean isInicio() {
+		if(tipo == TipoNodo.INICIO)
+			return true;
+		return false;
+	}
 	
+	public boolean isDestino() {
+		if(tipo == TipoNodo.DESTINO)
+			return true;
+		return false;
+	}
 }

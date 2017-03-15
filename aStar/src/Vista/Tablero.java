@@ -57,18 +57,15 @@ public class Tablero extends JPanel {
 				c1.gridy = i;
 				
 				casillas[i][j] = new JButton();
-				/* Desde aqui es una prueba */
-				if(i == 1 && j == 1){
-					Nodo aux = new Nodo();
-					aux.setAlcanzable(false);
-					mapa.setCasilla(i, j, aux);
-				}		
 				
-				if(!mapa.getCasilla(i, j).isAlcanzable())
+				if(mapa.getCasilla(i, j).isInicio())
+					casillas[i][j].setBackground(Color.GREEN);
+				else if(mapa.getCasilla(i, j).isDestino())
 					casillas[i][j].setBackground(Color.BLACK);
-				/* Hasta aqui */
-				
-				casillas[i][j].setText(i + "," + j);
+				else if(mapa.getCasilla(i, j).isAlcanzable())
+					casillas[i][j].setBackground(Color.BLUE);
+				else
+					casillas[i][j].setBackground(Color.RED);
 				
 				this.add(casillas[i][j], c1);
 				

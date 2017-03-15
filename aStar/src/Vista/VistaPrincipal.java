@@ -61,7 +61,9 @@ public class VistaPrincipal extends JFrame {
 		panel.setLayout(new BorderLayout(0, 0));
 		
 		// Añadiendo tablero
-		this.tablero = new Tablero(new Mapa(100,100));
+		Mapa mapa = new Mapa();
+		mapa.creaMapaVacio(100, 100);
+		this.tablero = new Tablero(mapa);
 		panel.add(tablero);
 		
 		JPanel panel_1 = new JPanel();

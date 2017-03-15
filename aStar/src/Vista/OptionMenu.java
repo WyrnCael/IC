@@ -146,7 +146,29 @@ public class OptionMenu extends JPanel {
 					int columnas = Integer.valueOf(textFieldColumnas.getText());
 					if(filas == 0 || columnas == 0)
 						throw new NumberFormatException();
-					VistaPrincipal.getInstance().setMapa(new Mapa(filas, columnas));
+					Mapa mapa = new Mapa();
+					mapa.creaMapaVacio(filas, columnas);
+					VistaPrincipal.getInstance().setMapa(mapa);
+				} catch(NumberFormatException nF){
+					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
+				}
+				
+			}
+		});
+		
+		btnGenerarAleatorio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try{
+					int filas = Integer.valueOf(textFieldFilas.getText());
+					int columnas = Integer.valueOf(textFieldColumnas.getText());
+					if(filas == 0 || columnas == 0)
+						throw new NumberFormatException();
+					Mapa mapa = new Mapa();
+					mapa.creaMapaAleatorio(filas, columnas, 20);
+					VistaPrincipal.getInstance().setMapa(mapa);
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
 				}
