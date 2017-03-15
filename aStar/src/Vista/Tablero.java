@@ -67,6 +67,8 @@ public class Tablero extends JPanel {
 				else
 					casillas[i][j].setBackground(Color.RED);
 				
+				casillas[i][j].setBorder(null);
+				
 				this.add(casillas[i][j], c1);
 				
 			}

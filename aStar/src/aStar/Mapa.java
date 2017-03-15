@@ -65,32 +65,32 @@ public class Mapa {
 		this.destino = false;		
 		matriz = new Nodo[this.filas][this.columnas];
 		
+		int inicioI = generaNumeroAleatorio(0, this.filas - 1);
+		int inicioJ = generaNumeroAleatorio(0, this.columnas - 1);
+		int destinoI = generaNumeroAleatorio(0, this.filas - 1);
+		int destinoJ = generaNumeroAleatorio(0, this.columnas - 1);
+		
+		int obstaculos = 0;
 		for(int i = 0; i < this.filas; i++){
 			for(int j = 0; j < this.columnas; j++){
-				int randomNum;
-				if(!this.inicio){
-					randomNum = generaNumeroAleatorio(0, 3);					
+				if(i == inicioI && j == inicioJ){
+					this.inicio = true;	
+					this.matriz[i][j] = new Nodo(TipoNodo.INICIO);
 				}
-				else if (!this.destino){
-					randomNum = generaNumeroAleatorio(1, 3);
-					
+				else if (i == destinoI && j == destinoJ){
+					this.destino = true;
+					this.matriz[i][j] = new Nodo(TipoNodo.DESTINO);					
 				}				
-				else{
-					randomNum = generaNumeroAleatorio(2, 3);
+				else if(obstaculos <= numObstaculos){					
+					int randomNum = generaNumeroAleatorio(2, 3);
+					if(TipoNodo.values()[randomNum] == TipoNodo.INALCANZABLE)
+						obstaculos++;
+					this.matriz[i][j] = new Nodo(TipoNodo.values()[randomNum]);
 				}
-				this.matriz[i][j] = new Nodo(TipoNodo.values()[randomNum]);
-				asignacion(TipoNodo.values()[randomNum]);
+				else{
+					this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE);
+				}
 			}
-		}
-	}
-	
-	private void asignacion(TipoNodo tipo){
-		System.out.println(tipo);
-		if(tipo == TipoNodo.INICIO){
-			this.inicio = true;
-		}
-		else if (tipo == TipoNodo.DESTINO){
-			this.destino = true;
 		}
 	}
 	
