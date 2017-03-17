@@ -167,7 +167,7 @@ public class OptionMenu extends JPanel {
 					if(filas == 0 || columnas == 0)
 						throw new NumberFormatException();
 					Mapa mapa = new Mapa();
-					mapa.creaMapaAleatorio(filas, columnas, 20);
+					mapa.creaMapaAleatorio(filas, columnas);
 					VistaPrincipal.getInstance().setMapa(mapa);
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");

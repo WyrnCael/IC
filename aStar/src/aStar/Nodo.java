@@ -2,7 +2,8 @@ package aStar;
 
 public class Nodo {
 	private TipoNodo tipo;
-
+	private double coste;
+	
 	public Nodo(TipoNodo tipo){
 		this.tipo = tipo;
 	}
@@ -24,4 +25,14 @@ public class Nodo {
 			return true;
 		return false;
 	}
+
+	public double getCoste() {
+		return coste;
+	}
+
+	public void setCoste(double coste) {
+		this.coste = coste;
+	}
+	
+	
 }

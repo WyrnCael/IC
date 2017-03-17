@@ -58,36 +58,39 @@ public class Mapa {
 		}
 	}
 	
-	public void creaMapaAleatorio(int M, int N, int numObstaculos){
+	public void creaMapaAleatorio(int M, int N){
 		this.filas = M;
 		this.columnas = N;
 		this.inicio = false;
 		this.destino = false;		
 		matriz = new Nodo[this.filas][this.columnas];
 		
+		// Generar inicio
 		int inicioI = generaNumeroAleatorio(0, this.filas - 1);
 		int inicioJ = generaNumeroAleatorio(0, this.columnas - 1);
+		this.inicio = true;	
+		this.matriz[inicioI][inicioJ] = new Nodo(TipoNodo.INICIO);
+		
+		// Generar destino
 		int destinoI = generaNumeroAleatorio(0, this.filas - 1);
 		int destinoJ = generaNumeroAleatorio(0, this.columnas - 1);
+		this.destino = true;
+		this.matriz[destinoI][destinoJ] = new Nodo(TipoNodo.DESTINO);	
 		
-		int obstaculos = 0;
+		// Generar obstaculos
+		int numeroDeObstaculos = generaNumeroAleatorio(0, (M*N) - 2);
+		for(int i = 0; i < numeroDeObstaculos; i++){
+			int obsI = generaNumeroAleatorio(0, this.filas - 1);
+			int obsJ = generaNumeroAleatorio(0, this.columnas - 1);
+			if(this.matriz[obsI][obsJ] == null)
+				this.matriz[obsI][obsJ] = new Nodo(TipoNodo.INALCANZABLE);	
+		}
+		
+		// Generamos los alcanzables
 		for(int i = 0; i < this.filas; i++){
 			for(int j = 0; j < this.columnas; j++){
-				if(i == inicioI && j == inicioJ){
-					this.inicio = true;	
-					this.matriz[i][j] = new Nodo(TipoNodo.INICIO);
-				}
-				else if (i == destinoI && j == destinoJ){
-					this.destino = true;
-					this.matriz[i][j] = new Nodo(TipoNodo.DESTINO);					
-				}				
-				else if(obstaculos <= numObstaculos){					
-					int randomNum = generaNumeroAleatorio(2, 3);
-					if(TipoNodo.values()[randomNum] == TipoNodo.INALCANZABLE)
-						obstaculos++;
-					this.matriz[i][j] = new Nodo(TipoNodo.values()[randomNum]);
-				}
-				else{
+				if(this.matriz[i][j] == null){
+					
 					this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE);
 				}
 			}
