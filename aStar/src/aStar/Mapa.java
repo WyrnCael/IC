@@ -162,6 +162,15 @@ public class Mapa {
 		}
 	}
 	
+	public void resetMapa(){
+		for(int i = 0; i < this.filas; i++){
+			for(int j = 0; j < this.columnas; j++){
+				if(this.matriz[i][j].isCamino()) 
+					this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE, i, j);
+			}
+		}
+	}
+	
 	private int generaNumeroAleatorio(int minimo,int maximo){        
        int num=(int)Math.floor(Math.random()*(maximo-minimo+1)+(minimo));
        return num;

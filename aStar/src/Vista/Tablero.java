@@ -117,6 +117,10 @@ public class Tablero extends JPanel {
 					    casillas[i][j].setBackground(Color.RED);
 					}
 	        	}
+	        	else{
+	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
+				    casillas[i][j].setBackground(Color.RED);
+	        	}
 	        	
 	        }
 	        revalidate();
