@@ -26,11 +26,13 @@ import javax.swing.SwingConstants;
 public class OptionMenu extends JPanel {
 	private JTextField textFieldFilas;
 	private JTextField textFieldColumnas;
+	private boolean calculado;
 
 	/**
 	 * Create the panel.
 	 */
 	public OptionMenu() {
+		calculado = false;
 		
 		JLabel lblMapa = new JLabel("Opciones del mapa:");
 		lblMapa.setFont(new Font("Tahoma", Font.PLAIN, 23));
@@ -199,8 +201,13 @@ public class OptionMenu extends JPanel {
 				if(mapa == null){
 					JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
 				}
-				else
+				else if (calculado){
+					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado.", "Camino ya calculado", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					calculado = true;
 					Controlador.getInstance().setMapa(mapa);
+				}					
 			}
 		});
 		
