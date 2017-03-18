@@ -112,21 +112,15 @@ public class Mapa {
 		this.matriz[inicioI][inicioJ] = this.nodoInicial;
 		
 		// Generar destino
-		int destinoI = generaNumeroAleatorio(0, this.filas - 1);
-		int destinoJ = generaNumeroAleatorio(0, this.columnas - 1);
-		this.destino = true;
-		this.nodoDestino = new Nodo(TipoNodo.DESTINO, destinoI, destinoJ);
-		this.matriz[destinoI][destinoJ] = this.nodoDestino;	
-		/* 
-		 * int destinoI = 0, destinoJ = 0;
+		int destinoI = 0, destinoJ = 0;
 		do{
 			destinoI = generaNumeroAleatorio(0, this.filas - 1);
 			destinoJ = generaNumeroAleatorio(0, this.columnas - 1);			
-		} while(this.matriz[destinoI][destinoJ] == null);
+		} while(this.matriz[destinoI][destinoJ] != null);
 		this.destino = true;			
 		this.nodoDestino = new Nodo(TipoNodo.DESTINO, destinoI, destinoJ);
 		this.matriz[destinoI][destinoJ] = this.nodoDestino;	
-		 */
+		
 		
 		// Generar obstaculos
 		int numeroDeObstaculos = generaNumeroAleatorio(0, (M*N) - 2);

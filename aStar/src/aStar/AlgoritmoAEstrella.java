@@ -54,7 +54,7 @@ public class AlgoritmoAEstrella {
 				}			
 			}				
 		}		
-		return this.mapa;
+		return null;
 	}
 	
 	private Mapa getMapaResuelto(){

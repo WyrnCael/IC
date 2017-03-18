@@ -41,12 +41,12 @@ public class OptionMenu extends JPanel {
 		
 		JLabel lblFilas = new JLabel("Filas (M):");
 		
-		textFieldFilas = new JTextField("5");
+		textFieldFilas = new JTextField("100");
 		textFieldFilas.setColumns(10);
 		
 		JLabel lblColumnas = new JLabel("Columnas (N):");
 		
-		textFieldColumnas = new JTextField("5");
+		textFieldColumnas = new JTextField("100");
 		textFieldColumnas.setColumns(10);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -183,7 +183,7 @@ public class OptionMenu extends JPanel {
 					mapa.creaMapaAleatorio(filas, columnas);
 					Controlador.getInstance().setMapa(mapa);
 				} catch(NumberFormatException nF){
-					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
+					JOptionPane.showMessageDialog(null, "El campo de filas y de columnas deben contener dígitos y ser mayor a 0.", "¡Error!", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
@@ -196,7 +196,11 @@ public class OptionMenu extends JPanel {
 				// TODO Auto-generated method stub
 				AlgoritmoAEstrella algoritmo = new AlgoritmoAEstrella(Controlador.getInstance().getMapa());
 				Mapa mapa = algoritmo.getCamino();
-				Controlador.getInstance().setMapa(mapa);
+				if(mapa == null){
+					JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+					Controlador.getInstance().setMapa(mapa);
 			}
 		});
 		
