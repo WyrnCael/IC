@@ -8,8 +8,6 @@ public class Mapa {
 	private int filas;
 	private int columnas;
 	private Nodo[][] matriz;
-	private boolean inicio;
-	private boolean destino;
 	private Nodo nodoInicial;
 	private Nodo nodoDestino;
 	
@@ -54,6 +52,13 @@ public class Mapa {
 	public void setNodoInicial(Nodo nodoInicial) {
 		this.nodoInicial = nodoInicial;
 	}
+	
+	public void removeNodoInicial(){
+		int i = this.nodoInicial.getPosX();
+		int j = this.nodoInicial.getPosY();
+		this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE, i, j);
+		this.nodoInicial = null;
+	}
 
 	public Nodo getNodoDestino() {
 		return nodoDestino;
@@ -61,6 +66,13 @@ public class Mapa {
 
 	public void setNodoDestino(Nodo nodoDestino) {
 		this.nodoDestino = nodoDestino;
+	}
+	
+	public void removeNodoDestino(){
+		int i = this.nodoDestino.getPosX();
+		int j = this.nodoDestino.getPosY();
+		this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE, i, j);
+		this.nodoDestino = null;
 	}
 	
 	public ArrayList<Nodo> getAdyacentes(Nodo nodo){
@@ -86,8 +98,6 @@ public class Mapa {
 	public void creaMapaVacio(int M, int N){
 		this.filas = M;
 		this.columnas = N;
-		this.inicio = false;
-		this.destino = false;		
 		matriz = new Nodo[this.filas][this.columnas];
 		
 		for(int i = 0; i < this.filas; i++){
@@ -100,14 +110,11 @@ public class Mapa {
 	public void creaMapaAleatorio(int M, int N){
 		this.filas = M;
 		this.columnas = N;
-		this.inicio = false;
-		this.destino = false;		
 		matriz = new Nodo[this.filas][this.columnas];
 		
 		// Generar inicio
 		int inicioI = generaNumeroAleatorio(0, this.filas - 1);
 		int inicioJ = generaNumeroAleatorio(0, this.columnas - 1);
-		this.inicio = true;	
 		this.nodoInicial = new Nodo(TipoNodo.INICIO, inicioI, inicioJ);
 		this.matriz[inicioI][inicioJ] = this.nodoInicial;
 		
@@ -117,7 +124,6 @@ public class Mapa {
 			destinoI = generaNumeroAleatorio(0, this.filas - 1);
 			destinoJ = generaNumeroAleatorio(0, this.columnas - 1);			
 		} while(this.matriz[destinoI][destinoJ] != null);
-		this.destino = true;			
 		this.nodoDestino = new Nodo(TipoNodo.DESTINO, destinoI, destinoJ);
 		this.matriz[destinoI][destinoJ] = this.nodoDestino;	
 		

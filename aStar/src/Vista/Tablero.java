@@ -5,12 +5,15 @@ import javax.swing.JPanel;
 
 import aStar.Mapa;
 import aStar.Nodo;
+import aStar.TipoNodo;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Tablero extends JPanel {
 
@@ -18,10 +21,8 @@ public class Tablero extends JPanel {
 	 * Create the panel.
 	 */
 	private JButton[][] casillas;
-	private Mapa mapa;
 	
-	public Tablero(Mapa mapa) {		
-		this.mapa = mapa;
+	public Tablero() {	
 		
 		onCreate();
 	}
@@ -36,23 +37,19 @@ public class Tablero extends JPanel {
 		
 	}
 	
-	public void cambiaMapa(Mapa mapa){
-		this.mapa = mapa;
+	public void dibujaMapa(){
 		this.removeAll();
-		dibujaMapa();
-	}
-	
-	private void dibujaMapa(){
-		setLayout(new GridLayout(this.mapa.getFilas(), this.mapa.getColumnas()));
-		casillas = new JButton[this.mapa.getFilas()][this.mapa.getColumnas()];
+		Mapa mapa = Controlador.getInstance().getMapa();
+		setLayout(new GridLayout(mapa.getFilas(), mapa.getColumnas()));
+		casillas = new JButton[mapa.getFilas()][mapa.getColumnas()];
 		GridBagConstraints c1 = new GridBagConstraints();
 		c1.fill = GridBagConstraints.BOTH;
 		c1.anchor = GridBagConstraints.CENTER;
 		c1.weightx = 1.0;
 		c1.weighty = 1.0;
 		
-		for(int i = 0; i < this.mapa.getFilas(); i++){
-			for(int j = 0; j < this.mapa.getColumnas(); j++){
+		for(int i = 0; i < mapa.getFilas(); i++){
+			for(int j = 0; j < mapa.getColumnas(); j++){
 				c1.gridx = j;
 				c1.gridy = i;
 				
@@ -71,6 +68,8 @@ public class Tablero extends JPanel {
 				
 				casillas[i][j].setBorder(null);
 				
+				casillas[i][j].addActionListener(new ActionListcasilla(i, j));
+				
 				this.add(casillas[i][j], c1);
 				
 			}
@@ -79,5 +78,25 @@ public class Tablero extends JPanel {
 		this.revalidate();
 		this.repaint();
 	}
+	
+	private class ActionListcasilla implements ActionListener {
+	    private int i;
+	    private int j;
+
+	    public ActionListcasilla(int i, int j) {
+	        this.i = i;
+	        this.j = j;
+	    }
+
+	    public void actionPerformed(ActionEvent e) {
+	        if(Controlador.getInstance().isBotonInicio()){
+	        	Controlador.getInstance().getMapa().setNodoInicial(new Nodo(TipoNodo.INICIO, i, j));
+	        	casillas[i][j].setBackground(Color.GREEN);
+	        }
+	        revalidate();
+			repaint();
+	    }
+	}
+
 
 }

@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle.Control;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -62,12 +64,12 @@ public class OptionMenu extends JPanel {
 		JLabel lblInicio = new JLabel("Inicio:");
 		lblInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNuevoInicio = new JButton("New button");
 		
 		JLabel lblDestino = new JLabel("Destino:");
 		lblDestino.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JButton button = new JButton("New button");
+		JButton btnNuevoDestino = new JButton("New button");
 		
 		JButton btnEvaluate = new JButton("Evaluate");
 		GroupLayout groupLayout = new GroupLayout(this);
@@ -104,11 +106,11 @@ public class OptionMenu extends JPanel {
 									.addGap(10)
 									.addComponent(lblInicio)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+									.addComponent(btnNuevoInicio, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
 									.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(button, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(btnNuevoDestino, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(111)
 							.addComponent(btnEvaluate)))
@@ -138,9 +140,9 @@ public class OptionMenu extends JPanel {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-								.addComponent(button)
+								.addComponent(btnNuevoDestino)
 								.addComponent(lblInicio)
-								.addComponent(btnNewButton))
+								.addComponent(btnNuevoInicio))
 							.addPreferredGap(ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
 							.addComponent(btnEvaluate)
 							.addGap(101))
@@ -163,7 +165,9 @@ public class OptionMenu extends JPanel {
 						throw new NumberFormatException();
 					Mapa mapa = new Mapa();
 					mapa.creaMapaVacio(filas, columnas);
-					VistaPrincipal.getInstance().setMapa(mapa);
+					Controlador.getInstance().setMapa(mapa);
+					Controlador.getInstance().refreshMapa();
+					calculado = false;
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
 				}
@@ -184,6 +188,8 @@ public class OptionMenu extends JPanel {
 					Mapa mapa = new Mapa();
 					mapa.creaMapaAleatorio(filas, columnas);
 					Controlador.getInstance().setMapa(mapa);
+					Controlador.getInstance().refreshMapa();
+					calculado = false;
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo de filas y de columnas deben contener dígitos y ser mayor a 0.", "¡Error!", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -196,20 +202,50 @@ public class OptionMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				if(Controlador.getInstance().getMapa().getNodoInicial() != null && Controlador.getInstance().getMapa().getNodoDestino() != null){
 				AlgoritmoAEstrella algoritmo = new AlgoritmoAEstrella(Controlador.getInstance().getMapa());
-				Mapa mapa = algoritmo.getCamino();
-				if(mapa == null){
-					JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
+					Mapa mapa = algoritmo.getCamino();
+					if(mapa == null){
+						JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else if (calculado){
+						JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado.", "Camino ya calculado", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+						calculado = true;
+						Controlador.getInstance().setMapa(mapa);
+						Controlador.getInstance().refreshMapa();
+					}	
 				}
-				else if (calculado){
-					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado.", "Camino ya calculado", JOptionPane.INFORMATION_MESSAGE);
+				else if (Controlador.getInstance().getMapa().getNodoInicial() == null){
+					JOptionPane.showMessageDialog(null, "¡Falta el nodo inicial!", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
-				else{
-					calculado = true;
-					Controlador.getInstance().setMapa(mapa);
-				}					
+				else {
+					JOptionPane.showMessageDialog(null, "¡Falta el nodo destino!", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
 			}
 		});
 		
+		btnNuevoInicio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(calculado){
+					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(Controlador.getInstance().getMapa().getNodoInicial() == null){
+					Controlador.getInstance().setBotonInicio(true);
+				}
+				else {
+					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo inicial, ¿desea eliminarlo y crear uno nuevo?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoInicial();
+					    Controlador.getInstance().refreshMapa();
+					    Controlador.getInstance().setBotonInicio(true);
+					}
+				}
+			}
+		});
 	}
 }
