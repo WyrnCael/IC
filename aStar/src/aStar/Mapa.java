@@ -51,6 +51,9 @@ public class Mapa {
 
 	public void setNodoInicial(Nodo nodoInicial) {
 		this.nodoInicial = nodoInicial;
+		int i = this.nodoInicial.getPosX();
+		int j = this.nodoInicial.getPosY();
+		this.matriz[i][j] = this.nodoInicial;
 	}
 	
 	public void removeNodoInicial(){
@@ -66,6 +69,9 @@ public class Mapa {
 
 	public void setNodoDestino(Nodo nodoDestino) {
 		this.nodoDestino = nodoDestino;
+		int i = this.nodoDestino.getPosX();
+		int j = this.nodoDestino.getPosY();
+		this.matriz[i][j] = this.nodoDestino;
 	}
 	
 	public void removeNodoDestino(){
@@ -73,6 +79,14 @@ public class Mapa {
 		int j = this.nodoDestino.getPosY();
 		this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE, i, j);
 		this.nodoDestino = null;
+	}
+	
+	public Nodo getNodo(int i, int j){
+		return this.matriz[i][j];
+	}
+	
+	public void setNodo(int i, int j, TipoNodo tipo){
+		this.matriz[i][j] = new Nodo(tipo, i, j);
 	}
 	
 	public ArrayList<Nodo> getAdyacentes(Nodo nodo){

@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ResourceBundle.Control;
 
 import javax.swing.JLabel;
@@ -46,11 +48,39 @@ public class OptionMenu extends JPanel {
 		JLabel lblFilas = new JLabel("Filas (M):");
 		
 		textFieldFilas = new JTextField("100");
+		textFieldFilas.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				textFieldFilas.setText("");
+			}
+		});
 		textFieldFilas.setColumns(10);
 		
 		JLabel lblColumnas = new JLabel("Columnas (N):");
 		
 		textFieldColumnas = new JTextField("100");
+		textFieldColumnas.addFocusListener(new FocusListener() {
+			
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void focusGained(FocusEvent e) {
+				// TODO Auto-generated method stub
+				textFieldColumnas.setText("");
+			}
+		});
 		textFieldColumnas.setColumns(10);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -72,6 +102,11 @@ public class OptionMenu extends JPanel {
 		JButton btnNuevoDestino = new JButton("New button");
 		
 		JButton btnEvaluate = new JButton("Evaluate");
+		
+		JLabel lblObstaculo = new JLabel("Obstaculo:");
+		lblObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnObstaculo = new JButton("New button");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -111,9 +146,16 @@ public class OptionMenu extends JPanel {
 									.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addComponent(btnNuevoDestino, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(111)
-							.addComponent(btnEvaluate)))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(lblObstaculo, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(btnObstaculo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+								.addGap(14))
+							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+								.addGap(111)
+								.addComponent(btnEvaluate))))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -143,7 +185,11 @@ public class OptionMenu extends JPanel {
 								.addComponent(btnNuevoDestino)
 								.addComponent(lblInicio)
 								.addComponent(btnNuevoInicio))
-							.addPreferredGap(ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblObstaculo, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnObstaculo))
+							.addPreferredGap(ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
 							.addComponent(btnEvaluate)
 							.addGap(101))
 						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
@@ -244,6 +290,42 @@ public class OptionMenu extends JPanel {
 					    Controlador.getInstance().refreshMapa();
 					    Controlador.getInstance().setBotonInicio(true);
 					}
+				}
+			}
+		});
+		
+		btnNuevoDestino.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(calculado){
+					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(Controlador.getInstance().getMapa().getNodoDestino() == null){
+					Controlador.getInstance().setBotonDestino(true);
+				}
+				else {
+					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo de destino, ¿desea eliminarlo y crear uno nuevo?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoDestino();
+					    Controlador.getInstance().refreshMapa();
+					    Controlador.getInstance().setBotonDestino(true);
+					}
+				}
+			}
+		});
+		
+		btnObstaculo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(calculado){
+					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else{
+					Controlador.getInstance().setBotonObstaculo(true);
 				}
 			}
 		});

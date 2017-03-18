@@ -1,6 +1,7 @@
 package Vista;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import aStar.Mapa;
@@ -92,6 +93,31 @@ public class Tablero extends JPanel {
 	        if(Controlador.getInstance().isBotonInicio()){
 	        	Controlador.getInstance().getMapa().setNodoInicial(new Nodo(TipoNodo.INICIO, i, j));
 	        	casillas[i][j].setBackground(Color.GREEN);
+	        	Controlador.getInstance().setBotonInicio(false);
+	        }
+	        else if(Controlador.getInstance().isBotonDestino()){
+	        	Controlador.getInstance().getMapa().setNodoDestino(new Nodo(TipoNodo.DESTINO, i, j));
+	        	casillas[i][j].setBackground(Color.BLACK);
+	        	Controlador.getInstance().setBotonDestino(false);
+	        }
+	        else if(Controlador.getInstance().isBotonObstaculo()){
+	        	if(Controlador.getInstance().getMapa().getNodo(i, j).isDestino()){
+	        		if (JOptionPane.showConfirmDialog(null, "¿Desea elimimar el nodo destino y cambiarlo por un obstaculo?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoDestino();
+					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
+			        	casillas[i][j].setBackground(Color.RED);
+					}
+	        	}
+	        	else if(Controlador.getInstance().getMapa().getNodo(i, j).isInicio()){
+	        		if (JOptionPane.showConfirmDialog(null, "¿Desea elimimar el nodo incial y cambiarlo por un obstaculo?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoInicial();
+					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
+					    casillas[i][j].setBackground(Color.RED);
+					}
+	        	}
+	        	
 	        }
 	        revalidate();
 			repaint();

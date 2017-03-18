@@ -8,6 +8,7 @@ public class Controlador {
 	private static Controlador instance = null;
 	private boolean botonInicio;
 	private boolean botonDestino;
+	private boolean botonObstaculo;
 	
 	public Controlador(){
 		botonInicio = false;
@@ -39,7 +40,10 @@ public class Controlador {
 	}
 
 	public void setBotonInicio(boolean botonInicio) {
+		this.botonDestino = false;
+		this.botonObstaculo = false;
 		this.botonInicio = botonInicio;
+		
 	}
 
 	public boolean isBotonDestino() {
@@ -47,10 +51,18 @@ public class Controlador {
 	}
 
 	public void setBotonDestino(boolean botonDestino) {
+		this.botonInicio = false;
+		this.botonObstaculo = false;
 		this.botonDestino = botonDestino;
 	}
 	
-	public void setInicio(int i, int j){
-		
+	public boolean isBotonObstaculo() {
+		return botonObstaculo;
+	}
+
+	public void setBotonObstaculo(boolean botonObstaculo) {
+		this.botonDestino = false;
+		this.botonInicio = false;
+		this.botonObstaculo = botonObstaculo;
 	}
 }
