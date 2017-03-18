@@ -48,7 +48,7 @@ public class OptionMenu extends JPanel {
 		
 		JLabel lblFilas = new JLabel("Filas (M):");
 		
-		textFieldFilas = new JTextField("100");
+		textFieldFilas = new JTextField("30");
 		textFieldFilas.addFocusListener(new FocusListener() {
 			
 			@Override
@@ -67,7 +67,7 @@ public class OptionMenu extends JPanel {
 		
 		JLabel lblColumnas = new JLabel("Columnas (N):");
 		
-		textFieldColumnas = new JTextField("100");
+		textFieldColumnas = new JTextField("30");
 		textFieldColumnas.addFocusListener(new FocusListener() {
 			
 			@Override

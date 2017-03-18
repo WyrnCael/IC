@@ -62,7 +62,7 @@ public class VistaPrincipal extends JFrame {
 		
 		// Añadiendo tablero
 		Mapa mapa = new Mapa();
-		mapa.creaMapaVacio(100, 100);
+		mapa.creaMapaVacio(30, 30);
 		Controlador.getInstance().setMapa(mapa);
 		this.tablero = new Tablero();
 		panel.add(tablero);
@@ -86,6 +86,7 @@ public class VistaPrincipal extends JFrame {
 		
 		this.setSize(1071, 698);
 		this.setLocationRelativeTo(null);
+		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 		this.setVisible(true);
 	}
 	

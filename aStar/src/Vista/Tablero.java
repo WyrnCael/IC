@@ -1,5 +1,7 @@
 package Vista;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -13,8 +15,13 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.io.IOException;
 
 public class Tablero extends JPanel {
 
@@ -56,16 +63,17 @@ public class Tablero extends JPanel {
 				
 				casillas[i][j] = new JButton();
 				
-				if(mapa.getCasilla(i, j).isInicio())
-					casillas[i][j].setBackground(Color.GREEN);
+				if(mapa.getCasilla(i, j).isInicio()){
+					drawInicio(i, j);				
+				}
 				else if(mapa.getCasilla(i, j).isDestino())
-					casillas[i][j].setBackground(Color.BLACK);
+					drawDestino(i, j);
 				else if(mapa.getCasilla(i, j).isAlcanzable())
 					casillas[i][j].setBackground(Color.BLUE);
 				else if(mapa.getCasilla(i, j).isCamino())
 						casillas[i][j].setBackground(Color.YELLOW);
 				else
-					casillas[i][j].setBackground(Color.RED);
+					drawObstaculo(i, j);
 				
 				casillas[i][j].setBorder(null);
 				
@@ -80,6 +88,86 @@ public class Tablero extends JPanel {
 		this.repaint();
 	}
 	
+	private void drawInicio(int i, int j){
+		try {
+			Image img = ImageIO.read(getClass().getResource("barco.png"));
+			ImageIcon icon = new ImageIcon(img);
+			casillas[i][j].setIcon(icon);
+			casillas[i][j].setBackground(Color.BLUE);
+			resizeImage(casillas[i][j], img);
+			casillas[i][j].addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	private void drawDestino(int i, int j){
+		try {
+			Image img = ImageIO.read(getClass().getResource("moby_dick.png"));
+			ImageIcon icon = new ImageIcon(img);
+			casillas[i][j].setIcon(icon);
+			casillas[i][j].setBackground(Color.BLUE);
+			resizeImage(casillas[i][j], img);
+			casillas[i][j].addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	private void drawObstaculo(int i, int j){
+		try {
+			Image img = ImageIO.read(getClass().getResource("island.png"));
+			ImageIcon icon = new ImageIcon(img);
+			casillas[i][j].setIcon(icon);
+			casillas[i][j].setBackground(Color.BLUE);
+			resizeImage(casillas[i][j], img);
+			casillas[i][j].addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+	}
+	
+	private void resizeImage(JButton btn, Image img){
+		Dimension size = btn.getSize();
+        Insets insets = btn.getInsets();
+        size.width -= insets.left + insets.right;
+        size.height -= insets.top + insets.bottom;
+        if (size.width > size.height) {
+            size.width = -1;
+        } else {
+            size.height = -1;
+        }
+        Image scaled = img.getScaledInstance(size.width, size.height, java.awt.Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(scaled));
+	}
+	
 	private class ActionListcasilla implements ActionListener {
 	    private int i;
 	    private int j;
@@ -92,12 +180,12 @@ public class Tablero extends JPanel {
 	    public void actionPerformed(ActionEvent e) {
 	        if(Controlador.getInstance().isBotonInicio()){
 	        	Controlador.getInstance().getMapa().setNodoInicial(new Nodo(TipoNodo.INICIO, i, j));
-	        	casillas[i][j].setBackground(Color.GREEN);
+	        	drawInicio(i, j);
 	        	Controlador.getInstance().setBotonInicio(false);
 	        }
 	        else if(Controlador.getInstance().isBotonDestino()){
 	        	Controlador.getInstance().getMapa().setNodoDestino(new Nodo(TipoNodo.DESTINO, i, j));
-	        	casillas[i][j].setBackground(Color.BLACK);
+	        	drawDestino(i, j);
 	        	Controlador.getInstance().setBotonDestino(false);
 	        }
 	        else if(Controlador.getInstance().isBotonObstaculo()){
@@ -106,7 +194,7 @@ public class Tablero extends JPanel {
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					    Controlador.getInstance().getMapa().removeNodoDestino();
 					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
-			        	casillas[i][j].setBackground(Color.RED);
+					    drawObstaculo(i, j);
 					}
 	        	}
 	        	else if(Controlador.getInstance().getMapa().getNodo(i, j).isInicio()){
@@ -114,12 +202,12 @@ public class Tablero extends JPanel {
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					    Controlador.getInstance().getMapa().removeNodoInicial();
 					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
-					    casillas[i][j].setBackground(Color.RED);
+					    drawObstaculo(i, j);
 					}
 	        	}
 	        	else{
 	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
-				    casillas[i][j].setBackground(Color.RED);
+	        		drawObstaculo(i, j);
 	        	}
 	        	
 	        }
