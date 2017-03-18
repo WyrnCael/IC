@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.FlowLayout;
 import javax.swing.JTextField;
 
+import aStar.AlgoritmoAEstrella;
 import aStar.Mapa;
 
 import javax.swing.JButton;
@@ -40,12 +41,12 @@ public class OptionMenu extends JPanel {
 		
 		JLabel lblFilas = new JLabel("Filas (M):");
 		
-		textFieldFilas = new JTextField();
+		textFieldFilas = new JTextField("5");
 		textFieldFilas.setColumns(10);
 		
 		JLabel lblColumnas = new JLabel("Columnas (N):");
 		
-		textFieldColumnas = new JTextField();
+		textFieldColumnas = new JTextField("5");
 		textFieldColumnas.setColumns(10);
 		
 		JSeparator separator_1 = new JSeparator();
@@ -65,43 +66,50 @@ public class OptionMenu extends JPanel {
 		lblDestino.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JButton button = new JButton("New button");
+		
+		JButton btnEvaluate = new JButton("Evaluate");
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(26)
-							.addComponent(lblFilas, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-							.addGap(28)
-							.addComponent(lblColumnas, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(8)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 306, Short.MAX_VALUE)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(btnGenerarVacio, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-									.addGap(20)
-									.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 154, Short.MAX_VALUE))))
-						.addComponent(lblMapa)
+									.addGap(26)
+									.addComponent(lblFilas, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+									.addGap(28)
+									.addComponent(lblColumnas, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(8)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 316, Short.MAX_VALUE)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addComponent(btnGenerarVacio, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
+											.addGap(20)
+											.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 164, Short.MAX_VALUE))))
+								.addComponent(lblMapa)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblInsertarNuevosElementos)
+									.addPreferredGap(ComponentPlacement.RELATED, 79, Short.MAX_VALUE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(10)
+									.addComponent(lblInicio)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(button, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblInsertarNuevosElementos)
-							.addPreferredGap(ComponentPlacement.RELATED, 48, Short.MAX_VALUE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(10)
-							.addComponent(lblInicio)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(button, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
+							.addGap(111)
+							.addComponent(btnEvaluate)))
 					.addContainerGap())
 		);
 		groupLayout.setVerticalGroup(
@@ -130,11 +138,16 @@ public class OptionMenu extends JPanel {
 								.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 								.addComponent(button)
 								.addComponent(lblInicio)
-								.addComponent(btnNewButton)))
+								.addComponent(btnNewButton))
+							.addPreferredGap(ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
+							.addComponent(btnEvaluate)
+							.addGap(101))
 						.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
 					.addGap(0))
 		);
 		setLayout(groupLayout);
+		
+		
 		
 		btnGenerarVacio.addActionListener(new ActionListener() {
 			
@@ -168,11 +181,22 @@ public class OptionMenu extends JPanel {
 						throw new NumberFormatException();
 					Mapa mapa = new Mapa();
 					mapa.creaMapaAleatorio(filas, columnas);
-					VistaPrincipal.getInstance().setMapa(mapa);
+					Controlador.getInstance().setMapa(mapa);
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
 				}
 				
+			}
+		});
+		
+		btnEvaluate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AlgoritmoAEstrella algoritmo = new AlgoritmoAEstrella(Controlador.getInstance().getMapa());
+				Mapa mapa = algoritmo.getCamino();
+				Controlador.getInstance().setMapa(mapa);
 			}
 		});
 		

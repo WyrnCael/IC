@@ -1,5 +1,6 @@
 package aStar;
 
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Mapa {
@@ -9,6 +10,8 @@ public class Mapa {
 	private Nodo[][] matriz;
 	private boolean inicio;
 	private boolean destino;
+	private Nodo nodoInicial;
+	private Nodo nodoDestino;
 	
 	public Mapa(){	}
 
@@ -42,8 +45,44 @@ public class Mapa {
 	
 	public Nodo getCasilla(int fila, int columna){
 		return matriz[fila][columna];
+	}	
+	
+	public Nodo getNodoInicial() {
+		return nodoInicial;
+	}
+
+	public void setNodoInicial(Nodo nodoInicial) {
+		this.nodoInicial = nodoInicial;
+	}
+
+	public Nodo getNodoDestino() {
+		return nodoDestino;
+	}
+
+	public void setNodoDestino(Nodo nodoDestino) {
+		this.nodoDestino = nodoDestino;
 	}
 	
+	public ArrayList<Nodo> getAdyacentes(Nodo nodo){
+		ArrayList<Nodo> adyacentes = new ArrayList<Nodo>();
+		int i = nodo.getPosX();
+		int j = nodo.getPosY();
+		for(int h = i-1; h <= i+1; h++){
+			for(int w = j-1; w <= j+1; w++){
+				// Si no es el nodo acutal
+				if(!(h == i && w == j)){					
+					// Si está dentro del mapa
+					if(h >= 0 && h < filas && w >= 0 && w < columnas){
+						if(matriz[h][w].isAlcanzable() || matriz[h][w].isDestino()){
+							adyacentes.add(matriz[h][w]);	
+						}
+					}
+				}
+			}
+		}
+		return adyacentes;			
+	}
+
 	public void creaMapaVacio(int M, int N){
 		this.filas = M;
 		this.columnas = N;
@@ -53,7 +92,7 @@ public class Mapa {
 		
 		for(int i = 0; i < this.filas; i++){
 			for(int j = 0; j < this.columnas; j++){
-				this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE);
+				this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE, i, j);
 			}
 		}
 	}
@@ -69,13 +108,25 @@ public class Mapa {
 		int inicioI = generaNumeroAleatorio(0, this.filas - 1);
 		int inicioJ = generaNumeroAleatorio(0, this.columnas - 1);
 		this.inicio = true;	
-		this.matriz[inicioI][inicioJ] = new Nodo(TipoNodo.INICIO);
+		this.nodoInicial = new Nodo(TipoNodo.INICIO, inicioI, inicioJ);
+		this.matriz[inicioI][inicioJ] = this.nodoInicial;
 		
 		// Generar destino
 		int destinoI = generaNumeroAleatorio(0, this.filas - 1);
 		int destinoJ = generaNumeroAleatorio(0, this.columnas - 1);
 		this.destino = true;
-		this.matriz[destinoI][destinoJ] = new Nodo(TipoNodo.DESTINO);	
+		this.nodoDestino = new Nodo(TipoNodo.DESTINO, destinoI, destinoJ);
+		this.matriz[destinoI][destinoJ] = this.nodoDestino;	
+		/* 
+		 * int destinoI = 0, destinoJ = 0;
+		do{
+			destinoI = generaNumeroAleatorio(0, this.filas - 1);
+			destinoJ = generaNumeroAleatorio(0, this.columnas - 1);			
+		} while(this.matriz[destinoI][destinoJ] == null);
+		this.destino = true;			
+		this.nodoDestino = new Nodo(TipoNodo.DESTINO, destinoI, destinoJ);
+		this.matriz[destinoI][destinoJ] = this.nodoDestino;	
+		 */
 		
 		// Generar obstaculos
 		int numeroDeObstaculos = generaNumeroAleatorio(0, (M*N) - 2);
@@ -83,7 +134,7 @@ public class Mapa {
 			int obsI = generaNumeroAleatorio(0, this.filas - 1);
 			int obsJ = generaNumeroAleatorio(0, this.columnas - 1);
 			if(this.matriz[obsI][obsJ] == null)
-				this.matriz[obsI][obsJ] = new Nodo(TipoNodo.INALCANZABLE);	
+				this.matriz[obsI][obsJ] = new Nodo(TipoNodo.INALCANZABLE, obsI, obsJ);	
 		}
 		
 		// Generamos los alcanzables
@@ -91,14 +142,13 @@ public class Mapa {
 			for(int j = 0; j < this.columnas; j++){
 				if(this.matriz[i][j] == null){
 					
-					this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE);
+					this.matriz[i][j] = new Nodo(TipoNodo.ALCANZABLE, i, j);
 				}
 			}
 		}
 	}
 	
-	private int generaNumeroAleatorio(int minimo,int maximo){
-        
+	private int generaNumeroAleatorio(int minimo,int maximo){        
        int num=(int)Math.floor(Math.random()*(maximo-minimo+1)+(minimo));
        return num;
    }

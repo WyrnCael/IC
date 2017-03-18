@@ -64,6 +64,8 @@ public class Tablero extends JPanel {
 					casillas[i][j].setBackground(Color.BLACK);
 				else if(mapa.getCasilla(i, j).isAlcanzable())
 					casillas[i][j].setBackground(Color.BLUE);
+				else if(mapa.getCasilla(i, j).isCamino())
+						casillas[i][j].setBackground(Color.YELLOW);
 				else
 					casillas[i][j].setBackground(Color.RED);
 				

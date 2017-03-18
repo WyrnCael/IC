@@ -1,31 +1,30 @@
 package Vista;
 
+import aStar.Mapa;
+
 public class Controlador {
 
-	private VistaPrincipal vistaPricipal;
-	private Tablero tablero;
+	private Mapa mapa;
 	private static Controlador instance = null;
 	
 	public Controlador(){
 		
 	}
 	
-	public static Controlador getIntance(){
+	public static Controlador getInstance(){
 		if(instance == null){
 			instance = new Controlador();
 		}
 		
 		return instance;
 	}
-	
-	public void setTablero(Tablero tab){
-		this.tablero = tab;
+
+	public Mapa getMapa() {
+		return mapa;
 	}
-	
-	public void setVistaPrincipal(VistaPrincipal vPri){
-		this.vistaPricipal = vPri;
+
+	public void setMapa(Mapa mapa) {
+		this.mapa = mapa;
+		VistaPrincipal.getInstance().setMapa(this.mapa);
 	}
-	
-	
-	
 }

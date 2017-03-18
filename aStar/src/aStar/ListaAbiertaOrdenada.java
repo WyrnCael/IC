@@ -21,7 +21,9 @@ public class ListaAbiertaOrdenada {
 	}
 	
 	public Nodo getPrimero(){
-		return listaNodos.get(0);
+		Nodo aux = listaNodos.get(0);
+		listaNodos.remove(0);
+		return aux;
 	}
 	
 	public void reset(){
@@ -32,13 +34,17 @@ public class ListaAbiertaOrdenada {
 		return listaNodos.size();
 	}
 	
+	public boolean contiene(Nodo nodo){
+		return listaNodos.contains(nodo);
+	}
+	
 	private class ComparadorDeCostes implements Comparator<Nodo>{
 
 		@Override
 		public int compare(Nodo nodo1, Nodo nodo2) {
 			// TODO Auto-generated method stub
-			if (nodo1.getCoste() < nodo2.getCoste()) return -1;
-			else if (nodo1.getCoste() > nodo2.getCoste()) return 1;
+			if (nodo1.getCosteDesdeInicio() < nodo2.getCosteDesdeInicio()) return -1;
+			else if (nodo1.getCosteDesdeInicio() > nodo2.getCosteDesdeInicio()) return 1;
 	        return 0;
 		}
 	    

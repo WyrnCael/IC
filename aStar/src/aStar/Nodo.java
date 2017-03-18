@@ -2,10 +2,15 @@ package aStar;
 
 public class Nodo {
 	private TipoNodo tipo;
-	private double coste;
+	private double costeDesdeInicio;
+	private int posX;
+	private int posY;
+	private Nodo nodoPredecesor;
 	
-	public Nodo(TipoNodo tipo){
+	public Nodo(TipoNodo tipo, int i, int j){
 		this.tipo = tipo;
+		this.posX = i;
+		this.posY = j;
 	}
 	
 	public boolean isAlcanzable() {
@@ -25,14 +30,46 @@ public class Nodo {
 			return true;
 		return false;
 	}
-
-	public double getCoste() {
-		return coste;
-	}
-
-	public void setCoste(double coste) {
-		this.coste = coste;
+	
+	public boolean isCamino() {
+		if(tipo == TipoNodo.CAMINO)
+			return true;
+		return false;
 	}
 	
-	
+	public void setTipo(TipoNodo tipo){
+		this.tipo = tipo;
+	}
+
+	public double getCosteDesdeInicio() {
+		return costeDesdeInicio;
+	}
+
+	public void setCosteDesdeInicio(double coste) {
+		this.costeDesdeInicio = coste;
+	}
+
+	public int getPosX() {
+		return posX;
+	}
+
+	public void setPosX(int posX) {
+		this.posX = posX;
+	}
+
+	public int getPosY() {
+		return posY;
+	}
+
+	public void setPosY(int posY) {
+		this.posY = posY;
+	}
+
+	public Nodo getNodoPredecesor() {
+		return nodoPredecesor;
+	}
+
+	public void setNodoPredecesor(Nodo nodoPredecesor) {
+		this.nodoPredecesor = nodoPredecesor;
+	}
 }
