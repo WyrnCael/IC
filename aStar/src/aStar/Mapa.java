@@ -171,6 +171,29 @@ public class Mapa {
 		}
 	}
 	
+	public void generarObstaculosAleatorios(int n){
+		int i = 0;
+		while(i < n){
+			int obsI = generaNumeroAleatorio(0, this.filas - 1);
+			int obsJ = generaNumeroAleatorio(0, this.columnas - 1);
+			if(this.matriz[obsI][obsJ].isAlcanzable()){
+				this.matriz[obsI][obsJ] = new Nodo(TipoNodo.INALCANZABLE, obsI, obsJ);
+				i++;
+			}
+		}
+	}
+	
+	public int getPosicionesAlcanzables(){
+		int a = 0;
+		for(int i = 0; i < this.filas; i++){
+			for(int j = 0; j < this.columnas; j++){
+				if(this.matriz[i][j].isAlcanzable()) 
+					a++;
+			}
+		}
+		return a;
+	}
+	
 	private int generaNumeroAleatorio(int minimo,int maximo){        
        int num=(int)Math.floor(Math.random()*(maximo-minimo+1)+(minimo));
        return num;

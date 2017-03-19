@@ -45,7 +45,7 @@ public class OptionMenu extends JPanel {
 	private JTextField textFieldFilas;
 	private JTextField textFieldColumnas;
 	private boolean calculado;
-	private JTextField textField;
+	private JTextField textFieldObstAleatorios;
 
 	/**
 	 * Create the panel.
@@ -386,9 +386,9 @@ public class OptionMenu extends JPanel {
 		JLabel lblNumeroDeObstculos = new JLabel("Numero de Obstáculos:");
 		panel_5.add(lblNumeroDeObstculos);
 		
-		textField = new JTextField();
-		panel_5.add(textField);
-		textField.setColumns(10);
+		textFieldObstAleatorios = new JTextField();
+		panel_5.add(textFieldObstAleatorios);
+		textFieldObstAleatorios.setColumns(10);
 		
 		JButton btnGenerarObstAleatorios = new JButton("Generar");
 		panel_5.add(btnGenerarObstAleatorios);
@@ -463,6 +463,24 @@ public class OptionMenu extends JPanel {
 				// TODO Auto-generated method stub
 				Controlador.getInstance().getMapa().resetMapa();
 				Controlador.getInstance().refreshMapa();
+			}
+		});
+		
+		btnGenerarObstAleatorios.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Controlador.getInstance().getMapa().resetMapa();
+				try{
+					int numObstaculos = Integer.valueOf(textFieldObstAleatorios.getText());
+					if(numObstaculos > Controlador.getInstance().getMapa().getPosicionesAlcanzables())
+						throw new NumberFormatException();
+					Controlador.getInstance().getMapa().generarObstaculosAleatorios(numObstaculos);
+					Controlador.getInstance().refreshMapa();
+				} catch(NumberFormatException nF){
+					JOptionPane.showMessageDialog(null, "El número de obstaculos debe de ser un número e inferior a las posiciones alcanzables.");
+				}				
 			}
 		});
 		
