@@ -234,15 +234,13 @@ public class OptionMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(calculado){
-					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else if(Controlador.getInstance().getMapa().getNodoInicial() == null){
+				if(Controlador.getInstance().getMapa().getNodoInicial() == null){
 					Controlador.getInstance().setBotonInicio(true);
 				}
 				else {
 					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo inicial, ¿desea eliminarlo y crear uno nuevo?", "¡Atención!",
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						Controlador.getInstance().getMapa().resetMapa();
 					    Controlador.getInstance().getMapa().removeNodoInicial();
 					    Controlador.getInstance().refreshMapa();
 					    Controlador.getInstance().setBotonInicio(true);
@@ -282,15 +280,13 @@ public class OptionMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(calculado){
-					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else if(Controlador.getInstance().getMapa().getNodoDestino() == null){
+				if(Controlador.getInstance().getMapa().getNodoDestino() == null){
 					Controlador.getInstance().setBotonDestino(true);
 				}
 				else {
 					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo de destino, ¿desea eliminarlo y crear uno nuevo?", "¡Atención!",
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+						Controlador.getInstance().getMapa().resetMapa();
 					    Controlador.getInstance().getMapa().removeNodoDestino();
 					    Controlador.getInstance().refreshMapa();
 					    Controlador.getInstance().setBotonDestino(true);
@@ -299,7 +295,7 @@ public class OptionMenu extends JPanel {
 			}
 		});
 		
-		JLabel lblObstaculo = new JLabel("Obstaculo:");
+		JLabel lblObstaculo = new JLabel("Obstáculos:");
 		lblObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JButton btnObstaculo = new Tablero.Obstaculo();
@@ -312,13 +308,23 @@ public class OptionMenu extends JPanel {
 				Controlador.getInstance().getMapa().resetMapa();
 				Controlador.getInstance().setBotonObstaculo(true);
 			}
-		});
+		});		
 		
-		JLabel lblEliminarObstaculo = new JLabel("Eliminar obstáculo:");
+		JLabel lblEliminarObstaculo = new JLabel("Eliminar obstáculos:");
 		lblEliminarObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JButton btnRemoveObstaculo = new JButton("");
 		btnRemoveObstaculo.setBackground(Color.BLUE);
+		
+		btnRemoveObstaculo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Controlador.getInstance().getMapa().resetMapa();
+				Controlador.getInstance().setBotonAlcanzable(true);
+			}
+		});
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder("Generar obstáculos aleatorios: "));
@@ -384,6 +390,7 @@ public class OptionMenu extends JPanel {
 		);
 		
 		JLabel lblNumeroDeObstculos = new JLabel("Numero de Obstáculos:");
+		lblNumeroDeObstculos.setFont(new Font("Dialog", Font.PLAIN, 12));
 		panel_5.add(lblNumeroDeObstculos);
 		
 		textFieldObstAleatorios = new JTextField();

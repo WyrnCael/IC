@@ -9,10 +9,13 @@ public class Controlador {
 	private boolean botonInicio;
 	private boolean botonDestino;
 	private boolean botonObstaculo;
+	private boolean botonAlcanzable;
 	
 	public Controlador(){
 		botonInicio = false;
 		botonDestino = false;
+		botonObstaculo = false;
+		botonAlcanzable = false;
 	}
 	
 	public static Controlador getInstance(){
@@ -42,6 +45,7 @@ public class Controlador {
 	public void setBotonInicio(boolean botonInicio) {
 		this.botonDestino = false;
 		this.botonObstaculo = false;
+		this.botonAlcanzable = false;
 		this.botonInicio = botonInicio;
 		
 	}
@@ -53,6 +57,7 @@ public class Controlador {
 	public void setBotonDestino(boolean botonDestino) {
 		this.botonInicio = false;
 		this.botonObstaculo = false;
+		this.botonAlcanzable = false;
 		this.botonDestino = botonDestino;
 	}
 	
@@ -63,6 +68,18 @@ public class Controlador {
 	public void setBotonObstaculo(boolean botonObstaculo) {
 		this.botonDestino = false;
 		this.botonInicio = false;
+		this.botonAlcanzable = false;
 		this.botonObstaculo = botonObstaculo;
+	}
+
+	public boolean isBotonAlcanzable() {
+		return botonAlcanzable;
+	}
+
+	public void setBotonAlcanzable(boolean botonAlcanzable) {
+		this.botonDestino = false;
+		this.botonInicio = false;
+		this.botonObstaculo = false;
+		this.botonAlcanzable = botonAlcanzable;
 	}
 }

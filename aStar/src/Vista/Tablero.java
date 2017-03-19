@@ -35,19 +35,12 @@ public class Tablero extends JPanel {
 	 */
 	private JButton[][] casillas;
 	
-	public Tablero() {	
-		
+	public Tablero() {			
 		onCreate();
 	}
 	
 	private void onCreate(){
-		dibujaMapa();	
-		
-		/*this.setSize(new Dimension(550, 550));
-		this.setPreferredSize(new Dimension(550, 550));
-		this.setMinimumSize(new Dimension(550, 550));
-		this.setMaximumSize(new Dimension(550, 550));*/
-		
+		dibujaMapa();		
 	}
 	
 	public void dibujaMapa(){
@@ -185,8 +178,31 @@ public class Tablero extends JPanel {
 	        	else{
 	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
 	        		Controlador.getInstance().refreshMapa();
+	        	}	        	
+	        }
+	        else if(Controlador.getInstance().isBotonAlcanzable()){
+	        	if(Controlador.getInstance().getMapa().getNodo(i, j).isDestino()){
+	        		if (JOptionPane.showConfirmDialog(null, "¿Desea elimimar el nodo destino?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoDestino();
+					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.ALCANZABLE);
+					    casillas[i][j].setBackground(Color.BLUE);
+					    Controlador.getInstance().refreshMapa();
+					}
 	        	}
-	        	
+	        	else if(Controlador.getInstance().getMapa().getNodo(i, j).isInicio()){
+	        		if (JOptionPane.showConfirmDialog(null, "¿Desea elimimar el nodo incial?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoInicial();
+					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.ALCANZABLE);
+					    casillas[i][j].setBackground(Color.BLUE);
+					    Controlador.getInstance().refreshMapa();
+					}
+	        	}
+	        	else{
+	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.ALCANZABLE);
+	        		Controlador.getInstance().refreshMapa();
+	        	}	        	
 	        }
 	    }
 	}
