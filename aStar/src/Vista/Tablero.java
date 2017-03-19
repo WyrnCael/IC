@@ -12,6 +12,10 @@ import aStar.TipoNodo;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -21,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Tablero extends JPanel {
@@ -50,17 +55,9 @@ public class Tablero extends JPanel {
 		Mapa mapa = Controlador.getInstance().getMapa();
 		setLayout(new GridLayout(mapa.getFilas(), mapa.getColumnas()));
 		casillas = new JButton[mapa.getFilas()][mapa.getColumnas()];
-		GridBagConstraints c1 = new GridBagConstraints();
-		c1.fill = GridBagConstraints.BOTH;
-		c1.anchor = GridBagConstraints.CENTER;
-		c1.weightx = 1.0;
-		c1.weighty = 1.0;
 		
 		for(int i = 0; i < mapa.getFilas(); i++){
 			for(int j = 0; j < mapa.getColumnas(); j++){
-				c1.gridx = j;
-				c1.gridy = i;
-				
 				casillas[i][j] = new JButton();
 				
 				if(mapa.getCasilla(i, j).isInicio()){
@@ -71,7 +68,7 @@ public class Tablero extends JPanel {
 				else if(mapa.getCasilla(i, j).isAlcanzable())
 					casillas[i][j].setBackground(Color.BLUE);
 				else if(mapa.getCasilla(i, j).isCamino())
-						casillas[i][j].setBackground(Color.YELLOW);
+					drawCamino(i, j);
 				else
 					drawObstaculo(i, j);
 				
@@ -79,18 +76,17 @@ public class Tablero extends JPanel {
 				
 				casillas[i][j].addActionListener(new ActionListcasilla(i, j));
 				
-				this.add(casillas[i][j], c1);
-				
+				this.add(casillas[i][j]);
 			}
 		}
-		
 		this.revalidate();
 		this.repaint();
 	}
 	
 	private void drawInicio(int i, int j){
 		try {
-			Image img = ImageIO.read(getClass().getResource("barco.png"));
+			Image image = ImageIO.read(getClass().getResource("barco.png"));
+			BufferedImage img = toCompatibleImage((BufferedImage) image);
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			casillas[i][j].setBackground(Color.BLUE);
@@ -112,7 +108,8 @@ public class Tablero extends JPanel {
 	
 	private void drawDestino(int i, int j){
 		try {
-			Image img = ImageIO.read(getClass().getResource("moby_dick.png"));
+			Image image = ImageIO.read(getClass().getResource("moby_dick.png"));
+			BufferedImage img = toCompatibleImage((BufferedImage) image);
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			casillas[i][j].setBackground(Color.BLUE);
@@ -133,25 +130,40 @@ public class Tablero extends JPanel {
 	}
 	
 	private void drawObstaculo(int i, int j){
-		try {
-			Image img = ImageIO.read(getClass().getResource("island.png"));
-			ImageIcon icon = new ImageIcon(img);
-			casillas[i][j].setIcon(icon);
-			casillas[i][j].setBackground(Color.BLUE);
-			resizeImage(casillas[i][j], img);
-			casillas[i][j].addComponentListener(new ComponentAdapter() {
+		casillas[i][j] = new Obstaculo();
+	}
+	
+	private void drawCamino(int i, int j){
+		casillas[i][j] = new Camino();	
+	}
+	
+	private BufferedImage toCompatibleImage(BufferedImage image)
+	{
+	    // obtain the current system graphical settings
+	    GraphicsConfiguration gfx_config = GraphicsEnvironment.
+	        getLocalGraphicsEnvironment().getDefaultScreenDevice().
+	        getDefaultConfiguration();
 
-                @Override
-                public void componentResized(ComponentEvent e) {
-                    JButton btn = (JButton) e.getComponent();
-                    resizeImage(btn, img);
-                }
+	    /*
+	     * if image is already compatible and optimized for current system 
+	     * settings, simply return it
+	     */
+	    if (image.getColorModel().equals(gfx_config.getColorModel()))
+	        return image;
 
-            });
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+	    // image is not optimized, so create a new image that is
+	    BufferedImage new_image = gfx_config.createCompatibleImage(
+	            image.getWidth(), image.getHeight(), image.getTransparency());
+
+	    // get the graphics context of the new image to draw the old image on
+	    Graphics2D g2d = (Graphics2D) new_image.getGraphics();
+
+	    // actually draw the image and dispose of context no longer needed
+	    g2d.drawImage(image, 0, 0, null);
+	    g2d.dispose();
+
+	    // return the new optimized image
+	    return new_image; 
 	}
 	
 	private void resizeImage(JButton btn, Image img){
@@ -211,10 +223,31 @@ public class Tablero extends JPanel {
 	        	}
 	        	
 	        }
-	        revalidate();
-			repaint();
 	    }
 	}
 
+	private class Obstaculo extends JButton
+	{
+	    public void paintComponent(Graphics g)
+	    {
+	    	super.setBackground(Color.BLUE);
+	    	super.paintComponent(g);
+	        g.setColor(Color.GRAY);
+	        g.fillOval(getHorizontalAlignment(), getVerticalAlignment(), getWidth(), getHeight());
+	         
+	    }
+	}
 
+	private class Camino extends JButton
+	{
+	    public void paintComponent(Graphics g)
+	    {
+	    	super.setBackground(Color.BLUE);
+	    	super.paintComponent(g);
+	        g.setColor(Color.GREEN);
+	        g.fillOval(getHorizontalAlignment() + getWidth()/4, getVerticalAlignment() + getHeight()/4, getWidth()/2, getHeight()/2);
+	           
+	    }
+	}
+	
 }

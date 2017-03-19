@@ -92,7 +92,5 @@ public class VistaPrincipal extends JFrame {
 	
 	public void refreshMapa(){
 		this.tablero.dibujaMapa();
-		this.revalidate();
-		this.repaint();
 	}
 }
