@@ -86,17 +86,17 @@ public class Tablero extends JPanel {
 	private void drawInicio(int i, int j){
 		try {
 			Image image = ImageIO.read(getClass().getResource("barco.png"));
-			BufferedImage img = toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			casillas[i][j].setBackground(Color.BLUE);
-			resizeImage(casillas[i][j], img);
+			TratadoImagen.resizeImage(casillas[i][j], img);
 			casillas[i][j].addComponentListener(new ComponentAdapter() {
 
                 @Override
                 public void componentResized(ComponentEvent e) {
                     JButton btn = (JButton) e.getComponent();
-                    resizeImage(btn, img);
+                    TratadoImagen.resizeImage(btn, img);
                 }
 
             });
@@ -109,17 +109,17 @@ public class Tablero extends JPanel {
 	private void drawDestino(int i, int j){
 		try {
 			Image image = ImageIO.read(getClass().getResource("moby_dick.png"));
-			BufferedImage img = toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			casillas[i][j].setBackground(Color.BLUE);
-			resizeImage(casillas[i][j], img);
+			TratadoImagen.resizeImage(casillas[i][j], img);
 			casillas[i][j].addComponentListener(new ComponentAdapter() {
 
                 @Override
                 public void componentResized(ComponentEvent e) {
                     JButton btn = (JButton) e.getComponent();
-                    resizeImage(btn, img);
+                    TratadoImagen.resizeImage(btn, img);
                 }
 
             });
@@ -131,54 +131,17 @@ public class Tablero extends JPanel {
 	
 	private void drawObstaculo(int i, int j){
 		casillas[i][j] = new Obstaculo();
+		casillas[i][j].addActionListener(new ActionListcasilla(i, j));
+		this.revalidate();
+		this.repaint();
 	}
 	
 	private void drawCamino(int i, int j){
 		casillas[i][j] = new Camino();	
+		casillas[i][j].addActionListener(new ActionListcasilla(i, j));
 	}
 	
-	private BufferedImage toCompatibleImage(BufferedImage image)
-	{
-	    // obtain the current system graphical settings
-	    GraphicsConfiguration gfx_config = GraphicsEnvironment.
-	        getLocalGraphicsEnvironment().getDefaultScreenDevice().
-	        getDefaultConfiguration();
-
-	    /*
-	     * if image is already compatible and optimized for current system 
-	     * settings, simply return it
-	     */
-	    if (image.getColorModel().equals(gfx_config.getColorModel()))
-	        return image;
-
-	    // image is not optimized, so create a new image that is
-	    BufferedImage new_image = gfx_config.createCompatibleImage(
-	            image.getWidth(), image.getHeight(), image.getTransparency());
-
-	    // get the graphics context of the new image to draw the old image on
-	    Graphics2D g2d = (Graphics2D) new_image.getGraphics();
-
-	    // actually draw the image and dispose of context no longer needed
-	    g2d.drawImage(image, 0, 0, null);
-	    g2d.dispose();
-
-	    // return the new optimized image
-	    return new_image; 
-	}
 	
-	private void resizeImage(JButton btn, Image img){
-		Dimension size = btn.getSize();
-        Insets insets = btn.getInsets();
-        size.width -= insets.left + insets.right;
-        size.height -= insets.top + insets.bottom;
-        if (size.width > size.height) {
-            size.width = -1;
-        } else {
-            size.height = -1;
-        }
-        Image scaled = img.getScaledInstance(size.width, size.height, java.awt.Image.SCALE_SMOOTH);
-        btn.setIcon(new ImageIcon(scaled));
-	}
 	
 	private class ActionListcasilla implements ActionListener {
 	    private int i;
@@ -207,6 +170,7 @@ public class Tablero extends JPanel {
 					    Controlador.getInstance().getMapa().removeNodoDestino();
 					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
 					    drawObstaculo(i, j);
+					    Controlador.getInstance().refreshMapa();
 					}
 	        	}
 	        	else if(Controlador.getInstance().getMapa().getNodo(i, j).isInicio()){
@@ -215,19 +179,21 @@ public class Tablero extends JPanel {
 					    Controlador.getInstance().getMapa().removeNodoInicial();
 					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
 					    drawObstaculo(i, j);
+					    Controlador.getInstance().refreshMapa();
 					}
 	        	}
 	        	else{
 	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
-	        		drawObstaculo(i, j);
+	        		Controlador.getInstance().refreshMapa();
 	        	}
 	        	
 	        }
 	    }
 	}
 
-	private class Obstaculo extends JButton
+	public static class Obstaculo extends JButton
 	{
+		@Override
 	    public void paintComponent(Graphics g)
 	    {
 	    	super.setBackground(Color.BLUE);

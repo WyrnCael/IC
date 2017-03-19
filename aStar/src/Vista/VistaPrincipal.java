@@ -45,16 +45,8 @@ public class VistaPrincipal extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
-		OptionMenu optionMenu = new OptionMenu();
+		OptionMenu optionMenu = new OptionMenu();		
 		getContentPane().add(optionMenu, BorderLayout.EAST);
-		
-		JLabel lblMapa = new JLabel("Mapa:");
-		lblMapa.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblMapa);
-		
-		JLabel lblOpciones = new JLabel("Opciones:");
-		lblOpciones.setFont(new Font("Tahoma", Font.BOLD, 16));
-		contentPane.add(lblOpciones);
 		
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
@@ -62,9 +54,10 @@ public class VistaPrincipal extends JFrame {
 		
 		// Añadiendo tablero
 		Mapa mapa = new Mapa();
-		mapa.creaMapaVacio(30, 30);
+		mapa.creaMapaVacio(20, 20);
 		Controlador.getInstance().setMapa(mapa);
 		this.tablero = new Tablero();
+		this.tablero.setBorder(new EmptyBorder(0, 1, 0, 1));
 		panel.add(tablero);
 		
 		JPanel panel_1 = new JPanel();
@@ -76,7 +69,7 @@ public class VistaPrincipal extends JFrame {
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblMapa_1, GroupLayout.DEFAULT_SIZE, 576, Short.MAX_VALUE)
+				.addComponent(lblMapa_1, GroupLayout.DEFAULT_SIZE, 1377, Short.MAX_VALUE)
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -85,8 +78,9 @@ public class VistaPrincipal extends JFrame {
 		panel_1.setLayout(gl_panel_1);
 		
 		this.setSize(1071, 698);
+		this.setMinimumSize(new Dimension(1071, 698));
 		this.setLocationRelativeTo(null);
-		this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
+		//this.setExtendedState( this.getExtendedState()|JFrame.MAXIMIZED_BOTH );
 		this.setVisible(true);
 	}
 	

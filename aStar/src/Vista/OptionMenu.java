@@ -1,31 +1,45 @@
 package Vista;
 
 import javax.swing.JPanel;
-import java.awt.GridBagLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import javax.swing.JTextField;
 
 import aStar.AlgoritmoAEstrella;
 import aStar.Mapa;
 
 import javax.swing.JButton;
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.util.ResourceBundle.Control;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Insets;
+
 import javax.swing.JSeparator;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
+
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+import javax.swing.ImageIcon;
+import java.awt.Component;
+import javax.swing.UIManager;
 
 public class OptionMenu extends JPanel {
 	private JTextField textFieldFilas;
@@ -39,16 +53,28 @@ public class OptionMenu extends JPanel {
 	public OptionMenu() {
 		calculado = false;
 		
-		JLabel lblMapa = new JLabel("Generar mapa:");
-		lblMapa.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		JPanel panel = new JPanel();
 		
-		JButton btnGenerarVacio = new JButton("Generar vacio");
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(new BoxLayout(panel_1, BoxLayout.Y_AXIS));
 		
-		JButton btnGenerarAleatorio = new JButton("Generar aleatorio");
+		JPanel panel_6 = new JPanel();
+		panel_1.add(panel_6);
+		panel_6.setLayout(new BoxLayout(panel_6, BoxLayout.X_AXIS));
+		
+		JLabel lblOpciones = new JLabel("Opciones:");
+		lblOpciones.setBorder(new EmptyBorder(0, 0, 15, 0));
+		lblOpciones.setFont(new Font("Dialog", Font.BOLD, 23));
+		panel_6.add(lblOpciones);
+		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBorder(new TitledBorder("Generar mapa: "));
+		panel_3.setMinimumSize(new Dimension(250, 110));
+		panel_1.add(panel_3);
 		
 		JLabel lblFilas = new JLabel("Filas (M):");
 		
-		textFieldFilas = new JTextField("30");
+		textFieldFilas = new JTextField("20");
 		textFieldFilas.addFocusListener(new FocusListener() {
 			
 			@Override
@@ -67,7 +93,7 @@ public class OptionMenu extends JPanel {
 		
 		JLabel lblColumnas = new JLabel("Columnas (N):");
 		
-		textFieldColumnas = new JTextField("30");
+		textFieldColumnas = new JTextField("20");
 		textFieldColumnas.addFocusListener(new FocusListener() {
 			
 			@Override
@@ -84,152 +110,7 @@ public class OptionMenu extends JPanel {
 		});
 		textFieldColumnas.setColumns(10);
 		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		
-		JSeparator separator = new JSeparator();
-		
-		JLabel lblInsertarNuevosElementos = new JLabel("Insertar nuevos elementos:");
-		lblInsertarNuevosElementos.setFont(new Font("Tahoma", Font.PLAIN, 23));
-		
-		JLabel lblInicio = new JLabel("Inicio:");
-		lblInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JButton btnNuevoInicio = new JButton("New button");
-		
-		JLabel lblDestino = new JLabel("Destino:");
-		lblDestino.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JButton btnNuevoDestino = new JButton("New button");
-		
-		JButton btnEvaluate = new JButton("Calcular camino");
-		
-		JLabel lblObstaculo = new JLabel("Obstaculo:");
-		lblObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JButton btnObstaculo = new JButton("New button");
-		
-		JButton btnReiniciarMapa = new JButton("Borrar camino");
-		
-		JLabel lblObstaculosAleatorios = new JLabel("Obstaculos aleatorios:");
-		lblObstaculosAleatorios.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JLabel lblNumeroDeObstculos = new JLabel("Numero de Obst\u00E1culos:");
-		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
-		JButton btnNewButton = new JButton("New button");
-		
-		JLabel lblEliminarObstaculo = new JLabel("Eliminar obstaculo:");
-		lblEliminarObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		
-		JButton btnRemoveObstaculo = new JButton("New button");
-		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(separator_1, GroupLayout.PREFERRED_SIZE, 2, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(separator, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 323, Short.MAX_VALUE)
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(lblObstaculo, GroupLayout.DEFAULT_SIZE, 81, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnObstaculo, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-							.addGap(174))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(lblInicio)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnNuevoInicio, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-										.addComponent(btnEvaluate)
-										.addComponent(lblNumeroDeObstculos, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-											.addComponent(btnRemoveObstaculo)
-											.addComponent(btnReiniciarMapa)))))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnNewButton)
-								.addComponent(btnNuevoDestino, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)))
-						.addGroup(Alignment.TRAILING, groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(lblFilas, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-								.addGap(28)
-								.addComponent(lblColumnas, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createSequentialGroup()
-								.addComponent(btnGenerarVacio, GroupLayout.PREFERRED_SIZE, 132, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(lblObstaculosAleatorios, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblMapa, Alignment.TRAILING)
-						.addComponent(lblInsertarNuevosElementos, Alignment.TRAILING)
-						.addComponent(lblEliminarObstaculo, GroupLayout.PREFERRED_SIZE, 168, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addComponent(separator_1, GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblMapa, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblFilas)
-						.addComponent(lblColumnas)
-						.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(14)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnGenerarVacio)
-						.addComponent(btnGenerarAleatorio))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(separator, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(11)
-					.addComponent(lblInsertarNuevosElementos)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblDestino, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNuevoDestino)
-						.addComponent(lblInicio)
-						.addComponent(btnNuevoInicio))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblObstaculo, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnObstaculo))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblObstaculosAleatorios, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNumeroDeObstculos)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnNewButton))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblEliminarObstaculo, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
-						.addComponent(btnRemoveObstaculo))
-					.addPreferredGap(ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnEvaluate)
-						.addComponent(btnReiniciarMapa))
-					.addGap(90))
-		);
-		setLayout(groupLayout);
-		
-		
+		JButton btnGenerarVacio = new JButton("Generar vacio");
 		
 		btnGenerarVacio.addActionListener(new ActionListener() {
 			
@@ -247,11 +128,13 @@ public class OptionMenu extends JPanel {
 					Controlador.getInstance().refreshMapa();
 					calculado = false;
 				} catch(NumberFormatException nF){
-					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
+					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dÃ­gitos y ser mayor a 0.");
 				}
 				
 			}
 		});
+		
+		JButton btnGenerarAleatorio = new JButton("Aleatorio");
 		
 		btnGenerarAleatorio.addActionListener(new ActionListener() {
 			
@@ -269,11 +152,259 @@ public class OptionMenu extends JPanel {
 					Controlador.getInstance().refreshMapa();
 					calculado = false;
 				} catch(NumberFormatException nF){
-					JOptionPane.showMessageDialog(null, "El campo de filas y de columnas deben contener dígitos y ser mayor a 0.", "¡Error!", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "El campo de filas y de columnas deben contener dÃ­gitos y ser mayor a 0.", "Â¡Error!", JOptionPane.INFORMATION_MESSAGE);
 				}
 				
 			}
 		});
+		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
+		gl_panel_3.setHorizontalGroup(
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(12)
+							.addComponent(btnGenerarVacio)
+							.addGap(12)
+							.addComponent(btnGenerarAleatorio, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblFilas)
+							.addGap(3)
+							.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(lblColumnas)
+							.addGap(4)
+							.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_panel_3.setVerticalGroup(
+			gl_panel_3.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_3.createSequentialGroup()
+					.addGap(14)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblFilas))
+						.addComponent(textFieldFilas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel_3.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblColumnas))
+						.addComponent(textFieldColumnas, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnGenerarVacio)
+						.addComponent(btnGenerarAleatorio))
+					.addGap(5))
+		);
+		panel_3.setLayout(gl_panel_3);
+		
+		JPanel panel_4 = new JPanel();
+		panel_4.setBorder(new TitledBorder("AÃ±adir/modificar elementos: "));
+		panel_1.add(panel_4);
+		
+		JLabel lblInicio = new JLabel("Inicio:");
+		lblInicio.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnNuevoInicio = new JButton();
+		btnNuevoInicio.setMargin(new Insets(0, 0, 0, 0));
+		btnNuevoInicio.setBackground(Color.BLUE);
+		try {
+			Image image = ImageIO.read(getClass().getResource("barco.png"));
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			ImageIcon icon = new ImageIcon(img);
+			btnNuevoInicio.setIcon(icon);
+			TratadoImagen.resizeImage(btnNuevoInicio, img);
+			btnNuevoInicio.addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    TratadoImagen.resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		btnNuevoInicio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(calculado){
+					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(Controlador.getInstance().getMapa().getNodoInicial() == null){
+					Controlador.getInstance().setBotonInicio(true);
+				}
+				else {
+					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo inicial, Â¿desea eliminarlo y crear uno nuevo?", "Â¡AtenciÃ³n!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoInicial();
+					    Controlador.getInstance().refreshMapa();
+					    Controlador.getInstance().setBotonInicio(true);
+					}
+				}
+			}
+		});
+		
+		JLabel lblDestino = new JLabel("Destino:");
+		lblDestino.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnNuevoDestino = new JButton("");
+		btnNuevoDestino.setMargin(new Insets(0, 0, 0, 0));
+		btnNuevoDestino.setBackground(Color.BLUE);
+		try {
+			Image image = ImageIO.read(getClass().getResource("moby_dick.png"));
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			ImageIcon icon = new ImageIcon(img);
+			btnNuevoDestino.setIcon(icon);
+			TratadoImagen.resizeImage(btnNuevoDestino, img);
+			btnNuevoDestino.addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    TratadoImagen.resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		btnNuevoDestino.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(calculado){
+					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else if(Controlador.getInstance().getMapa().getNodoDestino() == null){
+					Controlador.getInstance().setBotonDestino(true);
+				}
+				else {
+					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo de destino, Â¿desea eliminarlo y crear uno nuevo?", "Â¡AtenciÃ³n!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoDestino();
+					    Controlador.getInstance().refreshMapa();
+					    Controlador.getInstance().setBotonDestino(true);
+					}
+				}
+			}
+		});
+		
+		JLabel lblObstaculo = new JLabel("Obstaculo:");
+		lblObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnObstaculo = new Tablero.Obstaculo();
+		
+		btnObstaculo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Controlador.getInstance().getMapa().resetMapa();
+				Controlador.getInstance().setBotonObstaculo(true);
+			}
+		});
+		
+		JLabel lblEliminarObstaculo = new JLabel("Eliminar obstÃ¡culo:");
+		lblEliminarObstaculo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnRemoveObstaculo = new JButton("");
+		btnRemoveObstaculo.setBackground(Color.BLUE);
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBorder(new TitledBorder("Generar obstÃ¡culos aleatorios: "));
+		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
+		gl_panel_4.setHorizontalGroup(
+			gl_panel_4.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblObstaculo)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnObstaculo, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblInicio)
+							.addGap(6)
+							.addComponent(btnNuevoInicio, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblDestino)
+							.addGap(2)
+							.addComponent(btnNuevoDestino, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addGroup(Alignment.LEADING, gl_panel_4.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblEliminarObstaculo)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnRemoveObstaculo, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(28, Short.MAX_VALUE))
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addContainerGap(14, Short.MAX_VALUE)
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_panel_4.setVerticalGroup(
+			gl_panel_4.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+								.addComponent(btnNuevoInicio, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnNuevoDestino, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(23)
+							.addComponent(lblDestino))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(22)
+							.addComponent(lblInicio)))
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(18)
+							.addComponent(btnObstaculo, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addGap(30)
+							.addComponent(lblObstaculo)))
+					.addGap(18)
+					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblEliminarObstaculo)
+						.addComponent(btnRemoveObstaculo, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+					.addGap(20))
+		);
+		
+		JLabel lblNumeroDeObstculos = new JLabel("Numero de ObstÃ¡culos:");
+		panel_5.add(lblNumeroDeObstculos);
+		
+		textField = new JTextField();
+		panel_5.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnGenerarObstAleatorios = new JButton("Generar");
+		panel_5.add(btnGenerarObstAleatorios);
+		panel_4.setLayout(gl_panel_4);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder("EjecuciÃ³n: "));
+		panel_2.setMinimumSize(new Dimension(250, 120));
+		panel_2.setPreferredSize(new Dimension(250, 120));
+		panel_1.add(panel_2);
+		
+		JButton btnReiniciarMapa = new JButton("Borrar camino");
+		btnReiniciarMapa.setBackground(new Color(255, 102, 102));
+		
+		JButton btnEvaluate = new JButton("Calcular camino");
+		btnEvaluate.setBackground(new Color(153, 204, 153));
 		
 		btnEvaluate.addActionListener(new ActionListener() {
 			
@@ -295,67 +426,35 @@ public class OptionMenu extends JPanel {
 					}	
 				}
 				else if (Controlador.getInstance().getMapa().getNodoInicial() == null){
-					JOptionPane.showMessageDialog(null, "¡Falta el nodo inicial!", "Error", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Â¡Falta el nodo inicial!", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "¡Falta el nodo destino!", "Error", JOptionPane.INFORMATION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Â¡Falta el nodo destino!", "Error", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});
-		
-		btnNuevoInicio.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(calculado){
-					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else if(Controlador.getInstance().getMapa().getNodoInicial() == null){
-					Controlador.getInstance().setBotonInicio(true);
-				}
-				else {
-					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo inicial, ¿desea eliminarlo y crear uno nuevo?", "¡Atención!",
-					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					    Controlador.getInstance().getMapa().removeNodoInicial();
-					    Controlador.getInstance().refreshMapa();
-					    Controlador.getInstance().setBotonInicio(true);
-					}
-				}
-			}
-		});
-		
-		btnNuevoDestino.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				if(calculado){
-					JOptionPane.showMessageDialog(null, "El camino ya ha sido calculado, debe generar un nuevo mapa.", "Error", JOptionPane.INFORMATION_MESSAGE);
-				}
-				else if(Controlador.getInstance().getMapa().getNodoDestino() == null){
-					Controlador.getInstance().setBotonDestino(true);
-				}
-				else {
-					if (JOptionPane.showConfirmDialog(null, "Ya existe un nodo de destino, ¿desea eliminarlo y crear uno nuevo?", "¡Atención!",
-					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-					    Controlador.getInstance().getMapa().removeNodoDestino();
-					    Controlador.getInstance().refreshMapa();
-					    Controlador.getInstance().setBotonDestino(true);
-					}
-				}
-			}
-		});
-		
-		btnObstaculo.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				Controlador.getInstance().getMapa().resetMapa();
-				Controlador.getInstance().setBotonObstaculo(true);
-			}
-		});
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap(57, Short.MAX_VALUE)
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_2.createSequentialGroup()
+							.addGap(12)
+							.addComponent(btnReiniciarMapa))
+						.addComponent(btnEvaluate, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE))
+					.addGap(50))
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnEvaluate)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnReiniciarMapa)
+					.addContainerGap(21, Short.MAX_VALUE))
+		);
+		panel_2.setLayout(gl_panel_2);
 		
 		btnReiniciarMapa.addActionListener(new ActionListener() {
 			
@@ -366,5 +465,31 @@ public class OptionMenu extends JPanel {
 				Controlador.getInstance().refreshMapa();
 			}
 		});
+		
+		this.setMaximumSize(new Dimension(254, 1080));
+		this.setPreferredSize(new Dimension(254, 550));
+		this.setMinimumSize(new Dimension(254, 1080));
+		setLayout(new BorderLayout(0, 0));
+		add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+		panel.add(panel_1);
+		
+		JSeparator separator_1 = new JSeparator();
+		add(separator_1, BorderLayout.WEST);
+		separator_1.setOrientation(SwingConstants.VERTICAL);
+	}
+	
+	private void resizeImage(JButton btn, Image img){
+		Dimension size = btn.getSize();
+        Insets insets = btn.getInsets();
+        size.width -= insets.left + insets.right;
+        size.height -= insets.top + insets.bottom;
+        if (size.width > size.height) {
+            size.width = -1;
+        } else {
+            size.height = -1;
+        }
+        Image scaled = img.getScaledInstance(size.width, size.height, java.awt.Image.SCALE_SMOOTH);
+        btn.setIcon(new ImageIcon(scaled));
 	}
 }
