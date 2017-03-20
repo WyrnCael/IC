@@ -328,9 +328,46 @@ public class OptionMenu extends JPanel {
 		
 		JPanel panel_5 = new JPanel();
 		panel_5.setBorder(new TitledBorder("Generar obstáculos aleatorios: "));
+		
+		JLabel lblWayPoint = new JLabel("Way point:");
+		lblWayPoint.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		
+		JButton btnWayPoint = new JButton("");
+		btnWayPoint.setMargin(new Insets(0, 0, 0, 0));
+		btnWayPoint.setBackground(Color.BLUE);
+		try {
+			Image image = ImageIO.read(getClass().getResource("fish.png"));
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			ImageIcon icon = new ImageIcon(img);
+			btnWayPoint.setIcon(icon);
+			TratadoImagen.resizeImage(btnWayPoint, img);
+			btnWayPoint.addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    TratadoImagen.resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		
+		btnWayPoint.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				Controlador.getInstance().setBotonWayPoint(true);
+			}
+		});
+		
+		
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.TRAILING)
+			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
@@ -347,16 +384,21 @@ public class OptionMenu extends JPanel {
 							.addGap(2)
 							.addComponent(btnNuevoDestino, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, gl_panel_4.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblEliminarObstaculo)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnRemoveObstaculo, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(28, Short.MAX_VALUE))
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addContainerGap(14, Short.MAX_VALUE)
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
+				.addGroup(gl_panel_4.createSequentialGroup()
+					.addGap(24)
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblWayPoint, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(btnWayPoint, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblEliminarObstaculo))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnRemoveObstaculo, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addGap(15))
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.TRAILING)
@@ -384,9 +426,18 @@ public class OptionMenu extends JPanel {
 					.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblEliminarObstaculo)
+						.addGroup(gl_panel_4.createSequentialGroup()
+							.addComponent(lblEliminarObstaculo)
+							.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_panel_4.createSequentialGroup()
+									.addGap(29)
+									.addComponent(btnWayPoint, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+								.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(lblWayPoint, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+									.addGap(14))))
 						.addComponent(btnRemoveObstaculo, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-					.addGap(20))
+					.addGap(22))
 		);
 		
 		JLabel lblNumeroDeObstculos = new JLabel("Numero de Obstáculos:");
@@ -422,7 +473,7 @@ public class OptionMenu extends JPanel {
 					Controlador.getInstance().getMapa().resetMapa();
 					Controlador.getInstance().refreshMapa();
 					AlgoritmoAEstrella algoritmo = new AlgoritmoAEstrella(Controlador.getInstance().getMapa());
-					Mapa mapa = algoritmo.getCamino();					
+					Mapa mapa = algoritmo.getCaminoFinal();					
 					if(mapa == null){
 						JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
 					}
@@ -502,19 +553,5 @@ public class OptionMenu extends JPanel {
 		JSeparator separator_1 = new JSeparator();
 		add(separator_1, BorderLayout.WEST);
 		separator_1.setOrientation(SwingConstants.VERTICAL);
-	}
-	
-	private void resizeImage(JButton btn, Image img){
-		Dimension size = btn.getSize();
-        Insets insets = btn.getInsets();
-        size.width -= insets.left + insets.right;
-        size.height -= insets.top + insets.bottom;
-        if (size.width > size.height) {
-            size.width = -1;
-        } else {
-            size.height = -1;
-        }
-        Image scaled = img.getScaledInstance(size.width, size.height, java.awt.Image.SCALE_SMOOTH);
-        btn.setIcon(new ImageIcon(scaled));
 	}
 }

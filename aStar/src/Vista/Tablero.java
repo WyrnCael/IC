@@ -62,6 +62,8 @@ public class Tablero extends JPanel {
 					casillas[i][j].setBackground(Color.BLUE);
 				else if(mapa.getCasilla(i, j).isCamino())
 					drawCamino(i, j);
+				else if(mapa.getCasilla(i, j).isWayPoint())
+					drawWayPoint(i, j);
 				else
 					drawObstaculo(i, j);
 				
@@ -134,7 +136,28 @@ public class Tablero extends JPanel {
 		casillas[i][j].addActionListener(new ActionListcasilla(i, j));
 	}
 	
-	
+	private void drawWayPoint(int i, int j){
+		casillas[i][j].setBackground(Color.BLUE);
+		try {
+			Image image = ImageIO.read(getClass().getResource("fish.png"));
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			ImageIcon icon = new ImageIcon(img);
+			casillas[i][j].setIcon(icon);
+			TratadoImagen.resizeImage(casillas[i][j], img);
+			casillas[i][j].addComponentListener(new ComponentAdapter() {
+
+                @Override
+                public void componentResized(ComponentEvent e) {
+                    JButton btn = (JButton) e.getComponent();
+                    TratadoImagen.resizeImage(btn, img);
+                }
+
+            });
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	
 	private class ActionListcasilla implements ActionListener {
 	    private int i;
@@ -201,6 +224,30 @@ public class Tablero extends JPanel {
 	        	}
 	        	else{
 	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.ALCANZABLE);
+	        		Controlador.getInstance().refreshMapa();
+	        	}	        	
+	        }
+	        else if(Controlador.getInstance().isBotonWayPoint()){
+	        	if(Controlador.getInstance().getMapa().getNodo(i, j).isDestino()){
+	        		if (JOptionPane.showConfirmDialog(null, "¿Desea elimimar el nodo destino y poner un waypoint?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoDestino();
+					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.WAYPOINT);
+					    drawWayPoint(i, j);
+					    Controlador.getInstance().refreshMapa();
+					}
+	        	}
+	        	else if(Controlador.getInstance().getMapa().getNodo(i, j).isInicio()){
+	        		if (JOptionPane.showConfirmDialog(null, "¿Desea elimimar el nodo incial y poner un waypoint?", "¡Atención!",
+					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+					    Controlador.getInstance().getMapa().removeNodoInicial();
+					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.WAYPOINT);
+					    drawWayPoint(i, j);
+					    Controlador.getInstance().refreshMapa();
+					}
+	        	}
+	        	else{
+	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.WAYPOINT);
 	        		Controlador.getInstance().refreshMapa();
 	        	}	        	
 	        }
