@@ -91,7 +91,6 @@ public class AlgoritmoAEstrella {
 		double menorCoste = Double.MAX_VALUE;
 		Nodo nodo = null;
 		for(Nodo waypoint : mapaWayPoints.getWayPoints()){
-			System.out.println("1");
 			if(waypoint != actual){
 				double fH = funcionHWayPoint(actual, waypoint);
 				if(fH < menorCoste){
@@ -106,8 +105,7 @@ public class AlgoritmoAEstrella {
 	private Mapa getMapaResueltoWaypoints(){
 		Nodo nodoActual = mapaWayPoints.getNodoDestino().getNodoPredecesor();
 		while(nodoActual.getNodoPredecesor() != null){
-			System.out.println("2" + nodoActual);
-			if(!nodoActual.isInicio()){
+			if(!nodoActual.isInicio() && !nodoActual.isDestino() && !nodoActual.isWayPoint()){
 				nodoActual.setTipo(TipoNodo.CAMINO);
 				this.mapa.getCasilla(nodoActual.getPosX(), nodoActual.getPosY()).setTipo(TipoNodo.CAMINO);
 			}	
