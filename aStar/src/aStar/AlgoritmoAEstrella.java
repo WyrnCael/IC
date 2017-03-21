@@ -2,13 +2,17 @@ package aStar;
 
 import java.util.ArrayList;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
+
 public class AlgoritmoAEstrella {
 	private Mapa mapa;
+	private Mapa mapaWayPoints;
 	private ListaAbiertaOrdenada listaAbiertaOrdenada;
 	private ArrayList<Nodo> listaCerrada;
 	
 	public AlgoritmoAEstrella(Mapa mapa){
 		this.mapa = mapa;
+		this.mapaWayPoints = new Mapa(mapa);
 		this.listaAbiertaOrdenada = new ListaAbiertaOrdenada();
 		this.listaCerrada = new ArrayList<Nodo>();
 	}
@@ -16,8 +20,11 @@ public class AlgoritmoAEstrella {
 	public Mapa getCamino(){
 		double costeH;
 		
+		listaAbiertaOrdenada.reset();
+		this.listaCerrada = new ArrayList<Nodo>();
+		
 		// Inicializamos la salida
-		Nodo inicial = mapa.getNodoInicial();
+		Nodo inicial = mapaWayPoints.getNodoInicial();
 		costeH = funcionH(inicial);
 		inicial.setCosteDesdeInicio(0);
 		listaAbiertaOrdenada.addNodo(inicial);
@@ -27,12 +34,12 @@ public class AlgoritmoAEstrella {
 			Nodo nodoActual = listaAbiertaOrdenada.getPrimero();
 			this.listaCerrada.add(nodoActual);
 			
-			if(nodoActual == this.mapa.getNodoDestino()){
-				return getMapaResuelto();
+			if(nodoActual == this.mapaWayPoints.getNodoDestino()){
+				return getMapaResueltoWaypoints();
 			}
 			
 			costeH = funcionH(nodoActual);
-			ArrayList<Nodo> adyacentesActual = mapa.getAdyacentes(nodoActual);
+			ArrayList<Nodo> adyacentesActual = mapaWayPoints.getAdyacentes(nodoActual);
 			for(Nodo adyacente : adyacentesActual){
 				double costeF, costeG;
 				if(!listaCerrada.contains(adyacente)){
@@ -57,12 +64,59 @@ public class AlgoritmoAEstrella {
 		return null;
 	}
 	
-	private Mapa getMapaResuelto(){
-		Nodo nodoActual = mapa.getNodoDestino().getNodoPredecesor();
-		while(nodoActual.getNodoPredecesor() != null){
-			nodoActual.setTipo(TipoNodo.CAMINO);
-			nodoActual = nodoActual.getNodoPredecesor();
+	public Mapa getCaminoFinal(){
+		Nodo destinoFinal = mapaWayPoints.getNodoDestino();
+		while(mapaWayPoints.getWayPoints().size() > 0){
+			Nodo waypoint = getWayPointMasCercano(mapaWayPoints.getNodoInicial());
+			mapaWayPoints.getWayPoints().remove(waypoint);
+			waypoint.setTipo(TipoNodo.DESTINO);
+			mapaWayPoints.setNodoDestino(waypoint);
+			if(getCamino() == null){
+				return null;
+			} else {
+				waypoint.setTipo(TipoNodo.INICIO);
+				mapaWayPoints.setNodoInicial(waypoint);
+				mapaWayPoints.setNodoDestino(destinoFinal);
+			}
 		}
+		Mapa aux = getCamino();
+		if(aux == null){
+			return null;
+		} else {
+			return getMapaResuelto();
+		}
+	}
+	
+	private Nodo getWayPointMasCercano(Nodo actual){
+		double menorCoste = Double.MAX_VALUE;
+		Nodo nodo = null;
+		for(Nodo waypoint : mapaWayPoints.getWayPoints()){
+			if(waypoint != actual){
+				double fH = funcionHWayPoint(actual, waypoint);
+				if(fH < menorCoste){
+					menorCoste = fH;
+					nodo = waypoint;
+				}
+			}			
+		}
+		return nodo;
+	}
+	
+	private Mapa getMapaResueltoWaypoints(){
+		Nodo nodoActual = mapaWayPoints.getNodoDestino().getNodoPredecesor();
+		while(nodoActual.getNodoPredecesor() != null){
+			if(!nodoActual.isInicio() && !nodoActual.isDestino() && !nodoActual.isWayPoint()){
+				nodoActual.setTipo(TipoNodo.CAMINO);
+				this.mapa.getCasilla(nodoActual.getPosX(), nodoActual.getPosY()).setTipo(TipoNodo.CAMINO);
+			}	
+			Nodo aux = nodoActual;
+			nodoActual = nodoActual.getNodoPredecesor();
+			aux.setNodoPredecesor(null);
+		}
+		return this.mapaWayPoints;
+	}
+	
+	private Mapa getMapaResuelto(){
 		return this.mapa;
 	}
 	
@@ -71,8 +125,13 @@ public class AlgoritmoAEstrella {
 	}
 	
 	private double funcionH(Nodo nodo){
-		Nodo destino = mapa.getNodoDestino();
+		Nodo destino = mapaWayPoints.getNodoDestino();
 		double g = Math.sqrt( Math.pow((nodo.getPosX() - destino.getPosX()), 2) + Math.pow((nodo.getPosY() - destino.getPosY()), 2));
+		return g;
+	}
+	
+	private double funcionHWayPoint(Nodo nodo, Nodo waypoint){
+		double g = Math.sqrt( Math.pow((nodo.getPosX() - waypoint.getPosX()), 2) + Math.pow((nodo.getPosY() - waypoint.getPosY()), 2));
 		return g;
 	}
 	

@@ -10,12 +10,14 @@ public class Controlador {
 	private boolean botonDestino;
 	private boolean botonObstaculo;
 	private boolean botonAlcanzable;
+	private boolean botonWayPoint;
 	
 	public Controlador(){
 		botonInicio = false;
 		botonDestino = false;
 		botonObstaculo = false;
 		botonAlcanzable = false;
+		botonWayPoint = false;
 	}
 	
 	public static Controlador getInstance(){
@@ -46,6 +48,7 @@ public class Controlador {
 		this.botonDestino = false;
 		this.botonObstaculo = false;
 		this.botonAlcanzable = false;
+		this.botonWayPoint = false;
 		this.botonInicio = botonInicio;
 		
 	}
@@ -58,6 +61,7 @@ public class Controlador {
 		this.botonInicio = false;
 		this.botonObstaculo = false;
 		this.botonAlcanzable = false;
+		this.botonWayPoint = false;
 		this.botonDestino = botonDestino;
 	}
 	
@@ -69,6 +73,7 @@ public class Controlador {
 		this.botonDestino = false;
 		this.botonInicio = false;
 		this.botonAlcanzable = false;
+		this.botonWayPoint = false;
 		this.botonObstaculo = botonObstaculo;
 	}
 
@@ -80,6 +85,19 @@ public class Controlador {
 		this.botonDestino = false;
 		this.botonInicio = false;
 		this.botonObstaculo = false;
+		this.botonWayPoint = false;
 		this.botonAlcanzable = botonAlcanzable;
+	}
+
+	public boolean isBotonWayPoint() {
+		return botonWayPoint;
+	}
+
+	public void setBotonWayPoint(boolean botonWayPoint) {
+		this.botonDestino = false;
+		this.botonInicio = false;
+		this.botonObstaculo = false;
+		this.botonAlcanzable = false;
+		this.botonWayPoint = botonWayPoint;
 	}
 }

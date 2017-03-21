@@ -3,15 +3,38 @@ package aStar;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Mapa {
-	
+public class Mapa{
 	private int filas;
 	private int columnas;
 	private Nodo[][] matriz;
 	private Nodo nodoInicial;
 	private Nodo nodoDestino;
+	private ArrayList<Nodo> waypoints;
 	
-	public Mapa(){	}
+	public Mapa(){
+		this.waypoints = new ArrayList<Nodo>();
+	}
+	
+	// Para hacer una copia del objeto
+	public Mapa(Mapa mapa){
+		this.filas = mapa.filas;
+		this.columnas = mapa.columnas;
+		this.matriz = new Nodo[this.filas][this.columnas];
+		this.waypoints = new ArrayList<Nodo>();
+		
+		for(int i = 0; i < this.filas; i++){
+			for(int j = 0; j < this.columnas; j++){				
+				Nodo nodo = new Nodo(mapa.getNodo(i, j).getTipo(), i, j);
+				this.matriz[i][j] = nodo;
+				if(nodo.isInicio())
+					nodoInicial = nodo;
+				else if (nodo.isDestino())
+					nodoDestino = nodo;
+				else if(nodo.isWayPoint())
+					addWayPoint(nodo);
+			}
+		}
+	}
 
 	public int getFilas() {
 		return filas;
@@ -87,6 +110,22 @@ public class Mapa {
 	
 	public void setNodo(int i, int j, TipoNodo tipo){
 		this.matriz[i][j] = new Nodo(tipo, i, j);
+		if(tipo == TipoNodo.WAYPOINT)
+			addWayPoint(this.matriz[i][j]);
+			
+	}
+	
+	public void addWayPoint(Nodo waypoint){
+		this.waypoints.add(waypoint);
+	}
+	
+	public void removeWayPoint(Nodo waypoint){
+		this.matriz[waypoint.getPosX()][waypoint.getPosY()] = new Nodo(TipoNodo.ALCANZABLE, waypoint.getPosX(), waypoint.getPosY());
+		this.waypoints.remove(waypoint);
+	}
+	
+	public ArrayList<Nodo> getWayPoints(){
+		return this.waypoints;
 	}
 	
 	public ArrayList<Nodo> getAdyacentes(Nodo nodo){
@@ -99,7 +138,7 @@ public class Mapa {
 				if(!(h == i && w == j)){					
 					// Si está dentro del mapa
 					if(h >= 0 && h < filas && w >= 0 && w < columnas){
-						if(matriz[h][w].isAlcanzable() || matriz[h][w].isDestino()){
+						if(matriz[h][w].getTipo() != TipoNodo.INALCANZABLE){
 							adyacentes.add(matriz[h][w]);	
 						}
 					}

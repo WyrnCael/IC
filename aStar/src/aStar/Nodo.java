@@ -37,8 +37,18 @@ public class Nodo {
 		return false;
 	}
 	
+	public boolean isWayPoint() {
+		if(tipo == TipoNodo.WAYPOINT)
+			return true;
+		return false;
+	}
+	
 	public void setTipo(TipoNodo tipo){
 		this.tipo = tipo;
+	}
+	
+	public TipoNodo getTipo(){
+		return this.tipo;
 	}
 
 	public double getCosteDesdeInicio() {
@@ -71,5 +81,5 @@ public class Nodo {
 
 	public void setNodoPredecesor(Nodo nodoPredecesor) {
 		this.nodoPredecesor = nodoPredecesor;
-	}
+	}	
 }

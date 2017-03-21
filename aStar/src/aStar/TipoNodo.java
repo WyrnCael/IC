@@ -5,7 +5,8 @@ public enum TipoNodo {
 	DESTINO(1),
 	INALCANZABLE(2),
 	ALCANZABLE(3),
-	CAMINO(4);
+	CAMINO(4),
+	WAYPOINT(5);
 	
 	private final int value;
 
