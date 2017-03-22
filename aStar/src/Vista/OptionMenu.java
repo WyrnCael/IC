@@ -38,21 +38,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
-import java.awt.Component;
-import javax.swing.UIManager;
 
 public class OptionMenu extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1002542485801883752L;
 	private JTextField textFieldFilas;
 	private JTextField textFieldColumnas;
-	private boolean calculado;
 	private JTextField textFieldObstAleatorios;
 
 	/**
 	 * Create the panel.
 	 */
 	public OptionMenu() {
-		calculado = false;
-		
 		JPanel panel = new JPanel();
 		
 		JPanel panel_1 = new JPanel();
@@ -126,7 +125,6 @@ public class OptionMenu extends JPanel {
 					mapa.creaMapaVacio(filas, columnas);
 					Controlador.getInstance().setMapa(mapa);
 					Controlador.getInstance().refreshMapa();
-					calculado = false;
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo filas y columnas deben contener dígitos y ser mayor a 0.");
 				}
@@ -150,7 +148,6 @@ public class OptionMenu extends JPanel {
 					mapa.creaMapaAleatorio(filas, columnas);
 					Controlador.getInstance().setMapa(mapa);
 					Controlador.getInstance().refreshMapa();
-					calculado = false;
 				} catch(NumberFormatException nF){
 					JOptionPane.showMessageDialog(null, "El campo de filas y de columnas deben contener dígitos y ser mayor a 0.", "¡Error!", JOptionPane.INFORMATION_MESSAGE);
 				}
@@ -305,7 +302,6 @@ public class OptionMenu extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				Controlador.getInstance().getMapa().resetMapa();
 				Controlador.getInstance().setBotonObstaculo(true);
 			}
 		});		
@@ -478,7 +474,6 @@ public class OptionMenu extends JPanel {
 						JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
 					}
 					else{
-						calculado = true;
 						Controlador.getInstance().setMapa(mapa);
 						Controlador.getInstance().refreshMapa();
 					}	

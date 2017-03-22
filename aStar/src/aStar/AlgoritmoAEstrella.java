@@ -2,8 +2,6 @@ package aStar;
 
 import java.util.ArrayList;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
-
 public class AlgoritmoAEstrella {
 	private Mapa mapa;
 	private Mapa mapaWayPoints;

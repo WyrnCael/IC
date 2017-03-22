@@ -1,26 +1,21 @@
 package Vista;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import aStar.AlgoritmoAEstrella;
 import aStar.Mapa;
 import aStar.Nodo;
 import aStar.TipoNodo;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsConfiguration;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
@@ -30,6 +25,10 @@ import java.io.IOException;
 
 public class Tablero extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6980873179558383636L;
 	/**
 	 * Create the panel.
 	 */
@@ -67,7 +66,7 @@ public class Tablero extends JPanel {
 				else
 					drawObstaculo(i, j);
 				
-				casillas[i][j].setBorder(null);
+				casillas[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
 				
 				casillas[i][j].addActionListener(new ActionListcasilla(i, j));
 				
@@ -173,11 +172,13 @@ public class Tablero extends JPanel {
 	        	Controlador.getInstance().getMapa().setNodoInicial(new Nodo(TipoNodo.INICIO, i, j));
 	        	drawInicio(i, j);
 	        	Controlador.getInstance().setBotonInicio(false);
+	        	Controlador.getInstance().refreshMapa();
 	        }
 	        else if(Controlador.getInstance().isBotonDestino()){
 	        	Controlador.getInstance().getMapa().setNodoDestino(new Nodo(TipoNodo.DESTINO, i, j));
 	        	drawDestino(i, j);
 	        	Controlador.getInstance().setBotonDestino(false);
+	        	Controlador.getInstance().refreshMapa();
 	        }
 	        else if(Controlador.getInstance().isBotonObstaculo()){
 	        	if(Controlador.getInstance().getMapa().getNodo(i, j).isDestino()){
@@ -197,6 +198,20 @@ public class Tablero extends JPanel {
 					    drawObstaculo(i, j);
 					    Controlador.getInstance().refreshMapa();
 					}
+	        	}
+	        	else if(Controlador.getInstance().getMapa().getNodo(i, j).isCamino()){
+	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
+	        		Controlador.getInstance().getMapa().resetMapa();
+					Controlador.getInstance().refreshMapa();
+					AlgoritmoAEstrella algoritmo = new AlgoritmoAEstrella(Controlador.getInstance().getMapa());
+					Mapa mapa = algoritmo.getCaminoFinal();					
+					if(mapa == null){
+						JOptionPane.showMessageDialog(null, "No se puede llegar al destino desde el inicio.", "No hay camino", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else{
+						Controlador.getInstance().setMapa(mapa);
+						Controlador.getInstance().refreshMapa();
+					}	
 	        	}
 	        	else{
 	        		Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.INALCANZABLE);
@@ -256,6 +271,11 @@ public class Tablero extends JPanel {
 
 	public static class Obstaculo extends JButton
 	{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 9209619207494859570L;
+
 		@Override
 	    public void paintComponent(Graphics g)
 	    {
@@ -269,7 +289,12 @@ public class Tablero extends JPanel {
 
 	private class Camino extends JButton
 	{
-	    public void paintComponent(Graphics g)
+	    /**
+		 * 
+		 */
+		private static final long serialVersionUID = 3411478378342734678L;
+
+		public void paintComponent(Graphics g)
 	    {
 	    	super.setBackground(Color.BLUE);
 	    	super.paintComponent(g);

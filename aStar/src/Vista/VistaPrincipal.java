@@ -2,29 +2,23 @@ package Vista;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.GridLayout;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import aStar.Mapa;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
 public class VistaPrincipal extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5837262059665050271L;
 	private JPanel contentPane;
 	private static VistaPrincipal instance;
 	private Tablero tablero;
@@ -39,6 +33,7 @@ public class VistaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VistaPrincipal() {
+		super("Algoritmo A* - Juan José Prieto");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -65,7 +60,7 @@ public class VistaPrincipal extends JFrame {
 		
 		JLabel lblMapa_1 = new JLabel("Mapa:");
 		lblMapa_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMapa_1.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblMapa_1.setFont(new Font("Dialog", Font.BOLD, 23));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
