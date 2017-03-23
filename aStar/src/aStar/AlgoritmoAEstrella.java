@@ -65,8 +65,9 @@ public class AlgoritmoAEstrella {
 	public Mapa getCaminoFinal(){
 		Nodo destinoFinal = mapaWayPoints.getNodoDestino();
 		while(mapaWayPoints.getWayPoints().size() > 0){
-			Nodo waypoint = getWayPointMasCercano(mapaWayPoints.getNodoInicial());
-			mapaWayPoints.getWayPoints().remove(waypoint);
+			Nodo waypoint = mapaWayPoints.getWayPoints().get(0);
+			//Nodo waypoint = getWayPointMasCercano(mapaWayPoints.getNodoInicial());
+			mapaWayPoints.getWayPoints().remove(0);
 			waypoint.setTipo(TipoNodo.DESTINO);
 			mapaWayPoints.setNodoDestino(waypoint);
 			if(getCamino() == null){

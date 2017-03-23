@@ -29,9 +29,11 @@ public class Mapa{
 					nodoInicial = nodo;
 				else if (nodo.isDestino())
 					nodoDestino = nodo;
-				else if(nodo.isWayPoint())
-					addWayPoint(nodo);
 			}
+		}
+		
+		for(Nodo waypoint : mapa.getWayPoints()){
+			this.waypoints.add(new Nodo(TipoNodo.WAYPOINT, waypoint.getPosX(), waypoint.getPosY()));
 		}
 	}
 

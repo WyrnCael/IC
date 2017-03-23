@@ -143,6 +143,7 @@ public class Tablero extends JPanel {
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			TratadoImagen.resizeImage(casillas[i][j], img);
+			casillas[i][j].setText("" + (Controlador.getInstance().getMapa().getWayPoints().size() + 1));
 			casillas[i][j].addComponentListener(new ComponentAdapter() {
 
                 @Override
