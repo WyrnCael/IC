@@ -110,6 +110,8 @@ public class Mapa{
 	}
 	
 	public void setNodo(int i, int j, TipoNodo tipo){
+		if(this.matriz[i][j] != null && this.matriz[i][j].isWayPoint())
+			removeWayPoint(this.matriz[i][j]);
 		this.matriz[i][j] = new Nodo(tipo, i, j);
 		if(tipo == TipoNodo.WAYPOINT)
 			addWayPoint(this.matriz[i][j]);
@@ -118,11 +120,15 @@ public class Mapa{
 	
 	public void addWayPoint(Nodo waypoint){
 		this.waypoints.add(waypoint);
+		waypoint.setWayPointPos(this.waypoints.size());
 	}
 	
 	public void removeWayPoint(Nodo waypoint){
 		this.matriz[waypoint.getPosX()][waypoint.getPosY()] = new Nodo(TipoNodo.ALCANZABLE, waypoint.getPosX(), waypoint.getPosY());
 		this.waypoints.remove(waypoint);
+		for(int i = 0; i < this.waypoints.size(); i++){
+			this.waypoints.get(i).setWayPointPos(i+1);
+		}
 	}
 	
 	public ArrayList<Nodo> getWayPoints(){

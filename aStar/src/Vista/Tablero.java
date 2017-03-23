@@ -62,7 +62,7 @@ public class Tablero extends JPanel {
 				else if(mapa.getCasilla(i, j).isCamino())
 					drawCamino(i, j);
 				else if(mapa.getCasilla(i, j).isWayPoint())
-					drawWayPoint(i, j);
+					drawWayPoint(i, j, "" + mapa.getCasilla(i, j).getWayPointPos());
 				else
 					drawObstaculo(i, j);
 				
@@ -80,7 +80,7 @@ public class Tablero extends JPanel {
 	private void drawInicio(int i, int j){
 		try {
 			Image image = ImageIO.read(getClass().getResource("barco.png"));
-			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image, "");
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			casillas[i][j].setBackground(Color.BLUE);
@@ -103,7 +103,7 @@ public class Tablero extends JPanel {
 	private void drawDestino(int i, int j){
 		try {
 			Image image = ImageIO.read(getClass().getResource("moby_dick.png"));
-			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image, "");
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			casillas[i][j].setBackground(Color.BLUE);
@@ -135,15 +135,14 @@ public class Tablero extends JPanel {
 		casillas[i][j].addActionListener(new ActionListcasilla(i, j));
 	}
 	
-	private void drawWayPoint(int i, int j){
+	private void drawWayPoint(int i, int j, String text){
 		casillas[i][j].setBackground(Color.BLUE);
 		try {
 			Image image = ImageIO.read(getClass().getResource("fish.png"));
-			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image, text);
 			ImageIcon icon = new ImageIcon(img);
 			casillas[i][j].setIcon(icon);
 			TratadoImagen.resizeImage(casillas[i][j], img);
-			casillas[i][j].setText("" + (Controlador.getInstance().getMapa().getWayPoints().size() + 1));
 			casillas[i][j].addComponentListener(new ComponentAdapter() {
 
                 @Override
@@ -249,7 +248,7 @@ public class Tablero extends JPanel {
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					    Controlador.getInstance().getMapa().removeNodoDestino();
 					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.WAYPOINT);
-					    drawWayPoint(i, j);
+					    drawWayPoint(i, j, "" + Controlador.getInstance().getMapa().getCasilla(i, j).getWayPointPos());
 					    Controlador.getInstance().refreshMapa();
 					}
 	        	}
@@ -258,7 +257,7 @@ public class Tablero extends JPanel {
 					        JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 					    Controlador.getInstance().getMapa().removeNodoInicial();
 					    Controlador.getInstance().getMapa().setNodo(i, j, TipoNodo.WAYPOINT);
-					    drawWayPoint(i, j);
+					    drawWayPoint(i, j, "" + Controlador.getInstance().getMapa().getCasilla(i, j).getWayPointPos());
 					    Controlador.getInstance().refreshMapa();
 					}
 	        	}

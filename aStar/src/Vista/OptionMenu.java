@@ -208,7 +208,7 @@ public class OptionMenu extends JPanel {
 		btnNuevoInicio.setBackground(Color.BLUE);
 		try {
 			Image image = ImageIO.read(getClass().getResource("barco.png"));
-			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image, "");
 			ImageIcon icon = new ImageIcon(img);
 			btnNuevoInicio.setIcon(icon);
 			TratadoImagen.resizeImage(btnNuevoInicio, img);
@@ -254,7 +254,7 @@ public class OptionMenu extends JPanel {
 		btnNuevoDestino.setBackground(Color.BLUE);
 		try {
 			Image image = ImageIO.read(getClass().getResource("moby_dick.png"));
-			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image, "");
 			ImageIcon icon = new ImageIcon(img);
 			btnNuevoDestino.setIcon(icon);
 			TratadoImagen.resizeImage(btnNuevoDestino, img);
@@ -333,7 +333,7 @@ public class OptionMenu extends JPanel {
 		btnWayPoint.setBackground(Color.BLUE);
 		try {
 			Image image = ImageIO.read(getClass().getResource("fish.png"));
-			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image);
+			BufferedImage img = TratadoImagen.toCompatibleImage((BufferedImage) image, "");
 			ImageIcon icon = new ImageIcon(img);
 			btnWayPoint.setIcon(icon);
 			TratadoImagen.resizeImage(btnWayPoint, img);

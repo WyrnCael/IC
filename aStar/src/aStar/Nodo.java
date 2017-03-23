@@ -6,6 +6,7 @@ public class Nodo {
 	private int posX;
 	private int posY;
 	private Nodo nodoPredecesor;
+	private int wayPointPos;
 	
 	public Nodo(TipoNodo tipo, int i, int j){
 		this.tipo = tipo;
@@ -81,5 +82,13 @@ public class Nodo {
 
 	public void setNodoPredecesor(Nodo nodoPredecesor) {
 		this.nodoPredecesor = nodoPredecesor;
-	}	
+	}
+
+	public int getWayPointPos() {
+		return wayPointPos;
+	}
+
+	public void setWayPointPos(int wayPointPos) {
+		this.wayPointPos = wayPointPos;
+	}
 }

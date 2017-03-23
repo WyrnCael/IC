@@ -1,6 +1,9 @@
 package Vista;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsEnvironment;
@@ -13,7 +16,7 @@ import javax.swing.JButton;
 
 public final class TratadoImagen {
 
-	public static BufferedImage toCompatibleImage(BufferedImage image)
+	public static BufferedImage toCompatibleImage(BufferedImage image, String text)
 	{
 	    // obtain the current system graphical settings
 	    GraphicsConfiguration gfx_config = GraphicsEnvironment.
@@ -36,6 +39,13 @@ public final class TratadoImagen {
 
 	    // actually draw the image and dispose of context no longer needed
 	    g2d.drawImage(image, 0, 0, null);
+	    Font font = new Font("Arial", Font.BOLD, 80);
+        g2d.setFont(font);
+	    FontMetrics fm = g2d.getFontMetrics();
+        int x = ((image.getWidth() + 75 - fm.stringWidth(text)) / 2);
+        int y = ((image.getHeight() - fm.getHeight()) / 2) + fm.getAscent();
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(text, x, y);
 	    g2d.dispose();
 
 	    // return the new optimized image

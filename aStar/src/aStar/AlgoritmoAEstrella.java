@@ -84,22 +84,7 @@ public class AlgoritmoAEstrella {
 		} else {
 			return getMapaResuelto();
 		}
-	}
-	
-	private Nodo getWayPointMasCercano(Nodo actual){
-		double menorCoste = Double.MAX_VALUE;
-		Nodo nodo = null;
-		for(Nodo waypoint : mapaWayPoints.getWayPoints()){
-			if(waypoint != actual){
-				double fH = funcionHWayPoint(actual, waypoint);
-				if(fH < menorCoste){
-					menorCoste = fH;
-					nodo = waypoint;
-				}
-			}			
-		}
-		return nodo;
-	}
+	}	
 	
 	private Mapa getMapaResueltoWaypoints(){
 		Nodo nodoActual = mapaWayPoints.getNodoDestino().getNodoPredecesor();
@@ -126,11 +111,6 @@ public class AlgoritmoAEstrella {
 	private double funcionH(Nodo nodo){
 		Nodo destino = mapaWayPoints.getNodoDestino();
 		double g = Math.sqrt( Math.pow((nodo.getPosX() - destino.getPosX()), 2) + Math.pow((nodo.getPosY() - destino.getPosY()), 2));
-		return g;
-	}
-	
-	private double funcionHWayPoint(Nodo nodo, Nodo waypoint){
-		double g = Math.sqrt( Math.pow((nodo.getPosX() - waypoint.getPosX()), 2) + Math.pow((nodo.getPosY() - waypoint.getPosY()), 2));
 		return g;
 	}
 	
