@@ -1,5 +1,10 @@
 package id3;
 
-public class main {
+import lecturaFicheros.readAtributos;
 
+public class main {
+	
+	public static void main (String [ ] args) {
+		readAtributos.read();
+	}
 }
