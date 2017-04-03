@@ -9,10 +9,10 @@ import java.io.IOException;
 import datos.Datos;
 import estructuras.Atributo;
 
-public final class readAtributos {
+public final class ReadAtributos {
 	
 	public static void read(){
-		File file = new File(readAtributos.class.getResource("/ficheros/AtributosJuego.txt").getFile());
+		File file = new File(ReadAtributos.class.getResource("/ficheros/AtributosJuego.txt").getFile());
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
@@ -21,7 +21,6 @@ public final class readAtributos {
 		    	String[] atributos = line.split(",");
 		    	for(String atributo : atributos){
 		    		Datos.addAtributo(new Atributo(atributo));
-		    		System.out.println(atributo);
 		    	}
 		    }
 		} catch (IOException e) {

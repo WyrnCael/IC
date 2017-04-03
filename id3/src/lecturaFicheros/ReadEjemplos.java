@@ -12,10 +12,10 @@ import estructuras.Ejemplo;
 import estructuras.Ejemplos;
 import estructuras.Resultado;
 
-public final class readEjemplos {
+public final class ReadEjemplos {
 	
 	public static void read(){
-		File file = new File(readEjemplos.class.getResource("/ficheros/Juego.txt").getFile());
+		File file = new File(ReadEjemplos.class.getResource("/ficheros/Juego.txt").getFile());
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
@@ -29,7 +29,6 @@ public final class readEjemplos {
 		    			ejemplos.addAtributo(new Ejemplo(atributo));
 		    		else
 		    			Datos.addResultado(new Resultado(atributo));
-		    		System.out.println(atributo);
 		    		pos++;
 		    	}		
 		    	Datos.addEjemplos(ejemplos);
