@@ -6,6 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import datos.Datos;
+import estructuras.Atributo;
+
 public final class readAtributos {
 	
 	public static void read(){
@@ -15,7 +18,11 @@ public final class readAtributos {
 		    String line;
 		    while ((line = br.readLine()) != null) {
 		       // process the line.
-		    	System.out.println(line);
+		    	String[] atributos = line.split(",");
+		    	for(String atributo : atributos){
+		    		Datos.addAtributo(new Atributo(atributo));
+		    		System.out.println(atributo);
+		    	}
 		    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
