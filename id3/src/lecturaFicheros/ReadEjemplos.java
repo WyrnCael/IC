@@ -19,19 +19,22 @@ public final class ReadEjemplos {
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
+		    int i = 0;
 		    while ((line = br.readLine()) != null) {
 		       // process the line.
 		    	String[] lineas = line.split(",");
-		    	int pos = 0;
+		    	int pos = 0;		    	
 		    	Ejemplos ejemplos = new Ejemplos();
 		    	for(String atributo : lineas){		    		
-		    		if(pos < Datos.getAtributos().size() - 1)
-		    			ejemplos.addEjemplo(new Ejemplo(atributo));
+		    		if(pos < Datos.getAtributos().size() - 1){
+		    			ejemplos.addEjemplo(new Ejemplo(atributo, i));		    			
+		    		}
 		    		else
 		    			Datos.addResultado(new Resultado(atributo));
 		    		pos++;
 		    	}		
 		    	Datos.addEjemplos(ejemplos);
+		    	i++;
 		    }
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

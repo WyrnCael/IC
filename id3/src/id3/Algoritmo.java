@@ -33,24 +33,22 @@ public class Algoritmo {
 		for(int i = 0; i < atributos.size(); i++){
 			Nodo arbol = new Nodo(atributos.get(i).getNombre());
 			
-			int j = 0;
 			for(Ejemplos ejs: Datos.getEjemplos()){
 				boolean encontrado = false;
 				String nombre = ejs.getEjemplos().get(i).getNombre();
 				for(Nodo hijo: arbol.getHijos()){					
 					if(hijo.getNombre().equals(nombre)){
 						encontrado = true;
-						setPositivoNegativo(hijo, j);
+						setPositivoNegativo(hijo, ejs.getEjemplos().get(i).getPos());
 						hijo.addEjemplos(ejs);
 					}				
 				}
 				if(!encontrado) {
 					Nodo hijoNuevo = new Nodo(nombre);			
 					arbol.addHijo(hijoNuevo);
-					setPositivoNegativo(hijoNuevo, j);
+					setPositivoNegativo(hijoNuevo, ejs.getEjemplos().get(i).getPos());
 					hijoNuevo.addEjemplos(ejs);
 				}
-				j++;
 			}
 			getEHijos(arbol);
 			if(mejor == null)
@@ -67,42 +65,53 @@ public class Algoritmo {
 		System.out.println("");
 		System.out.println("Nueva recursion " + mejor.getNombre());
 		
-		// Quitamos el mejor anterior
-		int nAtr = -1;
-		for(int i = 0; i < atributos.size(); i++){
-			if(atributos.get(i).getNombre().equals(mejor.getNombre()))
-				nAtr = i;
-			else
-				aux.add(new Atributo(atributos.get(i).getNombre()));
-		}
-		
-		for(Nodo hijo: mejor.getHijos()){
-			for(int i = 0; i < hijo.getEjemplos().size(); i++){
-				for(int j = 0; j < hijo.getEjemplos().get(i).getEjemplos().size(); j++){
-					if(j == nAtr){
-						hijo.getEjemplos().get(i).getEjemplos().remove(j);
-					}
-				}
-			}
-			
-			System.out.println("");
-			System.out.println("Nueva recursion hijo " + hijo.getNombre());
-			Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);
-			if(nuevoMejor == null){
+		if(atributos.size() == 1){
+			for(Nodo hijo: mejor.getHijos()){
+				System.out.println("");
+				System.out.println("Nueva recursion hijo " + hijo.getNombre());
 				if(hijo.getPositivos() > 0 && hijo.getNegativos() == 0){
 					hijo.addHijo(new Nodo("SI"));
 					System.out.println("SI");
 				} else if (hijo.getNegativos() > 0 && hijo.getPositivos() == 0){
 					hijo.addHijo(new Nodo("NO"));
 					System.out.println("NO");
-				} else {
-					hijo.addHijo(new Nodo("INDETERMINADO"));
-					System.out.println("INDETERMINADO");
+				} 
+			}		
+		}
+		else{
+			// Quitamos el mejor anterior
+			int nAtr = -1;
+			for(int i = 0; i < atributos.size(); i++){
+				if(atributos.get(i).getNombre().equals(mejor.getNombre()))
+					nAtr = i;
+				else
+					aux.add(new Atributo(atributos.get(i).getNombre()));
+			}
+			
+			for(Nodo hijo: mejor.getHijos()){
+				for(int i = 0; i < hijo.getEjemplos().size(); i++){
+					for(int j = 0; j < hijo.getEjemplos().get(i).getEjemplos().size(); j++){
+						if(j == nAtr){
+							hijo.getEjemplos().get(i).getEjemplos().remove(j);
+						}
+					}
 				}
-			} else {					
-				System.out.println(nuevoMejor.getNombre());
-				recursividadTotal(nuevoMejor, aux);
-			}	
+				
+				System.out.println("");
+				System.out.println("Nueva recursion hijo " + hijo.getNombre());
+				Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);			
+				if(nuevoMejor.getPositivos() > 0 && nuevoMejor.getNegativos() == 0){
+					hijo.addHijo(new Nodo("SI"));
+					System.out.println("SI");
+				} else if (nuevoMejor.getNegativos() > 0 && nuevoMejor.getPositivos() == 0){
+					hijo.addHijo(new Nodo("NO"));
+					System.out.println("NO");
+				} else {	
+					hijo.addHijo(nuevoMejor);
+					System.out.println(nuevoMejor.getNombre());
+					recursividadTotal(nuevoMejor, aux);
+				}	
+			}		
 		}		
 	}
 	
@@ -113,24 +122,22 @@ public class Algoritmo {
 		for(int i = 0; i < atributos.size(); i++){
 			Nodo arbol = new Nodo(atributos.get(i).getNombre());
 			
-			int j = 0;
 			for(Ejemplos ejs: actual.getEjemplos()){
 				boolean encontrado = false;
 				String nombre = ejs.getEjemplos().get(i).getNombre();
 				for(Nodo hijo: arbol.getHijos()){					
 					if(hijo.getNombre().equals(nombre)){
 						encontrado = true;
-						setPositivoNegativo(hijo, j);
+						setPositivoNegativo(hijo, ejs.getEjemplos().get(i).getPos());
 						hijo.addEjemplos(ejs);
 					}				
 				}
 				if(!encontrado) {
 					Nodo hijoNuevo = new Nodo(nombre);			
 					arbol.addHijo(hijoNuevo);
-					setPositivoNegativo(hijoNuevo, j);
+					setPositivoNegativo(hijoNuevo, ejs.getEjemplos().get(i).getPos());
 					hijoNuevo.addEjemplos(ejs);
 				}
-				j++;
 			}
 			getEHijos(arbol);
 			if(mejor == null)
