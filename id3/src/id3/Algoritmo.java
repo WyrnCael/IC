@@ -20,6 +20,10 @@ public class Algoritmo {
 			atributos.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
 		Nodo mejor = rellenaArbol(atributos);		
 		System.out.println(mejor.getNombre());
+		recursividadTotal(mejor, atributos);
+		
+		System.out.println("------------");
+		pintaArbol(mejor);
 	}
 	
 	private Nodo rellenaArbol(ArrayList<Atributo> atributos){
@@ -37,12 +41,14 @@ public class Algoritmo {
 					if(hijo.getNombre().equals(nombre)){
 						encontrado = true;
 						setPositivoNegativo(hijo, j);
+						hijo.addEjemplos(ejs);
 					}				
 				}
 				if(!encontrado) {
 					Nodo hijoNuevo = new Nodo(nombre);			
 					arbol.addHijo(hijoNuevo);
 					setPositivoNegativo(hijoNuevo, j);
+					hijoNuevo.addEjemplos(ejs);
 				}
 				j++;
 			}
@@ -57,11 +63,71 @@ public class Algoritmo {
 	}
 	
 	private void recursividadTotal(Nodo mejor, ArrayList<Atributo> atributos){
-		ArrayList<Atributo> aux = atributos;
-		for(int i = 0; i < atributos.size(); i++)
-			aux.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
-		//Nodo mejor = rellenaArbol();		
-		System.out.println(mejor.getNombre());
+		ArrayList<Atributo> aux = new ArrayList<Atributo>();
+		System.out.println("");
+		System.out.println("Nueva recursion " + mejor.getNombre());
+		
+		// Quitamos el mejor anterior
+		int nAtr = 0;
+		for(int i = 0; i < atributos.size(); i++){
+			if(atributos.get(i).getNombre().equals(mejor.getNombre()))
+				nAtr = i;
+			else
+				aux.add(new Atributo(atributos.get(i).getNombre()));
+		}
+		
+		for(Nodo hijo: mejor.getHijos()){
+			for(int i = 0; i < hijo.getEjemplos().size(); i++){
+				for(int j = 0; j < hijo.getEjemplos().get(i).getEjemplos().size(); j++){
+					if(j == nAtr){
+						hijo.getEjemplos().get(i).getEjemplos().remove(j);
+					}
+				}
+			}
+			
+			System.out.println("");
+			System.out.println("Nueva recursion hijo " + hijo.getNombre());
+			Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);
+			//System.out.println("Nuevo mejor " + nuevoMejor.getNombre());
+			//System.out.println(nuevoMejor.getNombre());
+			if(nuevoMejor != null) recursividadTotal(nuevoMejor, aux);
+		}		
+	}
+	
+	private Nodo rellenaArbolRecursividad(Nodo actual, ArrayList<Atributo> atributos){
+		Nodo mejor = null;
+		
+		// Contar positivos y negativos de cada atributo
+		for(int i = 0; i < atributos.size(); i++){
+			Nodo arbol = new Nodo(atributos.get(i).getNombre());
+			
+			int j = 0;
+			for(Ejemplos ejs: actual.getEjemplos()){
+				boolean encontrado = false;
+				String nombre = ejs.getEjemplos().get(i).getNombre();
+				for(Nodo hijo: arbol.getHijos()){					
+					if(hijo.getNombre().equals(nombre)){
+						encontrado = true;
+						setPositivoNegativo(hijo, j);
+						hijo.addEjemplos(ejs);
+					}				
+				}
+				if(!encontrado) {
+					Nodo hijoNuevo = new Nodo(nombre);			
+					arbol.addHijo(hijoNuevo);
+					setPositivoNegativo(hijoNuevo, j);
+					hijoNuevo.addEjemplos(ejs);
+				}
+				j++;
+			}
+			getEHijos(arbol);
+			if(mejor == null)
+				mejor = arbol;
+			else if (mejor.getEntropia() < arbol.getEntropia())
+				mejor = arbol;			
+		}
+		
+		return mejor;
 	}
 	
 	private void setPositivoNegativo(Nodo nodo, int i){
@@ -102,5 +168,14 @@ public class Algoritmo {
 		}
 		
 		return r*entropia;
+	}
+	
+	private void pintaArbol(Nodo origen){
+		System.out.println("");
+		System.out.println("Origen: " + origen.getNombre());
+		for(Nodo hijo : origen.getHijos()){
+			System.out.println(hijo.getNombre());
+			pintaArbol(hijo);
+		}
 	}
 }
