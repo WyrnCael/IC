@@ -4,13 +4,17 @@ import java.util.ArrayList;
 
 public class Nodo {
 	private ArrayList<Nodo> hijos;
-	private int positivos;
-	private int negativos;
+	private double positivos;
+	private double negativos;
+	private double num;
+	private String nombre;
 	
-	public Nodo(){
+	public Nodo(String nombre){
 		hijos = new ArrayList<Nodo>();
 		this.positivos = 0;
 		this.negativos = 0;
+		this.num = 0;
+		this.nombre = nombre;
 	}
 
 	public ArrayList<Nodo> getHijos() {
@@ -25,8 +29,16 @@ public class Nodo {
 		this.hijos.add(hijo);
 	}
 
-	public int getPositivos() {
+	public double getPositivos() {
 		return positivos;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public void setPositivos(int positivos) {
@@ -37,7 +49,7 @@ public class Nodo {
 		this.positivos++;
 	}
 
-	public int getNegativos() {
+	public double getNegativos() {
 		return negativos;
 	}
 
@@ -47,5 +59,17 @@ public class Nodo {
 	
 	public void addNegativo(){
 		this.negativos++;
+	}
+
+	public double getNum() {
+		return num;
+	}
+
+	public void setNum(int num) {
+		this.num = num;
+	}
+	
+	public void addNum(){
+		this.num++;
 	}
 }

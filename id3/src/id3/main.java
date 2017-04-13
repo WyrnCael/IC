@@ -16,7 +16,7 @@ public class main {
 		
 		
 		for(Ejemplos ejs : Datos.getEjemplos()){
-			for(Ejemplo ej: ejs.getAtributos()){
+			for(Ejemplo ej: ejs.getEjemplos()){
 				System.out.print(ej.getNombre() + ",");
 			}			
 			System.out.println(" ");
@@ -25,5 +25,8 @@ public class main {
 		for(Resultado res : Datos.getResultados()){
 			System.out.println(res.isSePuede());
 		}
+		
+		Algoritmo alg = new Algoritmo();
+		alg.getAlgorythm();
 	}
 }

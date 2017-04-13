@@ -9,15 +9,15 @@ public class Ejemplos {
 		this.ejemplos = new ArrayList<Ejemplo>();
 	}
 
-	public ArrayList<Ejemplo> getAtributos() {
+	public ArrayList<Ejemplo> getEjemplos() {
 		return ejemplos;
 	}
 
-	public void setAtributos(ArrayList<Ejemplo> Ejemplo) {
+	public void setEjemplos(ArrayList<Ejemplo> Ejemplo) {
 		this.ejemplos = Ejemplo;
 	}
 	
-	public void addAtributo(Ejemplo ejemplo){
+	public void addEjemplo(Ejemplo ejemplo){
 		this.ejemplos.add(ejemplo);
 	}
 }

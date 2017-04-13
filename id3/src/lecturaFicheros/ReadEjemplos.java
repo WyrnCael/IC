@@ -26,7 +26,7 @@ public final class ReadEjemplos {
 		    	Ejemplos ejemplos = new Ejemplos();
 		    	for(String atributo : lineas){		    		
 		    		if(pos < Datos.getAtributos().size() - 1)
-		    			ejemplos.addAtributo(new Ejemplo(atributo));
+		    			ejemplos.addEjemplo(new Ejemplo(atributo));
 		    		else
 		    			Datos.addResultado(new Resultado(atributo));
 		    		pos++;
