@@ -1,5 +1,7 @@
 package id3;
 
+import java.util.ArrayList;
+
 import datos.Datos;
 import estructuras.Atributo;
 import estructuras.Ejemplo;
@@ -7,16 +9,25 @@ import estructuras.Ejemplos;
 import estructuras.Nodo;
 
 public class Algoritmo {
-
+	
 	public Algoritmo(){
 		
 	}
 	
 	public void getAlgorythm(){
+		ArrayList<Atributo> atributos = new ArrayList<Atributo>();
+		for(int i = 0; i < Datos.getAtributos().size() - 1; i++)
+			atributos.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
+		Nodo mejor = rellenaArbol(atributos);		
+		System.out.println(mejor.getNombre());
+	}
+	
+	private Nodo rellenaArbol(ArrayList<Atributo> atributos){
+		Nodo mejor = null;
 		
 		// Contar positivos y negativos de cada atributo
-		for(int i = 0; i < Datos.getAtributos().size() - 1; i++){
-			Nodo arbol = new Nodo(Datos.getAtributos().get(i).getNombre());
+		for(int i = 0; i < atributos.size(); i++){
+			Nodo arbol = new Nodo(atributos.get(i).getNombre());
 			
 			int j = 0;
 			for(Ejemplos ejs: Datos.getEjemplos()){
@@ -34,11 +45,23 @@ public class Algoritmo {
 					setPositivoNegativo(hijoNuevo, j);
 				}
 				j++;
-			}	
+			}
 			getEHijos(arbol);
+			if(mejor == null)
+				mejor = arbol;
+			else if (mejor.getEntropia() < arbol.getEntropia())
+				mejor = arbol;			
 		}
 		
-		
+		return mejor;
+	}
+	
+	private void recursividadTotal(Nodo mejor, ArrayList<Atributo> atributos){
+		ArrayList<Atributo> aux = atributos;
+		for(int i = 0; i < atributos.size(); i++)
+			aux.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
+		//Nodo mejor = rellenaArbol();		
+		System.out.println(mejor.getNombre());
 	}
 	
 	private void setPositivoNegativo(Nodo nodo, int i){
@@ -56,7 +79,9 @@ public class Algoritmo {
 			e += G(hijo);
 		}
 		
+		System.out.println(arbol.getNombre());
 		System.out.println(e);
+		arbol.setEntropia(e);
 	}
 	
 	private double G(Nodo nodo){

@@ -7,6 +7,7 @@ public class Nodo {
 	private double positivos;
 	private double negativos;
 	private double num;
+	private double entropia;
 	private String nombre;
 	
 	public Nodo(String nombre){
@@ -15,6 +16,7 @@ public class Nodo {
 		this.negativos = 0;
 		this.num = 0;
 		this.nombre = nombre;
+		this.entropia = 0;
 	}
 
 	public ArrayList<Nodo> getHijos() {
@@ -71,5 +73,13 @@ public class Nodo {
 	
 	public void addNum(){
 		this.num++;
+	}
+
+	public double getEntropia() {
+		return entropia;
+	}
+
+	public void setEntropia(double entropia) {
+		this.entropia = entropia;
 	}
 }
