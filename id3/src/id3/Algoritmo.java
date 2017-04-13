@@ -68,7 +68,7 @@ public class Algoritmo {
 		System.out.println("Nueva recursion " + mejor.getNombre());
 		
 		// Quitamos el mejor anterior
-		int nAtr = 0;
+		int nAtr = -1;
 		for(int i = 0; i < atributos.size(); i++){
 			if(atributos.get(i).getNombre().equals(mejor.getNombre()))
 				nAtr = i;
@@ -88,9 +88,21 @@ public class Algoritmo {
 			System.out.println("");
 			System.out.println("Nueva recursion hijo " + hijo.getNombre());
 			Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);
-			//System.out.println("Nuevo mejor " + nuevoMejor.getNombre());
-			//System.out.println(nuevoMejor.getNombre());
-			if(nuevoMejor != null) recursividadTotal(nuevoMejor, aux);
+			if(nuevoMejor == null){
+				if(hijo.getPositivos() > 0 && hijo.getNegativos() == 0){
+					hijo.addHijo(new Nodo("SI"));
+					System.out.println("SI");
+				} else if (hijo.getNegativos() > 0 && hijo.getPositivos() == 0){
+					hijo.addHijo(new Nodo("NO"));
+					System.out.println("NO");
+				} else {
+					hijo.addHijo(new Nodo("INDETERMINADO"));
+					System.out.println("INDETERMINADO");
+				}
+			} else {					
+				System.out.println(nuevoMejor.getNombre());
+				recursividadTotal(nuevoMejor, aux);
+			}	
 		}		
 	}
 	
