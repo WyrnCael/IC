@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
 import estructuras.Nodo;
 import id3.Algoritmo;
@@ -63,6 +64,7 @@ public class MainWindow extends JFrame {
 		
 		GraphEditor Graph = new GraphEditor(arbol);
 		JScrollPane jscroll = new JScrollPane(Graph);
+		jscroll.setBorder(new TitledBorder("Árbol de decisión:"));
 		getContentPane().add(jscroll, BorderLayout.CENTER);
 		
 		JPanel panel = new JPanel();

@@ -54,8 +54,10 @@ public class BuscarSolucion extends JPanel {
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Verdadero", "Falso"}));
 		
 		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Alta", "Normal"}));
 		
 		JLabel label_2 = new JLabel("Humedad:");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -64,8 +66,10 @@ public class BuscarSolucion extends JPanel {
 		label_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Caluroso", "Templado", "Frio"}));
 		
 		JComboBox comboBox_3 = new JComboBox();
+		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"Soleado", "Nublado", "Lluvioso"}));
 		
 		JLabel label_4 = new JLabel("Tiempo exterior:");
 		label_4.setFont(new Font("Tahoma", Font.PLAIN, 16));

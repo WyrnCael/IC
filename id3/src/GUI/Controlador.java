@@ -34,9 +34,9 @@ public class Controlador {
 		for(AtributoEntropia atr: nodo.getAtributosentorpias()){
 			JLabel texto = new JLabel("  " + atr.getNombre() + ": " + df.format(atr.getEntropia()));
 			if(nodo.getNombre().equals(atr.getNombre())) 
-				texto.setFont(new Font("Courier New", Font.BOLD, 15));
+				texto.setFont(new Font("Tahoma", Font.BOLD, 14));
 			else{
-				texto.setFont(new Font("Courier New", Font.PLAIN, 14));
+				texto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			}
 			jEntropias.addLabel(texto);
 		}

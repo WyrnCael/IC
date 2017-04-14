@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import java.awt.Font;
 import java.awt.font.TextAttribute;
@@ -20,6 +21,8 @@ public class Entropias extends JPanel {
 	}
 	
 	public void addLabel(JLabel label){
+		label.setAlignmentX(CENTER_ALIGNMENT);
+		label.setAlignmentY(CENTER_ALIGNMENT);
 		add(label);
 	}
 	
@@ -27,7 +30,7 @@ public class Entropias extends JPanel {
 	public void removeAll(){
 		super.removeAll();
 		JLabel titulo = new JLabel("Entropias:");
-		titulo.setFont(new Font("Courier New", Font.BOLD, 18));
+		titulo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		Font font = titulo.getFont();
 		Map attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
@@ -35,6 +38,7 @@ public class Entropias extends JPanel {
 		titulo.setAlignmentX(CENTER_ALIGNMENT);
 		titulo.setAlignmentY(CENTER_ALIGNMENT);
 		add(titulo);
+		setBorder(new TitledBorder("Entropías del nodo:"));
 		add(new JLabel(" "));
 	}
 
