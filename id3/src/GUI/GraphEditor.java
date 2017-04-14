@@ -21,7 +21,8 @@ public class GraphEditor  extends JFrame
 	private static final long serialVersionUID = -2707712944901661771L;
 
 	private ArrayList<Object> vertices;
-	private int pos;
+	private int x;
+	private int y;
 	
 	public GraphEditor(Nodo arbol)
 	{
@@ -37,7 +38,9 @@ public class GraphEditor  extends JFrame
 		{
 			vertices.add(graph.insertVertex(parent, null, arbol.getNombre(), 20, 20, 80,
 					30));	
-			dibujaArbol(arbol, parent, graph, 0, -80, 20);
+			x = 20;
+			y = 20;
+			dibujaArbol(arbol, parent, graph, 0);
 			/*Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80,
 					30);
 			Object v2 = graph.insertVertex(parent, null, "World!", 240, 150,
@@ -53,18 +56,20 @@ public class GraphEditor  extends JFrame
 		getContentPane().add(graphComponent);
 	}
 	
-	private void dibujaArbol(Nodo arbol, Object parent, mxGraph graph, int pos, int x, int y){
+	private void dibujaArbol(Nodo arbol, Object parent, mxGraph graph, int pos){
 		y += 100;
 		for(int i = 0; i < arbol.getHijos().size(); i++){			
-			x += 100;
+			if( i > 0 ) x += 100;
 			Object vert = graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(0).getNombre(), x, y, 80,
 					30);
 			vertices.add(vert);
 			int aux = vertices.indexOf(vert);
-			graph.insertEdge(parent, null, arbol.getHijos().get(i).getNombre(), vertices.get(pos), vertices.get(aux));
+			graph.insertEdge(parent, null, arbol.getHijos().get(i).getNombre(), vertices.get(pos), vertices.get(aux));			
 			
-			dibujaArbol(arbol.getHijos().get(i).getHijos().get(0), parent, graph, aux, x-100, y);			
+			dibujaArbol(arbol.getHijos().get(i).getHijos().get(0), parent, graph, aux);	
+			y -= 100;
 		}
+		
 	}
 
 	public static void main(String[] args)
@@ -77,7 +82,8 @@ public class GraphEditor  extends JFrame
 		
 		GraphEditor frame = new GraphEditor(arbol);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(400, 320);
+		frame.setSize(1200, 800);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 
