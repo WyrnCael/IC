@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -46,11 +47,6 @@ public class GraphEditor  extends JFrame
 			x = 20;
 			y = 20;
 			dibujaArbol(arbol, parent, graph, 0);
-			/*Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80,
-					30);
-			Object v2 = graph.insertVertex(parent, null, "World!", 240, 150,
-					80, 30);
-			graph.insertEdge(parent, null, "Edge", v1, v2);*/
 		}
 		finally
 		{
@@ -58,6 +54,7 @@ public class GraphEditor  extends JFrame
 		}
 
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
+		graphComponent.setEnabled(false);
 		getContentPane().add(graphComponent);
 		
 		graphComponent.getGraphControl().addMouseListener(new MouseListener() {
@@ -77,13 +74,13 @@ public class GraphEditor  extends JFrame
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				getContentPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				
+				getContentPane().setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
@@ -112,8 +109,17 @@ public class GraphEditor  extends JFrame
 		y += 100;
 		for(int i = 0; i < arbol.getHijos().size(); i++){			
 			if( i > 0 ) x += 100;
-			Object vert = graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(0), x, y, 80,
-					30);
+			Object vert = null;
+			if(arbol.getHijos().get(i).getHijos().get(0).getNombre().equals("SI")){
+				vert = graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(0), x, y, 80,
+						30, "defaultVertex;fillColor=lightgreen");
+			} else if (arbol.getHijos().get(i).getHijos().get(0).getNombre().equals("NO")){
+				vert = graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(0), x, y, 80,
+						30, "defaultVertex;fillColor=#FF8888");
+			} else {
+				vert = graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(0), x, y, 80,
+						30);
+			}
 			vertices.add(vert);
 			int aux = vertices.indexOf(vert);
 			graph.insertEdge(parent, null, arbol.getHijos().get(i).getNombre(), vertices.get(pos), vertices.get(aux));			
