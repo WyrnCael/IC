@@ -17,7 +17,7 @@ public class main {
 		
 		for(Ejemplos ejs : Datos.getEjemplos()){
 			for(Ejemplo ej: ejs.getEjemplos()){
-				System.out.print(ej.getNombre() + ",");
+				System.out.print(ej.getNombre() + "," + ej.getPos() + ",");
 			}			
 			System.out.println(" ");
 		}

@@ -7,7 +7,9 @@ public class Nodo {
 	private double positivos;
 	private double negativos;
 	private double num;
+	private double entropia;
 	private String nombre;
+	private ArrayList<Ejemplos> ejemplos;
 	
 	public Nodo(String nombre){
 		hijos = new ArrayList<Nodo>();
@@ -15,6 +17,8 @@ public class Nodo {
 		this.negativos = 0;
 		this.num = 0;
 		this.nombre = nombre;
+		this.entropia = 0;
+		this.ejemplos = new ArrayList<Ejemplos>();
 	}
 
 	public ArrayList<Nodo> getHijos() {
@@ -71,5 +75,25 @@ public class Nodo {
 	
 	public void addNum(){
 		this.num++;
+	}
+
+	public double getEntropia() {
+		return entropia;
+	}
+
+	public void setEntropia(double entropia) {
+		this.entropia = entropia;
+	}
+
+	public ArrayList<Ejemplos> getEjemplos() {
+		return ejemplos;
+	}
+
+	public void setEjemplos(ArrayList<Ejemplos> ejemplos) {
+		this.ejemplos = ejemplos;
+	}
+	
+	public void addEjemplos(Ejemplos ejemplos){
+		this.ejemplos.add(ejemplos);
 	}
 }
