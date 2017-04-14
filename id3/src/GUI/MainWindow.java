@@ -26,7 +26,16 @@ public class MainWindow extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {		
+	public static void main(String[] args) {	
+		
+		ReadAtributos.read();
+		ReadEjemplos.read();
+		
+		Algoritmo alg = new Algoritmo();
+		Nodo arbol = alg.getAlgorythm();
+		
+		Controlador.getInstance().setArbol(arbol);
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -52,17 +61,11 @@ public class MainWindow extends JFrame {
 	public MainWindow() {
 		super("ID3 - Juan José Prieto");
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		ReadAtributos.read();
-		ReadEjemplos.read();
-		
-		Algoritmo alg = new Algoritmo();
-		Nodo arbol = alg.getAlgorythm();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
 		
 		getContentPane().setLayout(new BorderLayout());
 		
-		GraphEditor Graph = new GraphEditor(arbol);
+		GraphEditor Graph = new GraphEditor(Controlador.getInstance().getArbol());
 		JScrollPane jscroll = new JScrollPane(Graph);
 		jscroll.setBorder(new TitledBorder("Árbol de decisión:"));
 		getContentPane().add(jscroll, BorderLayout.CENTER);
@@ -79,7 +82,7 @@ public class MainWindow extends JFrame {
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				Controlador.getInstance().setEntropias(arbol);
+				Controlador.getInstance().setEntropias(Controlador.getInstance().getArbol());
 			}
 		});		
 	}

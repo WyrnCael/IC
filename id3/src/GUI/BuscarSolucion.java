@@ -6,15 +6,33 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
+
+import datos.Datos;
+import estructuras.Atributo;
+import estructuras.Ejemplo;
+
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
 public class BuscarSolucion extends JPanel {
-	private JTextField textField;
+	private JTextField textFieldresultado;
+	private JComboBox comboBoxViento;
+	private JComboBox comboBoxHumedad;
+	private JComboBox comboBoxtemperatura;
+	private JComboBox comboBoxTiempoExterior;
+	private String[] modelViento = new String[] {"Verdad", "Falso"};
+	private String[] modelHumedad = new String[] {"Alta", "Normal"};
+	private String[] modelTemperatura = new String[] {"Caluroso", "Templado", "Frio"};
+	private String[] modelTiempoExterior = new String[] {"Soleado", "Nublado", "Lluvioso"};
+	
 
 	/**
 	 * Create the panel.
@@ -44,35 +62,41 @@ public class BuscarSolucion extends JPanel {
 					.addGap(12))
 		);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		textFieldresultado = new JTextField();
+		textFieldresultado.setColumns(10);		
 		
 		JLabel label = new JLabel("Resultado:");
 		label.setFont(new Font("Tahoma", Font.BOLD, 17));
 		
-		JLabel label_1 = new JLabel("Viento:");
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel labelviento = new JLabel("Viento:");
+		labelviento.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Verdadero", "Falso"}));
+		comboBoxViento = new JComboBox();
+		comboBoxViento.setModel(new DefaultComboBoxModel(modelViento));
+		comboBoxViento.addItemListener(new CustomItemListener());
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Alta", "Normal"}));
+		comboBoxHumedad = new JComboBox();
+		comboBoxHumedad.setModel(new DefaultComboBoxModel(modelHumedad));
+		comboBoxHumedad.addItemListener(new CustomItemListener());
 		
-		JLabel label_2 = new JLabel("Humedad:");
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel labelHumedad = new JLabel("Humedad:");
+		labelHumedad.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JLabel label_3 = new JLabel("Temperatura:");
-		label_3.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		JLabel labelTemperatura = new JLabel("Temperatura:");
+		labelTemperatura.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"Caluroso", "Templado", "Frio"}));
+		comboBoxtemperatura = new JComboBox();
+		comboBoxtemperatura.setModel(new DefaultComboBoxModel(modelTemperatura));
+		comboBoxtemperatura.addItemListener(new CustomItemListener());
 		
-		JComboBox comboBox_3 = new JComboBox();
-		comboBox_3.setModel(new DefaultComboBoxModel(new String[] {"Soleado", "Nublado", "Lluvioso"}));
+		comboBoxTiempoExterior = new JComboBox();
+		comboBoxTiempoExterior.setModel(new DefaultComboBoxModel(modelTiempoExterior));
+		comboBoxTiempoExterior.addItemListener(new CustomItemListener());
 		
-		JLabel label_4 = new JLabel("Tiempo exterior:");
-		label_4.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		textFieldresultado.setText(Controlador.getInstance().compruebaDatos(getDatos()));
+		
+		JLabel labelTiempoExterior = new JLabel("Tiempo exterior:");
+		labelTiempoExterior.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -80,25 +104,25 @@ public class BuscarSolucion extends JPanel {
 					.addContainerGap()
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addComponent(labelTiempoExterior, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addGap(12)
-							.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxTiempoExterior, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addComponent(labelTemperatura, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addGap(12)
-							.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxtemperatura, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addComponent(labelHumedad, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addGap(12)
-							.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxHumedad, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+							.addComponent(labelviento, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
 							.addGap(12)
-							.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
+							.addComponent(comboBoxViento, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup()
 							.addComponent(label, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 							.addGap(39)
-							.addComponent(textField, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+							.addComponent(textFieldresultado, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
 							.addGap(14)))
 					.addGap(20))
 		);
@@ -109,36 +133,61 @@ public class BuscarSolucion extends JPanel {
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(1)
-							.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addComponent(comboBox_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(labelTiempoExterior, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxTiempoExterior, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(1)
-							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addComponent(comboBox_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(labelTemperatura, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxtemperatura, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(1)
-							.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addComponent(comboBox_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(labelHumedad, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxHumedad, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(6)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(1)
-							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addComponent(labelviento, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBoxViento, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(28)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addComponent(label, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(2)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(textFieldresultado, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
 		setLayout(groupLayout);
+	}
+	
+	public class CustomItemListener implements ItemListener{
 
+		@Override
+		public void itemStateChanged(ItemEvent e) {
+			// TODO Auto-generated method stub
+			
+			
+			String resultado = Controlador.getInstance().compruebaDatos(getDatos());
+			textFieldresultado.setText(resultado);
+			
+			revalidate();
+			repaint();			
+		}
+		
+	}
+	
+	private ArrayList<Ejemplo> getDatos(){
+		ArrayList<Ejemplo> datos = new ArrayList<Ejemplo>();
+		datos.add(new Ejemplo(modelTiempoExterior[comboBoxTiempoExterior.getSelectedIndex()].toLowerCase(), 0));
+		datos.add(new Ejemplo(modelTemperatura[comboBoxtemperatura.getSelectedIndex()].toLowerCase(), 1));
+		datos.add(new Ejemplo(modelHumedad[comboBoxHumedad.getSelectedIndex()].toLowerCase(), 2));
+		datos.add(new Ejemplo(modelViento[comboBoxViento.getSelectedIndex()].toLowerCase(), 3));
+		
+		return datos;
 	}
 }

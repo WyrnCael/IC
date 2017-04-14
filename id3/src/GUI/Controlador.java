@@ -9,11 +9,15 @@ import java.util.Map;
 
 import javax.swing.JLabel;
 
+import datos.Datos;
+import estructuras.Atributo;
 import estructuras.AtributoEntropia;
+import estructuras.Ejemplo;
 import estructuras.Nodo;
 
 public class Controlador {
 	private static Controlador instance = null;
+	private Nodo arbol;
 	
 	public Controlador(){
 		
@@ -21,9 +25,8 @@ public class Controlador {
 	
 	public static Controlador getInstance(){
 		if(instance == null)
-			return new Controlador();
-		else
-			return instance;
+			instance = new Controlador();
+		return instance;
 	}
 	
 	public void setEntropias(Nodo nodo){
@@ -43,5 +46,42 @@ public class Controlador {
 		jEntropias.addLabel(new JLabel(" "));
 		jEntropias.revalidate();
 		jEntropias.repaint();
+	}
+
+	public Nodo getArbol() {
+		return arbol;
+	}
+
+	public void setArbol(Nodo arbol) {
+		this.arbol = arbol;
+	}
+	
+	public String compruebaDatos(ArrayList<Ejemplo> datos){
+		String aux = encuentraSolucion(arbol, datos);
+		return encuentraSolucion(arbol, datos);
+	}
+	
+	private String encuentraSolucion(Nodo nodo, ArrayList<Ejemplo> datos){
+		if(nodo.getNombre().equals("SI")){
+			return "SI";
+		} else if (nodo.getNombre().equals("NO")){
+			return "NO";
+		} else {
+			int index = -1;
+			for(Atributo atr: Datos.getAtributos()){
+				if(atr.getNombre().equals(nodo.getNombre())){
+					index = Datos.getAtributos().indexOf(atr);
+				}
+			}
+			
+			int i = 0;
+			while(i < nodo.getHijos().size() && !datos.get(index).getNombre().equals(nodo.getHijos().get(i).getNombre())){				
+				i++;
+			}
+			if(i >= nodo.getHijos().size())
+				return "INDETERMINADO";
+			else
+				return encuentraSolucion(nodo.getHijos().get(i).getHijos().get(0), datos);
+		}			
 	}
 }
