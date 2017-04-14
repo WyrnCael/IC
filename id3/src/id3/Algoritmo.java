@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import datos.Datos;
 import estructuras.Atributo;
+import estructuras.AtributoEntropia;
 import estructuras.Ejemplo;
 import estructuras.Ejemplos;
 import estructuras.Nodo;
@@ -52,10 +53,17 @@ public class Algoritmo {
 				}
 			}
 			getEHijos(arbol);
-			if(mejor == null)
+			if(mejor == null){
 				mejor = arbol;
-			else if (mejor.getEntropia() < arbol.getEntropia())
+				mejor.addAtributosentorpias(new AtributoEntropia(arbol.getNombre(), arbol.getEntropia()));
+			}
+			else{
+				mejor.addAtributosentorpias(new AtributoEntropia(arbol.getNombre(), arbol.getEntropia()));
+			}			
+			if (mejor.getEntropia() < arbol.getEntropia()){
+				arbol.setAtributosentorpias(mejor.getAtributosentorpias());
 				mejor = arbol;			
+			}	
 		}
 		
 		return mejor;
@@ -140,12 +148,19 @@ public class Algoritmo {
 					setPositivoNegativo(hijoNuevo, ejs.getEjemplos().get(i).getPos());
 					hijoNuevo.addEjemplos(ejs);
 				}
-			}
+			}	
 			getEHijos(arbol);
-			if(mejor == null)
+			if(mejor == null){
 				mejor = arbol;
-			else if (mejor.getEntropia() < arbol.getEntropia())
+				mejor.addAtributosentorpias(new AtributoEntropia(atributos.get(i).getNombre(), arbol.getEntropia()));
+			}
+			else{
+				mejor.addAtributosentorpias(new AtributoEntropia(atributos.get(i).getNombre(), arbol.getEntropia()));
+			}			
+			if (mejor.getEntropia() < arbol.getEntropia()){
+				arbol.setAtributosentorpias(mejor.getAtributosentorpias());
 				mejor = arbol;			
+			}
 		}
 		
 		return mejor;

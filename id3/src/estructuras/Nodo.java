@@ -10,6 +10,7 @@ public class Nodo {
 	private double entropia;
 	private String nombre;
 	private ArrayList<Ejemplos> ejemplos;
+	private ArrayList<AtributoEntropia> atributosentorpias;
 	
 	public Nodo(String nombre){
 		hijos = new ArrayList<Nodo>();
@@ -19,6 +20,7 @@ public class Nodo {
 		this.nombre = nombre;
 		this.entropia = 0;
 		this.ejemplos = new ArrayList<Ejemplos>();
+		this.atributosentorpias = new ArrayList<AtributoEntropia>();
 	}
 
 	public ArrayList<Nodo> getHijos() {
@@ -95,5 +97,21 @@ public class Nodo {
 	
 	public void addEjemplos(Ejemplos ejemplos){
 		this.ejemplos.add(ejemplos);
+	}
+
+	public ArrayList<AtributoEntropia> getAtributosentorpias() {
+		return atributosentorpias;
+	}
+
+	public void setAtributosentorpias(ArrayList<AtributoEntropia> atributosentorpias) {
+		this.atributosentorpias = atributosentorpias;
+	}
+	
+	public void addAtributosentorpias(AtributoEntropia atributoEntropia){
+		this.atributosentorpias.add(atributoEntropia);
+	}
+	
+	public String toString(){
+		return this.nombre;
 	}
 }
