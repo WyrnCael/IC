@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import datos.Datos;
 import estructuras.Atributo;
+import estructuras.AtributoEntropia;
 import estructuras.Ejemplo;
 import estructuras.Ejemplos;
 import estructuras.Nodo;
@@ -14,7 +15,7 @@ public class Algoritmo {
 		
 	}
 	
-	public void getAlgorythm(){
+	public Nodo getAlgorythm(){
 		ArrayList<Atributo> atributos = new ArrayList<Atributo>();
 		for(int i = 0; i < Datos.getAtributos().size() - 1; i++)
 			atributos.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
@@ -24,6 +25,7 @@ public class Algoritmo {
 		
 		System.out.println("------------");
 		pintaArbol(mejor);
+		return mejor;
 	}
 	
 	private Nodo rellenaArbol(ArrayList<Atributo> atributos){
@@ -51,10 +53,17 @@ public class Algoritmo {
 				}
 			}
 			getEHijos(arbol);
-			if(mejor == null)
+			if(mejor == null){
 				mejor = arbol;
-			else if (mejor.getEntropia() < arbol.getEntropia())
+				mejor.addAtributosentorpias(new AtributoEntropia(arbol.getNombre(), arbol.getEntropia()));
+			}
+			else{
+				mejor.addAtributosentorpias(new AtributoEntropia(arbol.getNombre(), arbol.getEntropia()));
+			}			
+			if (mejor.getEntropia() < arbol.getEntropia()){
+				arbol.setAtributosentorpias(mejor.getAtributosentorpias());
 				mejor = arbol;			
+			}	
 		}
 		
 		return mejor;
@@ -139,12 +148,19 @@ public class Algoritmo {
 					setPositivoNegativo(hijoNuevo, ejs.getEjemplos().get(i).getPos());
 					hijoNuevo.addEjemplos(ejs);
 				}
-			}
+			}	
 			getEHijos(arbol);
-			if(mejor == null)
+			if(mejor == null){
 				mejor = arbol;
-			else if (mejor.getEntropia() < arbol.getEntropia())
+				mejor.addAtributosentorpias(new AtributoEntropia(atributos.get(i).getNombre(), arbol.getEntropia()));
+			}
+			else{
+				mejor.addAtributosentorpias(new AtributoEntropia(atributos.get(i).getNombre(), arbol.getEntropia()));
+			}			
+			if (mejor.getEntropia() < arbol.getEntropia()){
+				arbol.setAtributosentorpias(mejor.getAtributosentorpias());
 				mejor = arbol;			
+			}
 		}
 		
 		return mejor;
