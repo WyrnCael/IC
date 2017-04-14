@@ -99,14 +99,15 @@ public class Algoritmo {
 				
 				System.out.println("");
 				System.out.println("Nueva recursion hijo " + hijo.getNombre());
-				Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);			
-				if(nuevoMejor.getPositivos() > 0 && nuevoMejor.getNegativos() == 0){
+					
+				if(hijo.getPositivos() > 0 && hijo.getNegativos() == 0){
 					hijo.addHijo(new Nodo("SI"));
 					System.out.println("SI");
-				} else if (nuevoMejor.getNegativos() > 0 && nuevoMejor.getPositivos() == 0){
+				} else if (hijo.getNegativos() > 0 && hijo.getPositivos() == 0){
 					hijo.addHijo(new Nodo("NO"));
 					System.out.println("NO");
 				} else {	
+					Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);		
 					hijo.addHijo(nuevoMejor);
 					System.out.println(nuevoMejor.getNombre());
 					recursividadTotal(nuevoMejor, aux);
