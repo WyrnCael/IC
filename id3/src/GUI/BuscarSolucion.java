@@ -170,11 +170,7 @@ public class BuscarSolucion extends JPanel {
 		@Override
 		public void itemStateChanged(ItemEvent e) {
 			// TODO Auto-generated method stub
-			
-			
-			String resultado = Controlador.getInstance().compruebaDatos(getDatos());
-			textFieldresultado.setText(resultado);
-			
+			textFieldresultado.setText(Controlador.getInstance().compruebaDatos(getDatos()));			
 			revalidate();
 			repaint();			
 		}

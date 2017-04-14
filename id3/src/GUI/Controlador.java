@@ -57,7 +57,6 @@ public class Controlador {
 	}
 	
 	public String compruebaDatos(ArrayList<Ejemplo> datos){
-		String aux = encuentraSolucion(arbol, datos);
 		return encuentraSolucion(arbol, datos);
 	}
 	
