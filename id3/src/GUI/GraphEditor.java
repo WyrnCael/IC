@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Cursor;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -19,7 +20,7 @@ import id3.Algoritmo;
 import lecturaFicheros.ReadAtributos;
 import lecturaFicheros.ReadEjemplos;
 
-public class GraphEditor  extends JFrame
+public class GraphEditor  extends JPanel
 {
 	/**
 	 * 
@@ -30,9 +31,8 @@ public class GraphEditor  extends JFrame
 	private int x;
 	private int y;
 	
-	public GraphEditor(Nodo arbol)
-	{
-		super("ID3 - Juan José Prieto");
+	public GraphEditor(Nodo arbol){
+		setLayout(new BorderLayout());
 
 		mxGraph graph = new mxGraph();
 		Object parent = graph.getDefaultParent();
@@ -55,7 +55,7 @@ public class GraphEditor  extends JFrame
 
 		mxGraphComponent graphComponent = new mxGraphComponent(graph);
 		graphComponent.setEnabled(false);
-		getContentPane().add(graphComponent);
+		this.add(graphComponent, BorderLayout.CENTER);
 		
 		graphComponent.getGraphControl().addMouseListener(new MouseListener() {
 			
@@ -74,13 +74,13 @@ public class GraphEditor  extends JFrame
 			@Override
 			public void mouseExited(MouseEvent e) {
 				// TODO Auto-generated method stub
-				getContentPane().setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				// TODO Auto-generated method stub
-				getContentPane().setCursor(new Cursor(Cursor.HAND_CURSOR));
+				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
 			
 			@Override
@@ -89,15 +89,8 @@ public class GraphEditor  extends JFrame
 				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
 				Nodo nodo = (Nodo) ((mxCell) cell).getValue();
 				
-				JPanel entropias = new JPanel();
-				String entr = "";
-				for(AtributoEntropia ent: nodo.getAtributosentorpias()){
-					entr += ent.getNombre() + ": " + ent.getEntropia() + ", ";
-				}
-				JLabel texto = new JLabel(entr);
-				entropias.add(texto);
-				entropias.setVisible(true);
-				getContentPane().add(entropias);
+				if(nodo.getAtributosentorpias().size() > 0)
+					Controlador.getInstance().setEntropias(nodo);
 				
 				System.out.println(nodo.getEntropia());
 				
@@ -128,21 +121,6 @@ public class GraphEditor  extends JFrame
 			y -= 100;
 		}
 		
-	}
-
-	public static void main(String[] args)
-	{
-		ReadAtributos.read();
-		ReadEjemplos.read();
-		
-		Algoritmo alg = new Algoritmo();
-		Nodo arbol = alg.getAlgorythm();
-		
-		GraphEditor frame = new GraphEditor(arbol);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1200, 800);
-		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
 	}
 
 }
