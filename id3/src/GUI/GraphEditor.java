@@ -21,12 +21,11 @@ public class GraphEditor  extends JFrame
 	private static final long serialVersionUID = -2707712944901661771L;
 
 	private ArrayList<Object> vertices;
-	private int x;
-	private int y;
+	private int pos;
 	
 	public GraphEditor(Nodo arbol)
 	{
-		super("Hello, World!");
+		super("ID3 - Juan José Prieto");
 
 		mxGraph graph = new mxGraph();
 		Object parent = graph.getDefaultParent();
@@ -36,7 +35,9 @@ public class GraphEditor  extends JFrame
 		vertices = new ArrayList<Object>();
 		try
 		{
-			dibujaArbol(arbol, parent, graph);
+			vertices.add(graph.insertVertex(parent, null, arbol.getNombre(), 20, 20, 80,
+					30));	
+			dibujaArbol(arbol, parent, graph, 0, -80, 20);
 			/*Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80,
 					30);
 			Object v2 = graph.insertVertex(parent, null, "World!", 240, 150,
@@ -52,15 +53,17 @@ public class GraphEditor  extends JFrame
 		getContentPane().add(graphComponent);
 	}
 	
-	private void dibujaArbol(Nodo arbol, Object parent, mxGraph graph){
-		vertices.add(graph.insertVertex(parent, null, arbol.getNombre(), 20, 20, 80,
-				30));
-		for(int i = 0; i < arbol.getHijos().size(); i++){
-			for(int j = 0; j < arbol.getHijos().get(i).getHijos().size(); j++){
-				vertices.add(graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(j).getNombre(), 20+(i*100), 120, 80,
-						30));
-				graph.insertEdge(parent, null, arbol.getHijos().get(i).getNombre(), vertices.get(0), vertices.get(i+j+1));
-			}
+	private void dibujaArbol(Nodo arbol, Object parent, mxGraph graph, int pos, int x, int y){
+		y += 100;
+		for(int i = 0; i < arbol.getHijos().size(); i++){			
+			x += 100;
+			Object vert = graph.insertVertex(parent, null, arbol.getHijos().get(i).getHijos().get(0).getNombre(), x, y, 80,
+					30);
+			vertices.add(vert);
+			int aux = vertices.indexOf(vert);
+			graph.insertEdge(parent, null, arbol.getHijos().get(i).getNombre(), vertices.get(pos), vertices.get(aux));
+			
+			dibujaArbol(arbol.getHijos().get(i).getHijos().get(0), parent, graph, aux, x-100, y);			
 		}
 	}
 
