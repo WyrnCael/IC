@@ -14,7 +14,7 @@ public class Algoritmo {
 		
 	}
 	
-	public void getAlgorythm(){
+	public Nodo getAlgorythm(){
 		ArrayList<Atributo> atributos = new ArrayList<Atributo>();
 		for(int i = 0; i < Datos.getAtributos().size() - 1; i++)
 			atributos.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
@@ -24,6 +24,7 @@ public class Algoritmo {
 		
 		System.out.println("------------");
 		pintaArbol(mejor);
+		return mejor;
 	}
 	
 	private Nodo rellenaArbol(ArrayList<Atributo> atributos){
