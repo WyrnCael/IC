@@ -13,6 +13,11 @@ import javax.swing.JLabel;
 public class Entropias extends JPanel {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4637363831661512075L;
+
+	/**
 	 * Create the panel.
 	 */
 	public Entropias() {
@@ -26,12 +31,15 @@ public class Entropias extends JPanel {
 		add(label);
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void removeAll(){
 		super.removeAll();
+		add(new JLabel(" "));
 		JLabel titulo = new JLabel("Méritos de atributos:");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		Font font = titulo.getFont();
+		@SuppressWarnings("rawtypes")
 		Map attributes = font.getAttributes();
 		attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
 		titulo.setFont(font.deriveFont(attributes));

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import datos.Datos;
 import estructuras.Atributo;
 import estructuras.AtributoEntropia;
-import estructuras.Ejemplo;
 import estructuras.Ejemplos;
 import estructuras.Nodo;
 
@@ -20,10 +19,8 @@ public class Algoritmo {
 		for(int i = 0; i < Datos.getAtributos().size() - 1; i++)
 			atributos.add(new Atributo(Datos.getAtributos().get(i).getNombre()));
 		Nodo mejor = rellenaArbol(atributos);		
-		System.out.println(mejor.getNombre());
 		recursividadTotal(mejor, atributos);
 		
-		System.out.println("------------");
 		pintaArbol(mejor);
 		return mejor;
 	}
@@ -71,19 +68,13 @@ public class Algoritmo {
 	
 	private void recursividadTotal(Nodo mejor, ArrayList<Atributo> atributos){
 		ArrayList<Atributo> aux = new ArrayList<Atributo>();
-		System.out.println("");
-		System.out.println("Nueva recursion " + mejor.getNombre());
 		
 		if(atributos.size() == 1){
 			for(Nodo hijo: mejor.getHijos()){
-				System.out.println("");
-				System.out.println("Nueva recursion hijo " + hijo.getNombre());
 				if(hijo.getPositivos() > 0 && hijo.getNegativos() == 0){
 					hijo.addHijo(new Nodo("SI"));
-					System.out.println("SI");
 				} else if (hijo.getNegativos() > 0 && hijo.getPositivos() == 0){
 					hijo.addHijo(new Nodo("NO"));
-					System.out.println("NO");
 				} 
 			}		
 		}
@@ -106,19 +97,13 @@ public class Algoritmo {
 					}
 				}
 				
-				System.out.println("");
-				System.out.println("Nueva recursion hijo " + hijo.getNombre());
-					
 				if(hijo.getPositivos() > 0 && hijo.getNegativos() == 0){
 					hijo.addHijo(new Nodo("SI"));
-					System.out.println("SI");
 				} else if (hijo.getNegativos() > 0 && hijo.getPositivos() == 0){
 					hijo.addHijo(new Nodo("NO"));
-					System.out.println("NO");
 				} else {	
 					Nodo nuevoMejor = rellenaArbolRecursividad(hijo, aux);		
 					hijo.addHijo(nuevoMejor);
-					System.out.println(nuevoMejor.getNombre());
 					recursividadTotal(nuevoMejor, aux);
 				}	
 			}		
@@ -181,8 +166,6 @@ public class Algoritmo {
 			e += G(hijo);
 		}
 		
-		System.out.println(arbol.getNombre());
-		System.out.println(e);
 		arbol.setEntropia(e);
 	}
 	
@@ -207,10 +190,7 @@ public class Algoritmo {
 	}
 	
 	private void pintaArbol(Nodo origen){
-		System.out.println("");
-		System.out.println("Origen: " + origen.getNombre());
 		for(Nodo hijo : origen.getHijos()){
-			System.out.println(hijo.getNombre());
 			pintaArbol(hijo);
 		}
 	}

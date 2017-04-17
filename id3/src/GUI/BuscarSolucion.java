@@ -7,8 +7,6 @@ import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.border.TitledBorder;
 
-import datos.Datos;
-import estructuras.Atributo;
 import estructuras.Ejemplo;
 
 import javax.swing.JLabel;
@@ -23,11 +21,15 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 
 public class BuscarSolucion extends JPanel {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2063773291606504377L;
 	private JTextField textFieldresultado;
-	private JComboBox comboBoxViento;
-	private JComboBox comboBoxHumedad;
-	private JComboBox comboBoxtemperatura;
-	private JComboBox comboBoxTiempoExterior;
+	private JComboBox<Object> comboBoxViento;
+	private JComboBox<Object> comboBoxHumedad;
+	private JComboBox<Object> comboBoxtemperatura;
+	private JComboBox<Object> comboBoxTiempoExterior;
 	private String[] modelViento = new String[] {"Verdad", "Falso"};
 	private String[] modelHumedad = new String[] {"Alta", "Normal"};
 	private String[] modelTemperatura = new String[] {"Caluroso", "Templado", "Frio"};
@@ -71,12 +73,12 @@ public class BuscarSolucion extends JPanel {
 		JLabel labelviento = new JLabel("Viento:");
 		labelviento.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		comboBoxViento = new JComboBox();
-		comboBoxViento.setModel(new DefaultComboBoxModel(modelViento));
+		comboBoxViento = new JComboBox<Object>();
+		comboBoxViento.setModel(new DefaultComboBoxModel<Object>(modelViento));
 		comboBoxViento.addItemListener(new CustomItemListener());
 		
-		comboBoxHumedad = new JComboBox();
-		comboBoxHumedad.setModel(new DefaultComboBoxModel(modelHumedad));
+		comboBoxHumedad = new JComboBox<Object>();
+		comboBoxHumedad.setModel(new DefaultComboBoxModel<Object>(modelHumedad));
 		comboBoxHumedad.addItemListener(new CustomItemListener());
 		
 		JLabel labelHumedad = new JLabel("Humedad:");
@@ -85,12 +87,12 @@ public class BuscarSolucion extends JPanel {
 		JLabel labelTemperatura = new JLabel("Temperatura:");
 		labelTemperatura.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		comboBoxtemperatura = new JComboBox();
-		comboBoxtemperatura.setModel(new DefaultComboBoxModel(modelTemperatura));
+		comboBoxtemperatura = new JComboBox<Object>();
+		comboBoxtemperatura.setModel(new DefaultComboBoxModel<Object>(modelTemperatura));
 		comboBoxtemperatura.addItemListener(new CustomItemListener());
 		
-		comboBoxTiempoExterior = new JComboBox();
-		comboBoxTiempoExterior.setModel(new DefaultComboBoxModel(modelTiempoExterior));
+		comboBoxTiempoExterior = new JComboBox<Object>();
+		comboBoxTiempoExterior.setModel(new DefaultComboBoxModel<Object>(modelTiempoExterior));
 		comboBoxTiempoExterior.addItemListener(new CustomItemListener());
 		
 		textFieldresultado.setText(Controlador.getInstance().compruebaDatos(getDatos()));

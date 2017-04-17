@@ -1,12 +1,9 @@
 package GUI;
 
 import java.awt.Font;
-import java.awt.font.TextAttribute;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Map;
-
 import javax.swing.JLabel;
 
 import datos.Datos;

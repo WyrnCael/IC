@@ -3,7 +3,6 @@ package datos;
 import java.util.ArrayList;
 
 import estructuras.Atributo;
-import estructuras.Ejemplo;
 import estructuras.Ejemplos;
 import estructuras.Resultado;
 

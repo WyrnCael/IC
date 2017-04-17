@@ -1,57 +1,26 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
-import java.util.ResourceBundle.Control;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
-import estructuras.Nodo;
-import id3.Algoritmo;
-import lecturaFicheros.ReadAtributos;
-import lecturaFicheros.ReadEjemplos;
 import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
 
 public class MainWindow extends JFrame {
 
-	private JPanel contentPane;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8685131023948071190L;
 	private static MainWindow instance = null;
 	private Entropias jEntropias;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {	
-		
-		ReadAtributos.read();
-		ReadEjemplos.read();
-		
-		Algoritmo alg = new Algoritmo();
-		Nodo arbol = alg.getAlgorythm();
-		
-		Controlador.getInstance().setArbol(arbol);
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow frame = new MainWindow();
-					instance = frame;
-					frame.setSize(1250, 800);
-					frame.setLocationRelativeTo(null);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public static MainWindow getInstance(){
+		if(instance == null)
+			instance = new MainWindow();
 		return instance;
 	}
 
@@ -85,6 +54,11 @@ public class MainWindow extends JFrame {
 				Controlador.getInstance().setEntropias(Controlador.getInstance().getArbol());
 			}
 		});		
+		
+		setSize(585, 575);
+		setMinimumSize(new Dimension(585, 575));
+		setLocationRelativeTo(null);
+		setVisible(true);
 	}
 	
 	public Entropias getPanelEntropias(){

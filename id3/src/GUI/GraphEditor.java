@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.mxgraph.model.mxCell;
@@ -18,11 +16,7 @@ import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxGraph;
 import com.mxgraph.view.mxStylesheet;
 
-import estructuras.AtributoEntropia;
 import estructuras.Nodo;
-import id3.Algoritmo;
-import lecturaFicheros.ReadAtributos;
-import lecturaFicheros.ReadEjemplos;
 
 public class GraphEditor  extends JPanel
 {
@@ -110,7 +104,6 @@ public class GraphEditor  extends JPanel
 					if(nodo.getAtributosentorpias().size() > 0)
 						Controlador.getInstance().setEntropias(nodo);
 					
-					System.out.println(nodo.getEntropia());
 				} catch (ClassCastException | NullPointerException a){
 					
 				}

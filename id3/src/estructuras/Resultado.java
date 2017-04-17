@@ -1,6 +1,7 @@
 package estructuras;
 
 public class Resultado {
+	@SuppressWarnings("unused")
 	private String resultado;
 	private boolean sePuede;
 	
