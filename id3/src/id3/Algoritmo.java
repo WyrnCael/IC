@@ -60,7 +60,7 @@ public class Algoritmo {
 			else{
 				mejor.addAtributosentorpias(new AtributoEntropia(arbol.getNombre(), arbol.getEntropia()));
 			}			
-			if (mejor.getEntropia() < arbol.getEntropia()){
+			if (mejor.getEntropia() > arbol.getEntropia()){
 				arbol.setAtributosentorpias(mejor.getAtributosentorpias());
 				mejor = arbol;			
 			}	
@@ -157,7 +157,7 @@ public class Algoritmo {
 			else{
 				mejor.addAtributosentorpias(new AtributoEntropia(atributos.get(i).getNombre(), arbol.getEntropia()));
 			}			
-			if (mejor.getEntropia() < arbol.getEntropia()){
+			if (mejor.getEntropia() > arbol.getEntropia()){
 				arbol.setAtributosentorpias(mejor.getAtributosentorpias());
 				mejor = arbol;			
 			}

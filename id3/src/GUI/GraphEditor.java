@@ -103,14 +103,17 @@ public class GraphEditor  extends JPanel
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				Object cell = graphComponent.getCellAt(e.getX(), e.getY());
-				Nodo nodo = (Nodo) ((mxCell) cell).getValue();
-				
-				if(nodo.getAtributosentorpias().size() > 0)
-					Controlador.getInstance().setEntropias(nodo);
-				
-				System.out.println(nodo.getEntropia());
-				
+				try{
+					Object cell = graphComponent.getCellAt(e.getX(), e.getY());
+					Nodo nodo = (Nodo) ((mxCell) cell).getValue();
+					
+					if(nodo.getAtributosentorpias().size() > 0)
+						Controlador.getInstance().setEntropias(nodo);
+					
+					System.out.println(nodo.getEntropia());
+				} catch (ClassCastException | NullPointerException a){
+					
+				}
 			}
 		});
 	}

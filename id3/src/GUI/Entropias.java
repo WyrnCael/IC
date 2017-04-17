@@ -29,7 +29,7 @@ public class Entropias extends JPanel {
 	@Override
 	public void removeAll(){
 		super.removeAll();
-		JLabel titulo = new JLabel("Entropias:");
+		JLabel titulo = new JLabel("Méritos de atributos:");
 		titulo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		Font font = titulo.getFont();
 		Map attributes = font.getAttributes();
@@ -38,7 +38,7 @@ public class Entropias extends JPanel {
 		titulo.setAlignmentX(CENTER_ALIGNMENT);
 		titulo.setAlignmentY(CENTER_ALIGNMENT);
 		add(titulo);
-		setBorder(new TitledBorder("Entropías del nodo:"));
+		setBorder(new TitledBorder("Méritos atributos del nodo:"));
 		add(new JLabel(" "));
 	}
 
