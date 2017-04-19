@@ -12,7 +12,7 @@ import estructuras.Resultado;
 public final class ReadEjemplos {
 	
 	public static void read(){
-		File file = new File(ReadEjemplos.class.getResource("/ficheros/Juego.txt").getFile());
+		File file = new File("Juego.txt");
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;

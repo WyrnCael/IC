@@ -11,7 +11,7 @@ import estructuras.Atributo;
 public final class ReadAtributos {
 	
 	public static void read(){
-		File file = new File(ReadAtributos.class.getResource("/ficheros/AtributosJuego.txt").getFile());
+		File file = new File("AtributosJuego.txt");
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 		    String line;
