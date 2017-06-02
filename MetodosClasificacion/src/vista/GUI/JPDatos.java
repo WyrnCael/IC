@@ -23,7 +23,7 @@ public class JPDatos extends JPanel {
 		textArea.setText(Datos.getDatos1String());
 		JScrollPane scroll = new JScrollPane (textArea, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBorder(new TitledBorder("Clase 1: "));
+		scroll.setBorder(new TitledBorder("Clase " + Datos.getClases().get(0) + ": "));
 		add(scroll);
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -36,7 +36,7 @@ public class JPDatos extends JPanel {
 		textArea2.setText(Datos.getDatos2String());
 		JScrollPane scroll2 = new JScrollPane (textArea2, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll2.setBorder(new TitledBorder("Clase 2: "));
+		scroll2.setBorder(new TitledBorder("Clase " + Datos.getClases().get(1) + ": "));
 		add(scroll2);
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {

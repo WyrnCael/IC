@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import Datos.Datos;
 import Lectura.ReadEjemplos;
@@ -15,7 +17,9 @@ import javax.swing.JTabbedPane;
 public class MainWindow extends JFrame {
 
 	private JPanel contentPane;
-
+	private JPKMedias jpKMedias;
+	private JPBayes jpBayes;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -27,7 +31,7 @@ public class MainWindow extends JFrame {
 					ReadEjemplos.read();
 					
 					MainWindow frame = new MainWindow();
-					frame.setSize(800, 600);
+					frame.setSize(900, 600);
 					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -49,10 +53,22 @@ public class MainWindow extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		jpKMedias = new JPKMedias();
+		jpBayes = new JPBayes();
+		
 		JTabbedPane tabbedPane = new JTabbedPane();		
-		tabbedPane.add("K-Medias", new JPKMedias());
-		tabbedPane.add("Bayes", new JPBayes());
+		tabbedPane.add("K-Medias", jpKMedias);
+		tabbedPane.add("Bayes", jpBayes);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
+		
+		tabbedPane.addChangeListener(new ChangeListener() {
+	        @Override
+			public void stateChanged(ChangeEvent e) {
+				// TODO Auto-generated method stub
+	        	jpKMedias.refresh();
+	        	jpBayes.refresh();
+			}
+	    });
 	}
 
 }

@@ -3,6 +3,7 @@ package vista.GUI;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
@@ -45,6 +46,10 @@ public class JPResultados extends JPanel {
 	
 	public JButton getButton(){
 		return btnComprobar;
+	}
+	
+	public void clear(){
+		textArea.setText("");
 	}
 
 }

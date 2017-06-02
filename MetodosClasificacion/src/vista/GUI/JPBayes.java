@@ -17,6 +17,7 @@ import javax.swing.JButton;
 public class JPBayes extends JPanel {
 	
 	private JPResultados panelResultados;
+	private JPEjemplos panelEjemplos;
 	private final JPanel panel_3 = new JPanel();
 
 	/**
@@ -29,9 +30,9 @@ public class JPBayes extends JPanel {
 		datos.setBorder(new TitledBorder("Datos: "));
 		add(datos);
 		
-		JPEjemplos ejemplos = new JPEjemplos();
-		ejemplos.setBorder(new TitledBorder("Ejemplos: "));
-		add(ejemplos);
+		panelEjemplos = new JPEjemplos();
+		panelEjemplos.setBorder(new TitledBorder("Ejemplos: "));
+		add(panelEjemplos);
 		
 		panelResultados = new JPResultados();
 		panelResultados.setBorder(new TitledBorder("Comprobación: "));
@@ -69,6 +70,11 @@ public class JPBayes extends JPanel {
 			
 		});
 		
+	}
+	
+	public void refresh(){
+		panelEjemplos.refresh();
+		panelResultados.clear();
 	}
 
 }
