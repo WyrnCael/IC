@@ -20,6 +20,7 @@ public class MainWindow extends JFrame {
 	private JPKMedias jpKMedias;
 	private JPBayes jpBayes;
 	private JPLloyd jpLloyd;
+	private JPSom jpSom;
 	
 	/**
 	 * Launch the application.
@@ -57,11 +58,13 @@ public class MainWindow extends JFrame {
 		jpKMedias = new JPKMedias();
 		jpBayes = new JPBayes();
 		jpLloyd = new JPLloyd();
+		jpSom = new JPSom();
 		
 		JTabbedPane tabbedPane = new JTabbedPane();		
 		tabbedPane.add("K-Medias", jpKMedias);
 		tabbedPane.add("Bayes", jpBayes);
 		tabbedPane.add("Lloyd", jpLloyd);
+		tabbedPane.add("SOM", jpSom);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 		
 		tabbedPane.addChangeListener(new ChangeListener() {
@@ -71,6 +74,7 @@ public class MainWindow extends JFrame {
 	        	jpKMedias.refresh();
 	        	jpBayes.refresh();
 	        	jpLloyd.refresh();
+	        	jpSom.refresh();
 			}
 	    });
 	}

@@ -9,6 +9,7 @@ import Datos.Datos;
 import algoritmos.Bayes;
 import algoritmos.KMeans;
 import algoritmos.Lloyd;
+import algoritmos.SOM;
 import util.MatrizToVectorVector;
 import util.StringToMatriz;
 
@@ -28,7 +29,7 @@ import javax.swing.JButton;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.Component;
 
-public class JPLloyd extends JPanel {
+public class JPSom extends JPanel {
 	
 	private final JPanel panel_3 = new JPanel();
 	private JPEjemplos panelEjemplos;
@@ -39,7 +40,7 @@ public class JPLloyd extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public JPLloyd() {
+	public JPSom() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		JPanel informacion = new JPanel();
@@ -82,17 +83,25 @@ public class JPLloyd extends JPanel {
 		informacion.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JLabel lblNewLabel = new JLabel("Tolerancia = 0.0000000001");
+		JLabel lblNewLabel = new JLabel("Tolerancia = 0.000001");
 		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblNewLabel);
 		
-		JLabel lblMax = new JLabel("Máximo de iteraciones = 10");
+		JLabel lblMax = new JLabel("Máximo de iteraciones = 1000");
 		lblMax.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblMax);
 		
 		JLabel razon = new JLabel("Razón de aprendizaje = 0.1");
 		razon.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(razon);
+		
+		JLabel alphas = new JLabel("Alpha inicial = 0.1  Alpha final = 0.01");
+		alphas.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.add(alphas);
+		
+		JLabel t = new JLabel("T = 0.00001");
+		t.setAlignmentX(Component.CENTER_ALIGNMENT);
+		panel.add(t);
 		
 		panel.setPreferredSize(informacion.getPreferredSize());
 		
@@ -139,15 +148,18 @@ public class JPLloyd extends JPanel {
 				}
 
 				IntToDoubleFunction funcion = (i) -> 0.1;
-				double tolerancia = 0.0000000001;
-				int max_iteraciones = 10;
+				double tolerancia = 0.000001,
+						alpha_inicial = 0.1,
+						alpha_final = 0.01,
+						vecindad = 0.00001;
+				int max_iteraciones = 1000;
 				
-				Lloyd lloyd = new Lloyd(datos_centros, nombre_clases, datos_entrenamiento, funcion, tolerancia, max_iteraciones);
+				SOM som = new SOM(datos_centros, nombre_clases, datos_entrenamiento, funcion, alpha_inicial, alpha_final, tolerancia, vecindad, max_iteraciones);
 				String s = "";
 				int i = 1;
 				for (double[] prueba : datos_prueba) {
-					s += i + "º = " + lloyd.predecirClase(prueba);
-					s+= "\n";
+					s += i + "º = " + som.predecirClase(prueba);
+					s += "\n";
 					i++;
 				}
 				

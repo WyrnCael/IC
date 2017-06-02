@@ -80,11 +80,11 @@ public class JPKMedias extends JPanel {
 		informacion.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JLabel lblNewLabel = new JLabel("Tolerancia: 0.01");
+		JLabel lblNewLabel = new JLabel("Tolerancia = 0.01");
 		lblNewLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblNewLabel);
 		
-		JLabel lblPesoExponencial = new JLabel("Peso exponencial: 2");
+		JLabel lblPesoExponencial = new JLabel("Peso exponencial = 2");
 		lblPesoExponencial.setAlignmentX(Component.CENTER_ALIGNMENT);
 		panel.add(lblPesoExponencial);
 		panel.setPreferredSize(informacion.getPreferredSize());
