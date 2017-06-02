@@ -6,6 +6,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Datos.Datos;
+import Lectura.ReadEjemplos;
+
 import javax.swing.JTabbedPane;
 
 public class MainWindow extends JFrame {
@@ -19,7 +23,12 @@ public class MainWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					// Cambiar
+					ReadEjemplos.read();
+					
 					MainWindow frame = new MainWindow();
+					frame.setSize(800, 600);
+					frame.setLocationRelativeTo(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +50,8 @@ public class MainWindow extends JFrame {
 		setContentPane(contentPane);
 		
 		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.add("K-Medias", new KMedias());
-		tabbedPane.add("Bayes", new Bayes());
+		tabbedPane.add("Bayes", new JPBayes());
+		tabbedPane.add("K-Medias", new JPKMedias());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 

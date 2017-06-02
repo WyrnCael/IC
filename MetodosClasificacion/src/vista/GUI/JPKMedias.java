@@ -2,7 +2,11 @@ package vista.GUI;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
+
+import Datos.Datos;
+
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
@@ -10,15 +14,15 @@ import javax.swing.JTextField;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-public class KMedias extends JPanel {
+public class JPKMedias extends JPanel {
 	private final JPanel panel_3 = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextArea textField;
+	private JTextArea textField_1;
 
 	/**
 	 * Create the panel.
 	 */
-	public KMedias() {
+	public JPKMedias() {
 		setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 		
 		JPanel informacion = new JPanel();
@@ -37,7 +41,7 @@ public class KMedias extends JPanel {
 		JLabel lblClase = new JLabel("Clase 1:");
 		c1.add(lblClase);
 		
-		textField = new JTextField();
+		textField = new JTextArea();
 		JScrollPane scroll = new JScrollPane (textField, 
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBorder(new TitledBorder("Clase 1: "));
@@ -51,7 +55,7 @@ public class KMedias extends JPanel {
 		JLabel lblClase_1 = new JLabel("Clase 2:");
 		c2.add(lblClase_1);
 		
-		textField_1 = new JTextField();
+		textField_1 = new JTextArea();
 		JScrollPane scroll2 = new JScrollPane (textField_1, 
 				JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBorder(new TitledBorder("Clase 1: "));
@@ -64,11 +68,11 @@ public class KMedias extends JPanel {
 		JLabel lblPesoExponencial = new JLabel("Peso exponencial: 2");
 		informacion.add(lblPesoExponencial);
 		
-		Datos datos = new Datos();
+		JPDatos datos = new JPDatos();
 		datos.setBorder(new TitledBorder("Datos: "));
 		add(datos);
 		
-		Ejemplos ejemplos = new Ejemplos();
+		JPEjemplos ejemplos = new JPEjemplos();
 		ejemplos.setBorder(new TitledBorder("Ejemplos: "));
 		add(ejemplos);
 		
