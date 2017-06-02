@@ -7,11 +7,9 @@ import javax.swing.JTextArea;
 
 import Datos.Datos;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.font.TextAttribute;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
@@ -19,6 +17,10 @@ import javax.swing.JOptionPane;
 
 public class JPEjemplos extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextArea textArea;
 	/**
 	 * Create the panel.

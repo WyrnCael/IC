@@ -21,11 +21,9 @@ public final class ReadEjemplos {
 		    while ((line = br.readLine()) != null) {
 		       // process the line.
 		    	String[] lineas = line.split(",");
-		    	int j = 0;
 		    	ArrayList<String> aux = new ArrayList<>();
 		    	for(String dato : lineas){		    		
 		    		aux.add(dato);
-		    		j++;
 		    	}
 		    	if(i == 0){
 		    		clase1.add(aux);
@@ -77,10 +75,8 @@ public final class ReadEjemplos {
 		    while ((line = br.readLine()) != null) {
 		       // process the line.
 		    	String[] lineas = line.split(",");
-		    	int j = 0;		    	
 		    	for(String dato : lineas){		    		
 		    		aux.add(dato);
-		    		j++;
 		    	}		    	
 		    	i++;
 		    }
@@ -103,10 +99,8 @@ public final class ReadEjemplos {
 		    while ((line = br.readLine()) != null) {
 		       // process the line.
 		    	String[] lineas = line.split(",");
-		    	int j = 0;		    	
 		    	for(String dato : lineas){		    		
 		    		aux.add(dato);
-		    		j++;
 		    	}		    	
 		    	i++;
 		    }
@@ -129,10 +123,8 @@ public final class ReadEjemplos {
 		    while ((line = br.readLine()) != null) {
 		       // process the line.
 		    	String[] lineas = line.split(",");
-		    	int j = 0;		    	
 		    	for(String dato : lineas){		    		
 		    		aux.add(dato);
-		    		j++;
 		    	}		    	
 		    	i++;
 		    }

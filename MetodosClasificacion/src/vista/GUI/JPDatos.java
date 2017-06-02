@@ -4,14 +4,16 @@ import javax.swing.JPanel;
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import javax.swing.ScrollPaneConstants;
 import javax.swing.border.TitledBorder;
 
 import Datos.Datos;
 
 public class JPDatos extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Create the panel.

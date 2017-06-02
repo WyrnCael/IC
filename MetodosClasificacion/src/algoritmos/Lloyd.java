@@ -28,7 +28,7 @@ public class Lloyd {
 		funcionRazonAprendizaje = funcion;
 		
 		Matrix estimulos = new Matrix(entrenamiento);
-		int iteracion = 0, pasada = 0;
+		int iteracion = 0; pasada = 0;
 		double cambio = Double.POSITIVE_INFINITY;
 		Matrix centros_fin_iteracion;
 		while (iteracion < max_iteraciones && cambio > tolerancia) {

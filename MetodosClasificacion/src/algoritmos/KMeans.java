@@ -48,6 +48,7 @@ public class KMeans {
 		return resultado;
 	}
 
+	@SuppressWarnings("unchecked")
 	private void recalcularCentros() {
 		vanterior = v;
 		Vector<Vector<Double>> nuevosCentros = new Vector<Vector<Double>> ();	

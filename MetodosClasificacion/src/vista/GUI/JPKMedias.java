@@ -1,34 +1,28 @@
 package vista.GUI;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
 
 import Datos.Datos;
-import algoritmos.Bayes;
 import algoritmos.KMeans;
 import util.MatrizToVectorVector;
-import util.StringToMatriz;
-
 import javax.swing.BoxLayout;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Vector;
 
 import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.GroupLayout;
 import javax.swing.JButton;
-import javax.swing.GroupLayout.Alignment;
 import java.awt.Component;
 
 public class JPKMedias extends JPanel {
 	
-	private final JPanel panel_3 = new JPanel();
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;	
 	private JPEjemplos panelEjemplos;
 	private JPResultados panelResultados;
 	private JTextArea textField;

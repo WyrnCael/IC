@@ -5,21 +5,19 @@ import javax.swing.border.TitledBorder;
 
 import Datos.Datos;
 import algoritmos.Bayes;
-import util.StringToMatriz;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 public class JPBayes extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPResultados panelResultados;
 	private JPEjemplos panelEjemplos;
-	private final JPanel panel_3 = new JPanel();
-
 	/**
 	 * Create the panel.
 	 */

@@ -9,13 +9,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import Datos.Datos;
 import Lectura.ReadEjemplos;
 
 import javax.swing.JTabbedPane;
 
 public class MainWindow extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPKMedias jpKMedias;
 	private JPBayes jpBayes;

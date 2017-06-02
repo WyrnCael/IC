@@ -2,19 +2,18 @@ package vista.GUI;
 
 import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.border.TitledBorder;
 import javax.swing.JButton;
 
 public class JPResultados extends JPanel {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextArea textArea;
 	private JButton btnComprobar;
 	
