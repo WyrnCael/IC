@@ -26,6 +26,7 @@ public class JPResultados extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		
 		textArea = new JTextArea();
+		textArea.setEditable(false);
 		JScrollPane scroll = new JScrollPane (textArea, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll.setBorder(new TitledBorder("Resultados: "));

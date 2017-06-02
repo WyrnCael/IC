@@ -49,6 +49,7 @@ public class JPKMedias extends JPanel {
 		c1.setLayout(new BoxLayout(c1, BoxLayout.X_AXIS));
 		
 		textField = new JTextArea();
+		textField.setEditable(false);
 		textField.setBorder(new TitledBorder("Clase " + Datos.getClases().get(0) + ": "));
 		textField.setText(Datos.getCentros1String());
 		c1.add(textField);
@@ -62,6 +63,7 @@ public class JPKMedias extends JPanel {
 		c2.setLayout(new BoxLayout(c2, BoxLayout.X_AXIS));
 		
 		textField_1 = new JTextArea();
+		textField_1.setEditable(false);
 		textField_1.setBorder(new TitledBorder("Clase " + Datos.getClases().get(1) + ": "));
 		textField_1.setText(Datos.getCentros2String());
 		c2.add(textField_1);

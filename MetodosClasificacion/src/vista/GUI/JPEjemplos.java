@@ -31,6 +31,7 @@ public class JPEjemplos extends JPanel {
 		
 		textArea = new JTextArea();
 		textArea.setText(Datos.getEjemplosString());
+		textArea.setEditable(false);
 		JScrollPane scroll = new JScrollPane (textArea, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		
