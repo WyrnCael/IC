@@ -38,7 +38,6 @@ public class JPDatos extends JPanel {
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		scroll2.setBorder(new TitledBorder("Clase 2: "));
 		add(scroll2);
-		scroll2.getVerticalScrollBar().setValue(0);
 		
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 		   public void run() { 

@@ -51,7 +51,6 @@ public class JPBayes extends JPanel {
 				Bayes bayes = new Bayes();
 				
 				
-				ArrayList<String> aaaa = Datos.getClases();
 				for (int i = 0; i < Datos.getClases().size(); i++) {
 					bayes.aprenderClase(Datos.getDatosClases().get(i), Datos.getClases().get(i));
 				}

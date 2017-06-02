@@ -49,9 +49,9 @@ public class MainWindow extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JTabbedPane tabbedPane = new JTabbedPane();
-		tabbedPane.add("Bayes", new JPBayes());
+		JTabbedPane tabbedPane = new JTabbedPane();		
 		tabbedPane.add("K-Medias", new JPKMedias());
+		tabbedPane.add("Bayes", new JPBayes());
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 	}
 
