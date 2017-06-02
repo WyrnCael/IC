@@ -2,15 +2,16 @@ package Lectura;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import Datos.Datos;
 
-public final class ReadEjemplos {
+public final class ReadEjemplos{
 	
-	public static void read(){
+	public static void read() throws FileNotFoundException, IOException, NumberFormatException{
 		File file = new File("Iris2Clases.txt");
 		
 		ArrayList<ArrayList<String>> clase1 = new ArrayList<ArrayList<String>>();
@@ -36,8 +37,7 @@ public final class ReadEjemplos {
 		    	i++;
 		    }
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 		
 		ArrayList<String> nombres = new ArrayList<String>();
@@ -86,8 +86,7 @@ public final class ReadEjemplos {
 			}
 		    Datos.addEjemplo(ejemplo);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 		
 		File file3 = new File("TestIris02.txt");
@@ -110,8 +109,7 @@ public final class ReadEjemplos {
 			}
 		    Datos.addEjemplo(ejemplo);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 		
 		File file4 = new File("TestIris03.txt");
@@ -134,8 +132,7 @@ public final class ReadEjemplos {
 			}
 		    Datos.addEjemplo(ejemplo);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw e;
 		}
 	}
 }

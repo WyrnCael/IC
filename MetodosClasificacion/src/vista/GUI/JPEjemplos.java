@@ -7,6 +7,7 @@ import javax.swing.JTextArea;
 
 import Datos.Datos;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +38,7 @@ public class JPEjemplos extends JPanel {
 		
 		JButton btnAnadirEjemplo = new JButton("A\u00F1adir Ejemplo");
 		add(btnAnadirEjemplo);
+		btnAnadirEjemplo.setBackground(Color.orange);
 		btnAnadirEjemplo.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
 		btnAnadirEjemplo.addActionListener(new ActionListener() {
@@ -50,29 +52,31 @@ public class JPEjemplos extends JPanel {
 						   "Añadir ejemplo",
 						   JOptionPane.PLAIN_MESSAGE);
 				
-				String[] lineas = seleccion.split(",");
-				ArrayList<String> aux = new ArrayList<>();
-		    	for(String dato : lineas){		    		
-		    		aux.add(dato);
-		    	}	
-			    try{
-			    	double[] ejemplo = new double[aux.size()];
-			   
-				    for(int i = 0; i < aux.size(); i++){			
-						ejemplo[i] = Double.parseDouble(aux.get(i));
-					}			    
-				    
-				    if(ejemplo.length == Datos.getEjemplos().get(0).length){
-				      	Datos.addEjemplo(ejemplo);
-				      	refresh();
-				    }
-				    else
+				if(seleccion != null){
+					String[] lineas = seleccion.split(",");
+					ArrayList<String> aux = new ArrayList<>();
+			    	for(String dato : lineas){		    		
+			    		aux.add(dato);
+			    	}	
+				    try{
+				    	double[] ejemplo = new double[aux.size()];
+				   
+					    for(int i = 0; i < aux.size(); i++){			
+							ejemplo[i] = Double.parseDouble(aux.get(i));
+						}			    
+					    
+					    if(ejemplo.length == Datos.getEjemplos().get(0).length){
+					      	Datos.addEjemplo(ejemplo);
+					      	refresh();
+					    }
+					    else
+					    	JOptionPane.showMessageDialog(null, "Formato incorrecto", "ERROR",
+					            JOptionPane.ERROR_MESSAGE);
+				    } catch( NumberFormatException a){
 				    	JOptionPane.showMessageDialog(null, "Formato incorrecto", "ERROR",
-				            JOptionPane.ERROR_MESSAGE);
-			    } catch( NumberFormatException a){
-			    	JOptionPane.showMessageDialog(null, "Formato incorrecto", "ERROR",
-				            JOptionPane.ERROR_MESSAGE);
-			    }
+					            JOptionPane.ERROR_MESSAGE);
+				    }
+				}				
 			}
 		});
 

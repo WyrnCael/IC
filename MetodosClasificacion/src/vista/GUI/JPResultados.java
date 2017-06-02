@@ -2,6 +2,8 @@ package vista.GUI;
 
 import javax.swing.JPanel;
 
+import java.awt.Color;
+
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -34,6 +36,7 @@ public class JPResultados extends JPanel {
 		add(panel);
 		
 		btnComprobar = new JButton("Comprobar");
+		btnComprobar.setBackground(new Color(153, 204, 153));
 		panel.add(btnComprobar);
 	}
 	

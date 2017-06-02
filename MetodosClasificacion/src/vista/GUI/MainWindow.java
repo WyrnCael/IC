@@ -2,8 +2,10 @@ package vista.GUI;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.io.IOException;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
@@ -32,9 +34,6 @@ public class MainWindow extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					// Cambiar
-					ReadEjemplos.read();
-					
 					MainWindow frame = new MainWindow();
 					frame.setSize(900, 600);
 					frame.setLocationRelativeTo(null);
@@ -51,12 +50,22 @@ public class MainWindow extends JFrame {
 	 */
 	public MainWindow() {
 		super("Métodos de clasificación - Juan José Prieto");
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		
+		try {
+			ReadEjemplos.read();
+		} catch (IOException | NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Falta algun archivo o el formato es incorrecto", "ERROR",
+		            JOptionPane.ERROR_MESSAGE);
+			
+			System.exit(0);
+		}
 		
 		jpKMedias = new JPKMedias();
 		jpBayes = new JPBayes();
