@@ -3,6 +3,7 @@ package vista.GUI;
 import javax.swing.JPanel;
 
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
@@ -29,7 +30,7 @@ public class JPResultados extends JPanel {
 		textArea.setEditable(false);
 		JScrollPane scroll = new JScrollPane (textArea, 
 				   JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scroll.setBorder(new TitledBorder("Resultados: "));
+		scroll.setBorder(new TitledBorder("Resultados: "));		
 		textArea.setRows(20);
 		add(scroll);		
 		

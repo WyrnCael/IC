@@ -8,6 +8,7 @@ import Datos.Datos;
 import algoritmos.SOM;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.function.IntToDoubleFunction;
@@ -37,9 +38,13 @@ public class JPSom extends JPanel {
 		add(informacion);
 		informacion.setLayout(new BoxLayout(informacion, BoxLayout.Y_AXIS));
 		informacion.setBorder(new TitledBorder("Información: "));
+		((javax.swing.border.TitledBorder) informacion.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		
 		JPanel centros = new JPanel();
 		centros.setBorder(new TitledBorder("Centros de las clases: "));
+		 ((javax.swing.border.TitledBorder) centros.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 14));
 		informacion.add(centros);
 		centros.setLayout(new BoxLayout(centros, BoxLayout.Y_AXIS));
 		
@@ -72,6 +77,9 @@ public class JPSom extends JPanel {
 			     new Dimension(200, textField.getPreferredSize().height) );
 		
 		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder("Parámetros: "));
+		 ((javax.swing.border.TitledBorder) panel.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 14));
 		informacion.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
@@ -99,14 +107,20 @@ public class JPSom extends JPanel {
 		
 		JPDatos datos = new JPDatos();
 		datos.setBorder(new TitledBorder("Datos: "));
+		 ((javax.swing.border.TitledBorder) datos.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		add(datos);
 		
 		panelEjemplos = new JPEjemplos();
 		panelEjemplos.setBorder(new TitledBorder("Ejemplos: "));
+		 ((javax.swing.border.TitledBorder) panelEjemplos.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		add(panelEjemplos);
 		
 		panelResultados = new JPResultados();
 		panelResultados.setBorder(new TitledBorder("Comprobación: "));
+		 ((javax.swing.border.TitledBorder) panelResultados.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		add(panelResultados);
 		
 		JButton btnComprobar = panelResultados.getButton();

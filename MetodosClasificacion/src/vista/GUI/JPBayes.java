@@ -5,6 +5,8 @@ import javax.swing.border.TitledBorder;
 
 import Datos.Datos;
 import algoritmos.Bayes;
+
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
@@ -26,14 +28,20 @@ public class JPBayes extends JPanel {
 		
 		JPDatos datos = new JPDatos();
 		datos.setBorder(new TitledBorder("Datos: "));
+		 ((javax.swing.border.TitledBorder) datos.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		add(datos);
 		
 		panelEjemplos = new JPEjemplos();
 		panelEjemplos.setBorder(new TitledBorder("Ejemplos: "));
+		 ((javax.swing.border.TitledBorder) panelEjemplos.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		add(panelEjemplos);
 		
 		panelResultados = new JPResultados();
 		panelResultados.setBorder(new TitledBorder("Comprobación: "));
+		 ((javax.swing.border.TitledBorder) panelResultados.getBorder()).
+	        setTitleFont(new Font("Arial", Font.BOLD, 18));
 		add(panelResultados);
 		
 		JButton btnComprobar = panelResultados.getButton();
