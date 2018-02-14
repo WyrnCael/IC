@@ -2,11 +2,17 @@
 
 Prácticas de la asignatura de Ingeniería del Conocimiento
 
-### Algoritmos implementados
+### Enlaces a los algoritmos implementados (incluye ejecutables)
 
 * [A*](https://github.com/WyrnCael/IC/releases/tag/v1.0)
 * [Id3](https://github.com/WyrnCael/IC/releases/tag/v2.0)
 * [Métodos de clasificación](https://github.com/WyrnCael/IC/releases/tag/v3.0)
+
+### Enlaces a memorias e instrucciones de uso
+
+* [A*](https://github.com/WyrnCael/IC/raw/master/aStar/Memoria.pdf)
+* [Id3](https://github.com/WyrnCael/IC/raw/master/id3/Memoria.pdf)
+* [Métodos de clasificación](https://github.com/WyrnCael/IC/raw/master/MetodosClasificacion/Memoria.pdf)
 
 ### Ejemplos de ejecución
 
