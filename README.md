@@ -19,3 +19,8 @@ Prácticas de la asignatura de Ingeniería del Conocimiento
 ![](https://i.imgur.com/FjVPr7x.png)
 ![](https://i.imgur.com/B98fPIy.png)
 ![](https://i.imgur.com/LKfLoji.png)
+
+### Recursos utilizados
+
+* [JGraphx](https://github.com/jgraph/jgraphx)
+* [Jama](https://math.nist.gov/javanumerics/jama/)
